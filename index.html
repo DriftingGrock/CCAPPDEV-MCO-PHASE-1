@@ -19,30 +19,37 @@
 </head>
 <div class="header"> ANIMO EATS</div>
 <body>
-<article class="searchbar">
+<section class="searchbar">
     <label for="filtersearch"></label><select name="filter" id="filtersearch">
         <option value="street">Street</option>
         <option value="establishments">Establishments</option>
         <option value="nearest">Nearest DLSU Building</option>
     </select>
     <input type="text" placeholder="Search..">
-</article>
-<article id="Recommended Eateries">
+</section>
+<section id="Recommended Eateries">
     <h2>Recommended Eateries</h2>
-    <div class="recommendations">
+    <article class="recommendations-container">
+        <div class="recommendations-items">
+            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenete.jpg">
+            Ross Kitchenette
+        </div>
 
-    </div>
-</article>
-<article id="Recent Reviews">
+    </article>
+</section>
+<section id="Recent Reviews">
     <h2>Recent Reviews</h2>
 
-    <div class="latest_reviews">
-        <img class="img" src="images/dixies.jpg" alt="dixies.jpg">
-        <div class="name">Dixies</div>
-        <div class="rating">Overall rating: 8/10</div>
-        <div class="review">This is the actual review</div> 
-    </div>
-</article>
+    <article id="recent-reviews">
+        <div id="review1" class="reviews-container">
+            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenette.jpg">
+            <div class="name">Ross Kitchenette</div>
+            <div class="rating">Overall rating: 10000/10</div>
+            <div class="review">They taste good but their literally just meatballs hshshshshs</div>
+            <div class="poster ">Jan 27, 17:41 by <span>Ross David B. Tan</span></div>
+        </div>
+    </article>
+</section>
 
 </body>
 </html>
