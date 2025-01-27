@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+  <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/morestyles/homepage.css">
+    <style>
+        @font-face { /*custom font to make it close to animosys logo*/
+            font-family: 'SuperRad-Regular';
+            src:url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.woff') format('woff'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.svg#SuperRad-Regular') format('svg'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot?#iefix') format('embedded-opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        </style>
+</head>
+<div class="header"> ANIMO EATS</div>
+<body>
+<article class="searchbar">
+    <label for="filtersearch"></label><select name="filter" id="filtersearch">
+        <option value="street">Street</option>
+        <option value="establishments">Establishments</option>
+        <option value="nearest">Nearest DLSU Building</option>
+    </select>
+    <input type="text" placeholder="Search..">
+</article>
+<article id="Recommended Eateries">
+    <h2>Recommended Eateries</h2>
+    <div class="recommendations">
+
+    </div>
+</article>
+<article id="Recent Reviews">
+    <h2>Recent Reviews</h2>
+
+    <div class="latest_reviews">
+        <img class="img" src="images/dixies.jpg" alt="dixies.jpg">
+        <div class="name">Dixies</div>
+        <div class="rating">Overall rating: 8/10</div>
+        <div class="review">This is the actual review</div> 
+    </div>
+</article>
+
+</body>
+</html>
