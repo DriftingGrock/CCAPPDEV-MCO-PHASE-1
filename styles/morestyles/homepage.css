@@ -1,21 +1,25 @@
 .searchbar {
     text-align: right;
+    padding: 0;
+    background: none;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 .searchbar input {
     width: 30vw;
 }
 section {
-    margin-left: 16px;
-    margin-top: 4px;
-    width: 90vw;
-    padding: 2px;
-    background-color: #e7f0e4;
+    margin: 0  100px  6px 100px;
+    padding: 40px;
+    background-color: rgb(209, 225, 208);
     font-family: Verdana, sans-serif;
+    border-radius: 10px;
+
 }
 section h2 {
     color: #025000;
-    margin: 6px 16px 0 0;
-    border-bottom: #025000 2px solid;
+    margin: 0 16px 40px 0;
 }
 article {
     padding-bottom: 6px;
@@ -48,7 +52,7 @@ article {
     font-size: 15px;
 }
 #recent-reviews {
-    border-bottom: 2px #91c49b solid;
+    padding-bottom: 10px;
 }
 
 .reviews-container img {

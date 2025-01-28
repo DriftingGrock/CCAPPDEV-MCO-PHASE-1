@@ -1,15 +1,15 @@
 body {
     margin: 0;
+    background-color: #e3ece0;
 }
 
 .header {
     position: sticky;
     top: 0;
-    padding: 3px 16px;
+    padding: 10px 16px;
     align-content: center;
-    background: #91c49b;
+    background: #90c29a;
     color: #025000;
-    width: 100%;
     height: 50px;
     text-align: left;
     font-size: 40px;
