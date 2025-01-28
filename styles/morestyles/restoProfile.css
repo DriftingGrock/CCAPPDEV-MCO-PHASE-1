@@ -24,14 +24,18 @@ hr {
 .establishment-image {
     width: 250px;
     height: 250px;
-    float: left;
-    /*margin-right: 20px;*/
     border:solid #025000;
+    margin-right: 20px;
+    float:left;
+}
+
+.establishment-location {
+    width: 10%;
 }
 
 .establishment-desc {
     line-height: 2;
-    margin-left: 300px;
+    text-align: justify;
 }
 .star-icon {
     height: 1.2rem;
@@ -41,7 +45,7 @@ hr {
     clear: both;
 }
 
-.attribute-reviews div{
+.attribute-ratings div{
     text-align: center;
     margin: 10px auto;
     border: solid #025000;
@@ -49,9 +53,10 @@ hr {
     background-color: #89de87;
     display:inline-block;
     width: 150px;
+    height:125px;
 }
 
-.attribute-reviews {
+.attribute-ratings {
     display: flex;
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically (if needed) */
