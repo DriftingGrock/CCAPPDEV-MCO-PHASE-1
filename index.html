@@ -5,6 +5,7 @@
     <title>Homepage</title>
   <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/morestyles/homepage.css">
+    <link rel="stylesheet" href="styles/morestyles/profile_modal.css">
     <style>
         @font-face { /*custom font to make it close to animosys logo*/
             font-family: 'SuperRad-Regular';
@@ -15,41 +16,87 @@
             font-weight: normal;
             font-style: normal;
         }
-        </style>
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<div class="header"> ANIMO EATS</div>
+
+
 <body>
-    <section class="searchbar">
-        <label for="filtersearch"></label><select name="filter" id="filtersearch">
-            <option value="street">Street</option>
-            <option value="establishments">Establishments</option>
-            <option value="nearest">Nearest DLSU Building</option>
-        </select>
-        <input type="text" placeholder="Search..">
-    </section>
-    <section id="Recommended Eateries">
-        <h2>Recommended Eateries</h2>
-        <article class="recommendations-container">
-            <div class="recommendations-items">
-                <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenete.jpg">
-                Ross Kitchenette
-            </div>
 
-        </article>
-    </section>
-    <section id="Recent Reviews">
-        <h2>Recent Reviews</h2>
+<div class="header"> ANIMO
+    <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
+    EATS
+    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
 
-        <article id="recent-reviews">
-            <div id="review1" class="reviews-container">
-                <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenette.jpg">
-                <div class="name">Ross Kitchenette</div>
-                <div class="rating">Overall rating: 10000/10</div>
-                <div class="review">They taste good but their literally just meatballs hshshshshs</div>
-                <div class="poster ">Jan 27, 17:41 by <span>Ross David B. Tan</span></div>
-            </div>
-        </article>
-    </section>
+</div>
+<div id="profileModal" class="modal">
+    <div class="modal-content"><b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
 
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
+    </div>
+</div>
+
+
+<section class="searchbar">
+    <label for="filtersearch"></label><select name="filter" id="filtersearch">
+        <option value="street">Street</option>
+        <option value="establishments">Establishments</option>
+        <option value="nearest">Nearest DLSU Building</option>
+    </select>
+    <input type="text" placeholder="Search..">
+</section>
+<section id="Recommended Eateries">
+    <h2>Recommended Eateries</h2>
+    <article class="recommendations-container">
+        <div class="recommendations-items">
+            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenete.jpg">
+            Ross Kitchenette
+        </div>
+
+    </article>
+</section>
+<section id="Recent Reviews">
+    <h2>Recent Reviews</h2>
+
+    <article id="recent-reviews">
+        <div id="review1" class="reviews-container">
+            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenette.jpg">
+            <div class="name">Ross Kitchenette</div>
+            <div class="rating">Overall rating: 10000/10</div>
+            <div class="review">They taste good but their literally just meatballs hshshshshs</div>
+            <div class="poster ">Jan 27, 17:41 by <span>Ross David B. Tan</span></div>
+        </div>
+    </article>
+</section>
+
+
+
+
+<script>
+    let profileModal = document.getElementById("profileModal");
+    let profileBtn = document.getElementById("profileBtn");
+
+    profileBtn.onclick = function() {
+        // Show the modal when profile button is clicked
+        profileModal.style.display = "flex";
+    }
+
+    window.onclick = function(event) {
+        // Hide the modal if the click is outside of it
+        if (event.target === profileModal) {
+            profileModal.style.display = "none";
+        }
+    }
+
+
+
+</script>
 </body>
 </html>

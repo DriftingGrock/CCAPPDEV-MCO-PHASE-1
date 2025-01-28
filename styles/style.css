@@ -16,9 +16,27 @@ body {
     font-family: 'SuperRad-Regular', serif;
     box-shadow: 0px 5px 10px darkgray;
 }
+.profile {
+    text-align: right;
+    float: right;
+    font-size: 20px;
+    align-content: center;
+    padding: 15px;
+}
+.profile button {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-family: Verdana, sans-serif;
+    color: #025000;
+}
+.profile button:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
+}
 h2 {
     font-family: Verdana, sans-serif;
 }
-
-
 
