@@ -3,7 +3,7 @@ section {
     padding: 40px;
     background-color: rgb(209, 225, 208);
     font-family: Verdana, sans-serif;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 h2 {
@@ -14,7 +14,7 @@ h2 {
 hr {
     border: dotted #025000 6px;
     border-bottom: none;
-    width: 95%;
+    width: 80%;
     margin: 50px auto;
 }
 
@@ -34,14 +34,27 @@ hr {
     margin-left: 300px;
 }
 .star-icon {
-    height: 1.5rem;
+    height: 1.2rem;
 }
 
 .border{
     clear: both;
 }
 
+.attribute-reviews div{
+    text-align: center;
+    margin: 10px auto;
+    border: solid #025000;
+    border-radius: 10px;
+    background-color: #89de87;
+    display:inline-block;
+    width: 150px;
+}
+
 .attribute-reviews {
-    display: grid;
-    grid-template-rows: ;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if needed) */
+    gap: 10px; /* Adds spacing between divs */
+    flex-wrap: wrap; /* Ensures responsiveness */
 }
