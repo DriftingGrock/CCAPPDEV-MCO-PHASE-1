@@ -116,7 +116,7 @@ hr {
     height: 1rem;
 }
 
-.reviews-container {
+.review-container {
     display: flex;
     background: #f9f9f9;
     padding: 15px;
@@ -128,24 +128,26 @@ hr {
 }
 
 .review-image {
-   
+   width: 8%;
 }
 
 .rater {
-
+    width: 85%;
 }
 
 .star-rating{
     font-size: 1.5rem;
-    margin-left: 800px;
 }
 
 .review-desc {
     margin-left: 30px;
+    width: 60%;
 }
 
 .rate-date {
-
+    margin-left: 30px;
+    width:100%;
+    color:rgb(129, 129, 129);
 }
 
 
