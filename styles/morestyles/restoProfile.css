@@ -7,7 +7,7 @@ section {
 }
 
 h2 {
-    color: #025000;
+    /*color: #025000;*/
     margin: 0 16px 40px 0;
 }
 
@@ -18,18 +18,28 @@ hr {
     margin: 50px auto;
 }
 
-.base-info-header {
+.base-info-header-bg {
     background-image: url('../../images/ross-kitchenetee_banner.jpg');
     height:500px;
     background-position: center;
     border-radius: 20px;
     display: flex;
+    background-size: cover;
+}
+
+.base-info-header{
+    background-color: rgb(209, 225, 208);
+    align-self: flex-end;
+    padding: 10px 10px 10px 50px;
+    margin: 0 0 50px -20px;
+    border-radius: 20px;
+    box-shadow: 15px 15px 0 #98c7a3;
 }
 
 .establishment-name {
-    background-color: rgb(209, 225, 208);;
+    font-size: 3rem;
+    font-weight: bold;
 }
-
 .establishment-info-container {
 }
 
@@ -56,26 +66,35 @@ hr {
     clear: both;
 }
 
-.attribute-ratings div{
+.supplementary-info {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically (if needed) */
+    gap: 50px; /* Adds spacing between divs */
+    flex-wrap: wrap; /* Ensures responsiveness */
+}
+
+.supplementary-info div{
     text-align: center;
     margin: 10px auto;
     border: solid #98c7a3;
     border-radius: 10px;
     background-color: rgb(209, 225, 208);   
     /*display:inline-block; */
-    width: 150px;
-    height:125px;
-    box-shadow: 8px 8px 0px #98c7a3;
+    width: 300px;
+    height: 115px;
+    box-shadow: 15px 15px 0 #98c7a3;
+    font-size: 1.2rem;
+    padding: 10px;
 }
 
-.attribute-ratings {
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically (if needed) */
-    gap: 10px; /* Adds spacing between divs */
-    flex-wrap: wrap; /* Ensures responsiveness */
+.supplementary-info div span{
+    padding: 0 5px;
 }
 
+.supplementary-info h3 {
+    font-size: 1.3rem;
+}
 .review-image {
     width: min(10vw, 110px);
     aspect-ratio: 1/1;
@@ -102,7 +121,7 @@ hr {
     background: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 8px 8px 0px #98c7a3;
+    box-shadow: 15px 15px 0 #98c7a3;
     gap: 15px;
     flex-wrap: wrap;
     align-items: center;
