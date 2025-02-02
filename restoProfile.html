@@ -67,17 +67,22 @@
                     <div class="establishment-name">Ross Kitchenette</div>
                     <div class="header-rating"> <img class="star-icon" src="icons/star.png" alt="star"> 4.0 (69 reviews)</div>
                     <div class="operating-hours">Opens 5:00pm - 1:00am</div>
+                    <div class="location"> 123 Taft Ave. Manila</div>
+                    <div class="contact"> </div>
                 </div>
                 <!-- <img class="establishment-image" src="images/rosskitchennette.jpg" alt="rosskitchennette image">  -->
             </div>
 
             <div class="establishment-tabs">
                 <div class="tabs__sidebar">
-                    <button class="tabs__button" data-for-tab="1"> Tab #1</button>
-                    <button class="tabs__button" data-for-tab="2"> Tab #2</button>
-                    <button class="tabs__button" data-for-tab="3"> Tab #3</button>
+                    <button class="tabs__button" data-for-tab="1"> Overview</button>
+                    <button class="tabs__button" data-for-tab="2"> Menu</button>
+                    <button class="tabs__button" data-for-tab="3"> Reviews</button>
+                    <button class="tabs__button" data-for-tab="4"> Photos</button>
                 </div>
-                <div class="tabs__content tabs__content--active" data-tab="1"> 
+
+                <div class="tabs__content" data-tab="1"> 
+                    <h1> </h1>
                     <p class="establishment-desc">  Come meet my balls. Etiam enim convallis sit laoreet pe
                         establishment-descestablishment-descvvvestablishment-desc
                         llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
@@ -96,6 +101,10 @@
                         establishment-descestablishment-descvvvestablishment-desc
                         llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
                     </p>
+                </div>
+
+                <div class="tabs__content" data-tab="4">
+                    <p> LMOTCIWRJTIERTERT</p>
                 </div>
             </div>
             
@@ -129,12 +138,14 @@
 
                 document.addEventListener("DOMContentLoaded", () => {
                     setupTabs();
-                });
+
+                    document.querySelectorAll(".establishment-tabs").forEach(tabsContainer => {
+                        tabsContainer.querySelector(".tabs__sidebar .tabs__button").click();
+                    });
+            });
 
             </script>
         </article>
-
-        <hr>
 
         <article class="supplementary-info">
             <div class="overall-rating">
