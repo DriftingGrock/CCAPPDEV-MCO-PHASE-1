@@ -1,3 +1,4 @@
+/*
 section {
     margin: 25px  100px  6px 100px;
     padding: 40px;
@@ -5,6 +6,7 @@ section {
     font-family: Verdana, sans-serif;
     border-radius: 20px;
 }
+*/
 
 h2 {
     /*color: #025000;*/
@@ -18,11 +20,15 @@ hr {
     margin: 50px auto;
 }
 
+.establishment-info-container {
+    
+}
+
 .base-info-header-bg {
     background-image: url('../../images/ross-kitchenetee_banner.jpg');
     height:500px;
     background-position: center;
-    border-radius: 20px;
+    /*border-radius: 20px; */
     display: flex;
     background-size: cover;
 }
@@ -40,8 +46,6 @@ hr {
     font-size: 3rem;
     font-weight: bold;
 }
-.establishment-info-container {
-}
 
 .establishment-image {
     width: 250px;
@@ -52,6 +56,50 @@ hr {
     border-radius: 10px;
     aspect-ratio: 1/1;
     object-fit: cover;
+}
+
+.tabs__sidebar {
+    width: 100%;
+    flex-shrink: 0;
+    background: #cccccc;
+}
+
+.tabs__button {
+    padding: 10px;
+    background: #eeeeee;
+    border: none;
+    outline: none;
+    width: 10%;
+    cursor: pointer;
+}
+
+.tabs_button: active {
+    background: #dddddd;
+}
+
+.tabs__button:not(:last-of-type) {
+    border-right: 1px solid #cccccc;
+}
+
+.tabs_button--active {
+    font-weight: bold;
+    border-bottom: 2px solid #009879;
+    background: #dddddd;
+}
+
+.tabs__content {
+    padding: 15px;
+    font-size: 1.2rem;
+    display: none;
+}
+
+.tabs__content--active {
+    display: block;
+}
+
+.establishment-tabs {
+    margin: 10px auto;
+    padding: 10px;
 }
 
 .establishment-desc {
@@ -95,7 +143,17 @@ hr {
 .supplementary-info h3 {
     font-size: 1.3rem;
 }
-.review-image {
+
+.reviews-holder{
+    margin: 25px 0 10px 20px;
+    width: 80%;
+    padding: 40px;
+    background-color: rgb(209, 225, 208);
+    font-family: Verdana, sans-serif;
+    border-radius: 20px;
+}
+
+.rater-pfp {
     width: min(10vw, 110px);
     aspect-ratio: 1/1;
     object-fit: cover;
