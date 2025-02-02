@@ -18,6 +18,18 @@ hr {
     margin: 50px auto;
 }
 
+.base-info-header {
+    background-image: url('../../images/ross-kitchenetee_banner.jpg');
+    height:500px;
+    background-position: center;
+    border-radius: 20px;
+    display: flex;
+}
+
+.establishment-name {
+    background-color: rgb(209, 225, 208);;
+}
+
 .establishment-info-container {
 }
 
@@ -30,11 +42,6 @@ hr {
     border-radius: 10px;
     aspect-ratio: 1/1;
     object-fit: cover;
-
-}
-
-.establishment-location {
-    width: 10%;
 }
 
 .establishment-desc {
@@ -52,12 +59,13 @@ hr {
 .attribute-ratings div{
     text-align: center;
     margin: 10px auto;
-    border: solid #025000;
+    border: solid #98c7a3;
     border-radius: 10px;
-    background-color: #90c29a;
-    display:inline-block;
+    background-color: rgb(209, 225, 208);   
+    /*display:inline-block; */
     width: 150px;
     height:125px;
+    box-shadow: 8px 8px 0px #98c7a3;
 }
 
 .attribute-ratings {
@@ -94,9 +102,31 @@ hr {
     background: #f9f9f9;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 0px #98c7a3;
     gap: 15px;
+    flex-wrap: wrap;
     align-items: center;
+}
+
+.review-image {
+   
+}
+
+.rater {
+
+}
+
+.star-rating{
+    font-size: 1.5rem;
+    margin-left: 800px;
+}
+
+.review-desc {
+    margin-left: 30px;
+}
+
+.rate-date {
+
 }
 
 
