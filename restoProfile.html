@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/morestyles/restoProfile.css">
     <link rel="stylesheet" href="styles/morestyles/profile_modal.css">
+    <link rel="stylesheet" href="styles/shared_styles/reviews.css">
     <style>
         @font-face { /*custom font to make it close to animosys logo*/
             font-family: 'SuperRad-Regular';
@@ -23,12 +24,12 @@
 
 <body>
 
-<div class="header"> ANIMO
+<div class="header"> <a href="index.html">ANIMO
     <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
-    EATS
+    EATS</a>
     <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
-
 </div>
+
 <div id="profileModal" class="modal">
     <div class="modal-content"><b>Existing Profile</b><br>
         <label for="username">
@@ -38,7 +39,7 @@
         <label for="password">
             <input id="password" type="password" placeholder="Password">
         </label>
-        <button id="loginBtn">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
         <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
     </div>
 </div>
@@ -68,7 +69,7 @@
             <div class="primary-details">
                 <p class="rating"> 4.0 <img class="star-icon" src="icons/star.png" alt="star">  (69 reviews)</p>
                 <p class="address">123 Taft Ave. Manila</p>
-                <p class="phone">📞0998 885 8888</p>
+                <p class="phone">📞0976 115 7417</p>
             </div>
             <div class="supplementary-details">
                 <span class="hours">Open 5:00pm - 1:00am</span>
@@ -139,22 +140,28 @@
             </section>
 
             <section class="reviews-holder">
-                <h2>Reviews:</h2>
+                <h2>Reviews</h2>
 
-                <input class="leave-review-bar" type="text" placeholder="Leave a review..">
-                <button class="submit-review"> submit </button>
+                <input class="leave-review-bar" style="font-size: 19.2px; width: auto;" type="text" placeholder="Leave a review..">
+                <button id="submit-review" class="button_dkgreen" style="font-size: 19.2px"> submit </button>
 
                 <article class="reviews">
                     <div id="review1" class="review-container">
                         <img class="rater-pfp" src="images/robloxHogRider.png" alt="pfp.jpg">
                         <div class="rater"> Ross David B. Tan </div>
-                        <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 5 </div>
-                        <div class="review-desc">They taste good but their literally just meatballs hshshshshs 
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam exercitationem quisquam labore, molli
-                            tia similique voluptatibus ipsa perferendis explicabo at itaque ullam veritatis, delectus, blanditiis animi! Natus 
-                            magni ad quod aliquid?
+                        <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
+                        <div class="review-desc">They taste good but their literally just meatballs hshshshshs
                         </div>
-                        <div class="rate-date">Jan 27, 17:41</div>
+                        <div class="rate-date">Jan 27, 2025 17:41</div>
+                    </div>
+
+                    <div id="review2" class="review-container">
+                        <img class="rater-pfp" src="images/robloxHogRider.png" alt="pfp.jpg">
+                        <div class="rater"> Jericho Migell Reyes </div>
+                        <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
+                        <div class="review-desc">are they the libag balls
+                        </div>
+                        <div class="rate-date">Feb 4, 2025 00:11</div>
                     </div>
                 </article>
 
