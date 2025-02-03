@@ -1,17 +1,4 @@
 /* reviews and rating part */
-.rater-pfp {
-    width: min(10vw, 110px);
-    aspect-ratio: 1/1;
-    object-fit: cover;
-}
-
-.rater{
-    font-weight: bold;
-}
-.star-icon-review {
-    height: 1rem;
-}
-
 .review-container {
     display: flex;
     background: white;
@@ -24,29 +11,36 @@
     width: 75%;
     margin: 0 0 40px 0;
 }
-.rater-pfp {
+
+.review-container .display-pic {
     width: 5%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
-.review-image {
-    width: 8%;
-}
-
-.rater {
+.review-container .heading{
+    font-weight: bold;
     width: 80%;
 }
 
-.star-rating{
+.review-container .star-rating{
     font-size: 1.5rem;
     width: auto;
     text-align: right;
 }
 
-.review-desc {
+.review-container .star-icon-review {
+    height: 1.2rem;
+}
+
+.review-container .review-image {
+    width: 8%;
+}
+
+.review-container .description {
     width: 90%;
 }
 
-.rate-date {
-    width:100%;
-    color:rgb(129, 129, 129);
+.review-container .date {
+    color: lightslategray;
 }
