@@ -34,7 +34,7 @@ main{
 }
 
 .restaurant-info {
-    opacity: 0.9;
+    opacity: 0.8;
     display: flex;
     flex-direction: column;
     margin-top: 184px;
@@ -163,8 +163,7 @@ main{
 }
 .reviews-holder{
     margin: 25px 0 10px 20px;
-    width: 80%;
-    width: 90%;
+    width: 95%;
     padding: 40px;
     background-color: rgb(209, 225, 208);
     font-family: Verdana, sans-serif;
@@ -206,6 +205,7 @@ main{
     gap: 15px;
     flex-wrap: wrap;
     align-items: center;
+    width: 75%;
 }
 
 .review-image {
@@ -213,7 +213,6 @@ main{
 }
 
 .rater {
-    width: 85%;
     width: 80%;
 }
 
@@ -223,7 +222,7 @@ main{
 
 .review-desc {
     margin-left: 30px;
-    width: 60%;
+    width: 90%;
 }
 
 .rate-date {
