@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: #e3ece0;
+    font-family: Verdana, sans-serif;
 }
 
 .header {
@@ -17,6 +18,14 @@ body {
     box-shadow: 0px 5px 10px darkgray;
     z-index: 1;
 }
+.header a {
+    text-decoration: none;
+    color: #025000;
+}
+.header a:hover {
+    color: #d1e1d0;
+}
+
 .profile {
     text-align: right;
     float: right;
@@ -37,6 +46,34 @@ body {
     text-decoration: underline 2px;
     text-underline-offset: 5px;
 }
-h1, h2, h3, p, div {
+input {
+    background-color: white;
+    display: inline-block;
+    width: 100%; /* Make the input elements take the full width of the modal content */
+    padding: 10px; /* Add some padding for better appearance */
+    margin: 5px 0;
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add rounded corners */
+    box-sizing: border-box;
     font-family: Verdana, sans-serif;
+}
+button {
+    font-family: Verdana, sans-serif;
+}
+
+.button_dkgreen {
+    border: none;
+    margin: 10px 0;
+    background-color: #025000;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;    /* changes curser to pointer */
+    padding: 10px;
+    font-family: Verdana, sans-serif;
+}
+
+.button_dkgreen:hover {
+    background-color: #e3ece0;
+    color: #025000;
+    outline: #025000 1px solid;
 }

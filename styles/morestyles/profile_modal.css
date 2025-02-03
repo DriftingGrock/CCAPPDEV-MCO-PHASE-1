@@ -20,37 +20,9 @@
     color: #025000;
 }
 
-.modal-content input {
-    background-color: white;
-    display: inline-block;
-    width: 100%; /* Make the input elements take the full width of the modal content */
-    padding: 10px; /* Add some padding for better appearance */
-    margin: 5px 0;
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 4px; /* Add rounded corners */
-    box-sizing: border-box;
-    font-family: Verdana, sans-serif;
-}
 
 .modal-content p {
     font-size: 14px;
     text-align: center;
     color: darkgray;
-}
-
-#loginBtn {
-    border: none;
-    margin: 10px 0;
-    background-color: #025000;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;    /* changes curser to pointer */
-    padding: 10px;
-    font-family: Verdana, sans-serif;
-}
-
-#loginBtn:hover {
-    background-color: #e3ece0;
-    color: #025000;
-    outline: #025000 1px solid;
 }
