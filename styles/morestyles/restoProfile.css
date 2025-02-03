@@ -108,9 +108,14 @@ hr {
 .establishment-desc {
     line-height: 2;
     text-align: justify;
+    font-size: 2rem;
 }
 .star-icon {
     height: 1.2rem;
+}
+
+.contact-icon {
+    height: 1rem;
 }
 
 .border{
@@ -147,13 +152,23 @@ hr {
     font-size: 1.3rem;
 }
 
+.menu-img {
+    padding: 10px;
+    width: 80%;
+    margin: 10px auto;
+}
 .reviews-holder{
     margin: 25px 0 10px 20px;
-    width: 80%;
+    width: 90%;
     padding: 40px;
     background-color: rgb(209, 225, 208);
     font-family: Verdana, sans-serif;
     border-radius: 20px;
+    margin: 100px auto 10px auto;
+}
+
+.reviews-holder h2 {
+    color: #025000;
 }
 
 .rater-pfp {
@@ -193,7 +208,7 @@ hr {
 }
 
 .rater {
-    width: 85%;
+    width: 80%;
 }
 
 .star-rating{
