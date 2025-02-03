@@ -54,7 +54,7 @@ main{
 
 .primary-details * {
     font-size: 1.5rem;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 2px;
 }
 
 .supplementary-details {
@@ -63,7 +63,7 @@ main{
 }
 
 .supplementary-details * {
-    margin: 0 0 0 10px;
+    margin: 0 0 0 2px;
 }
 
 .hours {
@@ -229,7 +229,6 @@ main{
     width: 95%;
     padding: 40px;
     background-color: rgb(209, 225, 208);
-    font-family: Verdana, sans-serif;
     border-radius: 20px;
     margin: 100px auto 10px auto;
 }

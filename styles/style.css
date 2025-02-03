@@ -15,6 +15,7 @@ body {
     font-size: 40px;
     font-family: 'SuperRad-Regular', serif;
     box-shadow: 0px 5px 10px darkgray;
+    z-index: 1;
 }
 .profile {
     text-align: right;
@@ -36,7 +37,6 @@ body {
     text-decoration: underline 2px;
     text-underline-offset: 5px;
 }
-h2 {
+h1, h2, h3, p, div {
     font-family: Verdana, sans-serif;
 }
-
