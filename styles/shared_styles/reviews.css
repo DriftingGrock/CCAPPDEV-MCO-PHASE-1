@@ -1,0 +1,52 @@
+/* reviews and rating part */
+.rater-pfp {
+    width: min(10vw, 110px);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.rater{
+    font-weight: bold;
+}
+.star-icon-review {
+    height: 1rem;
+}
+
+.review-container {
+    display: flex;
+    background: white;
+    padding: 45px;
+    border-radius: 10px;
+    box-shadow: 15px 15px 0 #98c7a3;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 75%;
+    margin: 0 0 40px 0;
+}
+.rater-pfp {
+    width: 5%;
+}
+
+.review-image {
+    width: 8%;
+}
+
+.rater {
+    width: 80%;
+}
+
+.star-rating{
+    font-size: 1.5rem;
+    width: auto;
+    text-align: right;
+}
+
+.review-desc {
+    width: 90%;
+}
+
+.rate-date {
+    width:100%;
+    color:rgb(129, 129, 129);
+}
