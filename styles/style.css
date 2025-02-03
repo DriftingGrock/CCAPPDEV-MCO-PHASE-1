@@ -15,6 +15,7 @@ body {
     font-size: 40px;
     font-family: 'SuperRad-Regular', serif;
     box-shadow: 0px 5px 10px darkgray;
+    z-index: 1;
 }
 .profile {
     text-align: right;
