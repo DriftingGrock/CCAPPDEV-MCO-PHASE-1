@@ -154,13 +154,76 @@ main{
 
 .border{
     clear: both;
-}
+ }
 
 .menu-img {
     padding: 10px;
     width: 80%;
     margin: 10px auto;
 }
+
+.rating {
+    display:flex;
+    align-items: center;
+    column-gap: 2rem;
+    width:75%;
+}
+
+.rating__average {
+    width: 30%;
+    background-color:rgb(209, 225, 208);
+    padding: 1rem;
+    border-radius: .8rem;
+    text-align: center;
+}
+
+.rating__average h1 {
+    font-size: 3rem;
+}
+
+.rating__average p {
+    margin-top: .7rem;
+    letter-spacing: .1rem;
+}
+
+.rating__progress {
+    width: 70%;
+}
+
+.rating__progress-value {
+    height: 2rem;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    column-gap: 1rem;
+}
+
+.rating__progress-value .star {
+    font-size: 1.2rem;
+    color: gold;
+}
+
+.rating__progress-value p:last-child {
+    width: 10%;
+}
+
+.rating__progress .progress {
+    flex: 1 1 0;
+    height: .5rem;
+    border-radius: .5rem;
+    background-color: #4f854e;
+}
+
+.bar {
+    height: 100%;
+    background-color: #025000;
+    border-radius: .5rem;
+}
+
+.bar:nth-child(1) {
+    width: 80%;
+}
+
 .reviews-holder{
     margin: 25px 0 10px 20px;
     width: 95%;
@@ -173,8 +236,25 @@ main{
 
 .reviews-holder h2 {
     color: #025000;
+    padding-bottom: 10px;
+    margin-bottom: 0;;
 }
 
+.leave-review-bar {
+    margin: 0 0 10px 0;
+    padding: 10px 5px;
+    font-size: 1.5rem;
+    border: 2px solid #025000;
+    border-radius: 10px;
+}
+
+.submit-review {
+    background-color: white;
+    color: #025000;
+    border: 2px solid #025000;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
 .rater-pfp {
     width: min(10vw, 110px);
     aspect-ratio: 1/1;
