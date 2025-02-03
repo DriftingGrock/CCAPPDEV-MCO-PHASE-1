@@ -23,226 +23,157 @@
 
 <body>
 
-    <div class="header"> ANIMO
-        <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
-        EATS
-        <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
-    
+<div class="header"> ANIMO
+    <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
+    EATS
+    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+
+</div>
+<div id="profileModal" class="modal">
+    <div class="modal-content"><b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
+
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
     </div>
-    <div id="profileModal" class="modal">
-        <div class="modal-content"><b>Existing Profile</b><br>
-            <label for="username">
-                <input id="username" type="text" placeholder="Username"> <br>
-            </label>
-    
-            <label for="password">
-                <input id="password" type="password" placeholder="Password">
-            </label>
-            <button id="loginBtn">Log-in <i class="fa fa-solid fa-user"></i></button>
-            <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
+</div>
+
+<script>
+    let profileModal = document.getElementById("profileModal");
+    let profileBtn = document.getElementById("profileBtn");
+
+    profileBtn.onclick = function() {
+        // Show the modal when profile button is clicked
+        profileModal.style.display = "flex";
+    }
+
+    window.onclick = function(event) {
+        // Hide the modal if the click is outside of it
+        if (event.target === profileModal) {
+            profileModal.style.display = "none";
+        }
+    }
+</script>
+
+<!--Establishment view-->
+<main>
+    <div class="resto-banner">
+        <div class="restaurant-info">
+            <h1 class="resto-name"> Ross Kitchenette</h1>
+            <div class="primary-details">
+                <p class="rating"> 4.0 <img class="star-icon" src="icons/star.png" alt="star">  (69 reviews)</p>
+                <p class="address">123 Taft Ave. Manila</p>
+                <p class="phone">📞0998 885 8888</p>
+            </div>
+            <div class="supplementary-details">
+                <span class="hours">Open 5:00pm - 1:00am</span>
+                <span class="price">₱1,000 for two</span>
+                <span class="cuisine">Filipino</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="establishment-tabs">
+        <div class="tabs__sidebar">
+            <button class="tabs__button" data-for-tab="1"> Overview</button>
+            <button class="tabs__button" data-for-tab="2"> Menu</button>
+            <button class="tabs__button" data-for-tab="3"> Photos</button>
+        </div>
+
+        <div class="tabs__content" data-tab="1">
+            <p class="establishment-desc">  Come eat balls at Ross Kitchenette
+            </p>
+
+            <article class="supplementary-info">
+                <div class="overall-rating">
+                    <h3 class="rating-header"> Rating</h3>
+                    <image class="star-icon" src="icons/star.png" alt="star icon">
+                        <span>1000/10</span>
+                </div>
+
+                <div class="price-range">
+                    <h3 class="price-header"> Average Price Range</h3>
+                    <span>0 - 0.50</span>
+                </div>
+
+                <div class="service-speed">
+                    <h3 class="service-header"> Average Serving Time</h3>
+                    <span> 5 inches </span>
+                </div>
+            </article>
+
+            <section class="reviews-holder">
+                <h2>Reviews:</h2>
+
+                <article class="reviews">
+                    <div id="review1" class="review-container">
+                        <img class="rater-pfp" src="images/robloxHogRider.png" alt="pfp.jpg">
+                        <div class="rater"> Ross David B. Tan </div>
+                        <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 5 </div>
+                        <div class="review-desc">They taste good but their literally just meatballs hshshshshs</div>
+                        <div class="rate-date">Jan 27, 17:41</div>
+                    </div>
+                </article>
+
+                <article class="reply"></article>
+            </section>
+        </div>
+
+        <div class="tabs__content" data-tab="2">
+            <img class="menu-img" src = "images/menu.jpg" alt="establishment menu">
+        </div>
+
+        <div class="tabs__content" data-tab="3">
+            <p class="establishment-desc">  Come meet my balls 3. Etiam enim convallis sit laoreet pe
+                establishment-descestablishment-descvvvestablishment-desc
+                llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
+            </p>
         </div>
     </div>
 
     <script>
-        let profileModal = document.getElementById("profileModal");
-        let profileBtn = document.getElementById("profileBtn");
-    
-        profileBtn.onclick = function() {
-            // Show the modal when profile button is clicked
-            profileModal.style.display = "flex";
-        }
-    
-        window.onclick = function(event) {
-            // Hide the modal if the click is outside of it
-            if (event.target === profileModal) {
-                profileModal.style.display = "none";
-            }
-        }
-    </script>
+        function setupTabs () {
+            document.querySelectorAll(".tabs__button").forEach(button => {
+                button.addEventListener("click", () => {
+                    const sideBar = button.parentElement;
+                    const tabsContainer = sideBar.parentElement;
+                    const tabNumber = button.dataset.forTab;
+                    const tabToActivate  = tabsContainer.querySelector(`.tabs__content[data-tab="${tabNumber}"]`);
 
-<<<<<<< Updated upstream
-    <section class="establishment-info-container">
-        <article class="etsablishment-base-info">
-            <div class="base-info-header-bg">
-                <div class="base-info-header">
-                    <div class="establishment-name">Ross Kitchenette</div>
-                    <div class="header-rating"> <img class="star-icon" src="icons/star.png" alt="star"> 4.0 (69 reviews)</div>
-                    <div class="operating-hours">Opens 5:00pm - 1:00am</div>
-                    <div class="location"> 123 Taft Ave. Manila</div>
-                    <div class="contact"> <img class="contact-icon" src="icons/phone.png"> 09485748294</div>
-                </div>
-                <!-- <img class="establishment-image" src="images/rosskitchennette.jpg" alt="rosskitchennette image">  -->
-            </div>
+                    console.log(sideBar);
+                    console.log(tabsContainer);
+                    console.log(tabNumber);
+                    console.log(tabToActivate);
 
-            <div class="establishment-tabs">
-                <div class="tabs__sidebar">
-                    <button class="tabs__button" data-for-tab="1"> Overview</button>
-                    <button class="tabs__button" data-for-tab="2"> Menu</button>
-                    <button class="tabs__button" data-for-tab="3"> Photos</button>
-                </div>
-
-                <div class="tabs__content" data-tab="1"> 
-                    <p class="establishment-desc">  Come eat balls at Ross Kitchenette
-                    </p>
-
-                    <article class="supplementary-info">
-                        <div class="overall-rating">
-                            <h3 class="rating-header"> Rating</h3>
-                            <image class="star-icon" src="icons/star.png" alt="star icon">
-                             <span>1000/10</span>
-                        </div>
-            
-                        <div class="price-range">
-                            <h3 class="price-header"> Average Price Range</h3>
-                            <span>0 - 0.50</span>
-                        </div>
-            
-                        <div class="service-speed">
-                            <h3 class="service-header"> Average Serving Time</h3>
-                            <span> 5 inches </span>
-                        </div>
-                    </article>
-
-                    <section class="reviews-holder">
-                        <h2>Reviews:</h2>
-                    
-                        <article class="reviews">
-                            <div id="review1" class="review-container">
-                                <img class="rater-pfp" src="images/robloxHogRider.png" alt="pfp.jpg">
-                                <div class="rater"> Ross David B. Tan </div>
-                                <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 5 </div>
-                                <div class="review-desc">They taste good but their literally just meatballs hshshshshs</div>
-                                <div class="rate-date">Jan 27, 17:41</div>
-                            </div>
-                        </article>
-                
-                        <article class="reply"></article>
-                    </section>
-                </div>
-
-                <div class="tabs__content" data-tab="2"> 
-                    <img class="menu-img" src = "images/menu.jpg" alt="establishment menu">
-                </div>
-
-                <div class="tabs__content" data-tab="3"> 
-                    <p class="establishment-desc">  Come meet my balls 3. Etiam enim convallis sit laoreet pe
-                        establishment-descestablishment-descvvvestablishment-desc
-                        llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
-                    </p>
-=======
-    <!--Establishment view-->
-    <main>
-        <div class="resto-banner">
-            <div class="restaurant-info">
-                <h1 class="resto-name"> Ross Kitchenette</h1>
-                <div class="primary-details">
-                    <p class="rating"> 4.0 <img class="star-icon" src="icons/star.png" alt="star">  (69 reviews)</p>
-                    <p class="address">123 Taft Ave. Manila</p>
-                    <p class="phone">📞0998 885 8888</p>
-                </div>
-                <div class="supplementary-details">
-                    <span class="hours">Open 5:00pm - 1:00am</span>
-                    <span class="price">₱1,000 for two</span>
-                    <span class="cuisine">Filipino</span>
->>>>>>> Stashed changes
-                </div>
-            </div>
-        </div>
-
-        <div class="establishment-tabs">
-            <div class="tabs__sidebar">
-                <button class="tabs__button" data-for-tab="1"> Overview</button>
-                <button class="tabs__button" data-for-tab="2"> Menu</button>
-                <button class="tabs__button" data-for-tab="3"> Reviews</button>
-                <button class="tabs__button" data-for-tab="4"> Photos</button>
-            </div>
-
-            <div class="tabs__content" data-tab="1">
-                <h1> </h1>
-                <p class="establishment-desc">  Come meet my balls. Etiam enim convallis sit laoreet pe
-                    establishment-descestablishment-descvvvestablishment-desc
-                    llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
-                </p>
-            </div>
-
-            <div class="tabs__content" data-tab="2">
-                <p class="establishment-desc">  Come meet my balls 2. Etiam enim convallis sit laoreet pe
-                    establishment-descestablishment-descvvvestablishment-desc
-                    llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
-                </p>
-            </div>
-
-            <div class="tabs__content" data-tab="3">
-                <p class="establishment-desc">  Come meet my balls 3. Etiam enim convallis sit laoreet pe
-                    establishment-descestablishment-descvvvestablishment-desc
-                    llentesque quam enim convallis sit laoreet pellentesque quisque commodo tellus rhoncus.am enim convallis si
-                </p>
-            </div>
-
-            <div class="tabs__content" data-tab="4">
-                <p> LMOTCIWRJTIERTERT</p>
-            </div>
-        </div>
-
-        <script>
-            function setupTabs () {
-                document.querySelectorAll(".tabs__button").forEach(button => {
-                    button.addEventListener("click", () => {
-                        const sideBar = button.parentElement;
-                        const tabsContainer = sideBar.parentElement;
-                        const tabNumber = button.dataset.forTab;
-                        const tabToActivate  = tabsContainer.querySelector(`.tabs__content[data-tab="${tabNumber}"]`);
-
-                        console.log(sideBar);
-                        console.log(tabsContainer);
-                        console.log(tabNumber);
-                        console.log(tabToActivate);
-
-                        sideBar.querySelectorAll(".tabs__button").forEach(button => {
-                            button.classList.remove("tabs__button--active");
-                        });
-
-                        tabsContainer.querySelectorAll(".tabs__content").forEach(tab => {
-                            tab.classList.remove("tabs__content--active");
-                        });
-
-                        button.classList.add("tabs__button--active");
-                        tabToActivate.classList.add("tabs__content--active");
+                    sideBar.querySelectorAll(".tabs__button").forEach(button => {
+                        button.classList.remove("tabs__button--active");
                     });
-                });
-            }
 
-            document.addEventListener("DOMContentLoaded", () => {
-                setupTabs();
+                    tabsContainer.querySelectorAll(".tabs__content").forEach(tab => {
+                        tab.classList.remove("tabs__content--active");
+                    });
 
-                document.querySelectorAll(".establishment-tabs").forEach(tabsContainer => {
-                    tabsContainer.querySelector(".tabs__sidebar .tabs__button").click();
+                    button.classList.add("tabs__button--active");
+                    tabToActivate.classList.add("tabs__content--active");
                 });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setupTabs();
+
+            document.querySelectorAll(".establishment-tabs").forEach(tabsContainer => {
+                tabsContainer.querySelector(".tabs__sidebar .tabs__button").click();
+            });
         });
 
-<<<<<<< Updated upstream
-            </script>
-        </article>
-=======
-        </script>
-    </main>
+    </script>
 
-    <section class="reviews-holder">
-        <h2>Reviews:</h2>
-    
-        <article class="reviews">
-            <div id="review1" class="review-container">
-                <img class="rater-pfp" src="images/robloxHogRider.png" alt="pfp.jpg">
-                <div class="rater"> Ross David B. Tan </div>
-                <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 5 </div>
-                <div class="review-desc">They taste good but their literally just meatballs hshshshshs</div>
-                <div class="rate-date">Jan 27, 17:41</div>
-            </div>
-        </article>
-
-        <article class="reply"></article>
->>>>>>> Stashed changes
-    </section>
-
+</main>
 </body>
 </html>

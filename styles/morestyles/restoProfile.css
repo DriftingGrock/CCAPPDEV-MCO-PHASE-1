@@ -145,7 +145,6 @@ main{
 }
 .star-icon {
     height: 1.2rem;
-    margin: 0;
 }
 
 .contact-icon {
@@ -169,7 +168,7 @@ main{
     margin: 10px auto;
     border: solid #98c7a3;
     border-radius: 10px;
-    background-color: rgb(209, 225, 208);   
+    background-color: rgb(209, 225, 208);
     /*display:inline-block; */
     width: 300px;
     height: 115px;
@@ -193,6 +192,7 @@ main{
 }
 .reviews-holder{
     margin: 25px 0 10px 20px;
+    width: 80%;
     width: 90%;
     padding: 40px;
     background-color: rgb(209, 225, 208);
@@ -238,10 +238,11 @@ main{
 }
 
 .review-image {
-   width: 8%;
+    width: 8%;
 }
 
 .rater {
+    width: 85%;
     width: 80%;
 }
 
@@ -259,7 +260,3 @@ main{
     width:100%;
     color:rgb(129, 129, 129);
 }
-
-
-
-
