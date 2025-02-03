@@ -20,31 +20,64 @@ hr {
     margin: 50px auto;
 }
 
-.establishment-info-container {
-    
-}
-
-.base-info-header-bg {
-    background-image: url('../../images/ross-kitchenetee_banner.jpg');
+.resto-banner {
+    background-image: url('../../images/ross-kitchenette_banner.jpg');
     height:500px;
     background-position: center;
-    /*border-radius: 20px; */
     display: flex;
     background-size: cover;
 }
 
-.base-info-header{
-    background-color: rgb(209, 225, 208);
+main{
+    background-color: #e3ece0;
     align-self: flex-end;
-    padding: 10px 10px 10px 50px;
-    margin: 0 0 50px -20px;
-    border-radius: 20px;
-    box-shadow: 15px 15px 0 #98c7a3;
 }
 
-.establishment-name {
+.restaurant-info {
+    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    margin-top: 181px;
+    padding: 100px 0 20px 50px;
+    width: 100%;
+    height: 40%; /* Adjust height as needed */
+    background-color: #d1e1d0;
+    clip-path: polygon(0% 0%, 0% 100%, 150% 100%);
+}
+
+.resto-name {
     font-size: 3rem;
     font-weight: bold;
+    margin: 0;
+}
+
+.primary-details * {
+    font-size: 1.5rem;
+    margin: 0 0 0 10px;
+}
+
+.supplementary-details {
+    font-size: 1.5rem;
+    margin: 10px 0 0 0;
+}
+
+.supplementary-details * {
+    margin: 0 0 0 10px;
+}
+
+.hours {
+    display: inline-block;
+    border: 2px solid #a9a9a9;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.price {
+    display: inline-block;
+    border: 2px solid #a9a9a9;
+    border-top-style: none;
+    border-bottom-style: none;
+    padding: 10px;
 }
 
 .establishment-image {
@@ -112,6 +145,7 @@ hr {
 }
 .star-icon {
     height: 1.2rem;
+    margin: 0;
 }
 
 .contact-icon {
