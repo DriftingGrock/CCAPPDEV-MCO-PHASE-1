@@ -175,20 +175,23 @@ main{
 }
 
 .rating__average {
-    width: 30%;
-    background-color:rgb(209, 225, 208);
+    width: 20%;
+    background-color:#9bc99a;
     padding: 1rem;
-    border-radius: .8rem;
+    border-radius: .9rem;
+    border: solid 3px #025000;
     text-align: center;
 }
 
 .rating__average h1 {
     font-size: 3rem;
+    margin-bottom: .5rem;
 }
 
 .rating__average p {
     margin-top: .7rem;
     letter-spacing: .1rem;
+    font-size: 1.5rem;;
 }
 
 .rating__average .star-outer{
@@ -200,7 +203,7 @@ main{
 
 .rating__average .star-outer::before{
     content: "\2605 \2605 \2605 \2605 \2605";
-    color: #fff8;
+    color: rgb(255, 255, 255);
 }
 
 .rating__average .star-inner{
