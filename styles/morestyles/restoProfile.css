@@ -191,6 +191,31 @@ main{
     letter-spacing: .1rem;
 }
 
+.rating__average .star-outer{
+    position: relative;
+    font-size: 3rem;
+
+    display: inline-block;
+}
+
+.rating__average .star-outer::before{
+    content: "\2605 \2605 \2605 \2605 \2605";
+    color: #fff8;
+}
+
+.rating__average .star-inner{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+}
+
+.rating__average .star-inner::before{
+    content: "\2605 \2605 \2605 \2605 \2605";
+    color: gold;
+}
+
 .rating__progress {
     width: 70%;
 }
@@ -224,11 +249,11 @@ main{
     background-color: #025000;
     border-radius: .5rem;
 }
-
+/*
 .bar:nth-child(1) {
     width: 80%;
 }
-
+*/
 .reviews-holder{
     width: 95%;
     border-radius: 20px;
