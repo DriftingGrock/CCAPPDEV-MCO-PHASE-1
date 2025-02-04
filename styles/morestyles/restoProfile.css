@@ -70,12 +70,13 @@ main{
     display: inline-block;
     border: 2px solid #a9a9a9;
     border-radius: 20px;
+    border-color: #025000;
     padding: 5px;
 }
 
 .price {
     display: inline-block;
-    border: 2px solid #a9a9a9;
+    border: 2px solid #5b5b5b;
     border-top-style: none;
     border-bottom-style: none;
     padding: 10px;
@@ -107,7 +108,7 @@ main{
     padding: 10px;
     border: none;
     outline: none;
-    width: 10%;
+    width: 15%;
     cursor: pointer;
     font-size: 1.8rem;
     background: #d1e1d0;
