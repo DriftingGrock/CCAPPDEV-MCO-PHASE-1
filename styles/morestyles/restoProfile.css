@@ -157,6 +157,10 @@ main{
     clear: both;
  }
 
+ .menu-tab {
+    text-align: center;
+ }
+
 .menu-img {
     padding: 10px;
     width: 80%;
