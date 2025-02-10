@@ -20,10 +20,27 @@ body {
 }
 .header a {
     text-decoration: none;
-    color: #025000;
+    color: inherit;
 }
-.header a:hover {
+.header .home a:hover {
     color: #d1e1d0;
+}
+.header .home {
+    float: left;
+    margin-right: 40px;
+}
+.header .navlink {
+    font-size: 20px;
+    float: left;
+    font-family: Verdana, sans-serif;
+    align-content: center;
+    padding: 15px;
+}
+.header .navlink:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
 }
 
 .profile {
