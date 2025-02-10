@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/morestyles/homepage.css">
     <link rel="stylesheet" href="styles/morestyles/profile_modal.css">
+    <link rel="stylesheet" href="styles/shared_styles/reviews.css">
+
     <style>
         @font-face { /*custom font to make it close to animosys logo*/
             font-family: 'SuperRad-Regular';
@@ -23,13 +25,17 @@
 
 <body>
 
-<div class="header"> <a href="index.html">ANIMO
-    <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
-    EATS</a>
+<!-- header content -->
+<div class="header">
+    <div class="home">
+        <a href="index.html">ANIMO
+            <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
+            EATS</a>
+    </div>
+    <div class="navlink"> <a href="restoList.html">Restaurants</a> </div>
     <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
 </div>
 
-<div id="background"></div>
 <div id="profileModal" class="modal">
     <div class="modal-content"><b>Existing Profile</b><br>
         <label for="username">
@@ -43,21 +49,17 @@
         <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
     </div>
 </div>
+<!-- end of header content -->
 
 
 <section class="searchbar">
-    <label for="filtersearch"></label><select name="filter" id="filtersearch">
-        <option value="street">Street</option>
-        <option value="establishments">Establishments</option>
-        <option value="nearest">Nearest DLSU Building</option>
-    </select>
-    <input type="text" placeholder="Search..">
+    <input type="text" placeholder="Search establishments...">
 </section>
 <section id="Recommended Eateries">
     <h2>Recommended Eateries</h2>
     <article class="recommendations-container">
         <div class="recommendations-items">
-            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenete.jpg">
+            <img class="img" src="images/resto_logo/rosskitchennette.jpg" alt="rosskitchenete.jpg">
             Ross Kitchenette
         </div>
 
@@ -65,22 +67,24 @@
 </section>
 <section id="Recent Reviews">
     <h2>Recent Reviews</h2>
-
-    <article id="recent-reviews">
+    <article class="reviews">
         <div id="review1" class="review-container">
-            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenette.jpg">
-            <div class="name">Ross Kitchenette</div>
-            <div class="rating">Overall rating: 10000/10</div>
-            <div class="review">They taste good but their literally just meatballs hshshshshs</div>
-            <div class="poster ">Jan 27, 17:41 by <span>Ross David B. Tan</span></div>
+            <img class="display-pic" src="images/resto_logo/rosskitchennette.jpg" alt="rosskitchenette.jpg">
+            <div class="heading">Ross Kitchenette</div>
+            <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
+            <div class="description">They taste good but their literally just meatballs hshshshshs
+            </div>
+            <div class="date">Jan 27, 2025 17:41 by <span>Ross David B. Tan</span></div>
         </div>
 
         <div id="review2" class="review-container">
-            <img class="img" src="images/rosskitchennette.jpg" alt="rosskitchenette.jpg">
-            <div class="name">Ross Kitchenette</div>
-            <div class="rating">Overall rating: 10000/10</div>
-            <div class="review">They taste good but their literally just meatballs hshshshshs</div>
-            <div class="poster ">Jan 27, 17:41 by <span>Ross David B. Tan</span></div>
+
+            <img class="display-pic" src="images/resto_logo/rosskitchennette.jpg" alt="rosskitchenette.jpg">
+            <div class="heading">Ross Kitchenette</div>
+            <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
+            <div class="description">are they the libag balls
+            </div>
+            <div class="date">Feb 4, 2025 00:11 by <span>Ross David B. Tan</span></div>
         </div>
     </article>
 </section>

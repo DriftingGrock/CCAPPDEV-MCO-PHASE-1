@@ -20,20 +20,17 @@
     width: 30vw;
 }
 section {
-    margin: 0  100px  6px 100px;
+    margin: 0  100px  0 100px; /* top right bottom left*/
     padding: 40px;
-    background-color: rgb(209, 225, 208);
-    font-family: Verdana, sans-serif;
     border-radius: 10px;
-
 }
 section h2 {
     color: #025000;
-    margin: 0 16px 40px 0;
+    margin: 30px 0 30px 0;
 }
 article {
     padding-bottom: 6px;
-    margin: 6px 16px 0 16px;
+    margin: 6px 0 0 0;
 }
 .recommendations-container {
     padding: 5px;
@@ -51,31 +48,11 @@ article {
     max-height: 100%;
     max-width: 100%;
 }
-.reviews-container {
-    display: grid;
-    padding: 2px;
-    grid-template-columns: 1fr 5.5fr 3fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 16px;
 
-    font-family: Verdana, sans-serif;
-    font-size: 15px;
-}
 #recent-reviews {
     padding-bottom: 10px;
 }
 
-.reviews-container img {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 4;
-    margin-left: auto;
-    margin-right: auto;
-    width: min(10vw, 110px);
-    aspect-ratio: 1/1;
-    object-fit: cover;
-}
 .name {
     grid-column-start: 2;
     grid-column-end: 3;

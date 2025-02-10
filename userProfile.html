@@ -208,12 +208,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <!-- header content -->
     <div class="header">
-        <a href="index.html">ANIMO
-            <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png">
-            EATS
-        </a>
+        <div class="home">
+            <a href="index.html">ANIMO
+                <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
+                EATS</a>
+        </div>
+        <div class="navlink"> <a href="restoList.html">Restaurants</a> </div>
+        <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
     </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content"><b>Existing Profile</b><br>
+            <label for="username">
+                <input id="username" type="text" placeholder="Username"> <br>
+            </label>
+
+            <label for="password">
+                <input id="password" type="password" placeholder="Password">
+            </label>
+            <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+            <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
+        </div>
+    </div>
+    <!-- end of header content -->
 
     <div class="profile-container">
         <div class="section-title">User Profile</div>
@@ -289,9 +308,9 @@
                     They taste good but their literally just meatballs hshshshshs
                 </div>
                 <div class="review-images">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 1">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 2">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 3">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 1">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 2">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 3">
                 </div>
                 <div class="review-footer">
                     Jan 26, 17:41 by Ross David B. Tan
@@ -310,9 +329,9 @@
                     They taste good but their literally just meatballs hshshshshs
                 </div>
                 <div class="review-images">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 1">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 2">
-                    <img src="images/rosskitchennette.jpg" alt="Meatballs 3">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 1">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 2">
+                    <img src="images/reviews/rosskitchennette.jpg" alt="Meatballs 3">
                 </div>
                 <div class="review-footer">
                     Jan 26, 17:41 by Ross David B. Tan
