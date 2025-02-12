@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Restaurants</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/morestyles/restoList.css">
+    <style>
+        @font-face { /*custom font to make it close to animosys logo*/
+            font-family: 'SuperRad-Regular';
+            src:url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.woff') format('woff'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.svg#SuperRad-Regular') format('svg'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot'),
+            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot?#iefix') format('embedded-opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div class="header">
+        <div class="home">
+            <a href="index.html">ANIMO
+                <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png" >
+                EATS</a>
+        </div>
+        <div class="navlink"> <a href="restoList.html">Restaurants</a> </div>
+        <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+    </div>
 
+    <div class ="resto-list-container">
+        <h2>Eateries</h2>
+        <div class="listed-resto"> 
+            <div class="resto-logo-container"> 
+                <img class="resto-logo" src="images/origami_flowers.jpg" alt="restaurant logo">
+            </div>
+
+            <div class="resto-info-container">
+                <div class="resto-name"> Ross Kitchenette </div>
+                <div class="star-rating"> 4.0 <img class="star-icon" src="icons/star.png" alt="star"> (69 reviews) </div>
+                <div class="resto-desc"> Literally just meatballs also this thing should be like 2 lines long and i’m 
+                    typing so that i can get it to more than two lines and then it cuts off.... </div>
+            </div>
+            
+        </div>
+    </div>
 </body>
 </html>

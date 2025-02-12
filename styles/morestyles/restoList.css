@@ -1,0 +1,45 @@
+h2 {
+    font-size: 3rem;
+    color: #025000;;
+}
+
+.resto-list-container {
+    width: 90%;
+    margin: 20px auto;
+}
+
+.listed-resto {
+    display: flex;
+    background: white;
+    padding: 45px;
+    border-radius: 10px;
+    box-shadow: 15px 15px 0 #98c7a3;
+    flex-wrap: wrap;
+    width: 92%;
+}
+
+.resto-logo-container {
+    width: 10%;
+    height: 100%;
+}
+
+.resto-logo {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 100px;
+}
+
+.resto-info-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.star-icon {
+    height: 1.2rem;
+}
+
+
+
