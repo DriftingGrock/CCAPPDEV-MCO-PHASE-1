@@ -59,3 +59,53 @@
     object-fit: cover;
     border-radius: 4px;
 }
+
+/* OWNDER REPLY STUFF*/
+
+.reply-container {
+    display: flex;
+    background: white;
+    padding: 45px;
+    border-radius: 10px;
+    box-shadow: 15px 15px 0 #98c7a3;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 73%;
+    margin: 0 0 40px 40px; 
+}
+
+.reply-container .display-pic {
+    width: 5%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.reply-container .heading{
+    font-weight: bold;
+    width: 80%;
+    color: rgb(24, 55, 182);
+}
+
+.reply-container .star-rating{
+    font-size: 1.5rem;
+    width: auto;
+    text-align: right;
+}
+
+.reply-container .star-icon-review {
+    height: 1.2rem;
+}
+
+.reply-container .review-image {
+    width: 8%;
+}
+
+.reply-container .description {
+    width: 90%;
+}
+
+.reply-container .date {
+    color: lightslategray;
+}
