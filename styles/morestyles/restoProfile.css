@@ -281,6 +281,30 @@ main{
     font-size: 1.5rem;
 }
 
+.photos-container {
+    /*max-width: 1224px;*/
+    width: 95%;
+    margin: auto;
+    padding: 40px 0;
+}
+
+.photo-gallery{
+    display: flex;
+    gap: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.photo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
 /* LOOKING FOR REVIEW COMPONENTS?
 it has been moved to reviews.css, as its css style is shared by
