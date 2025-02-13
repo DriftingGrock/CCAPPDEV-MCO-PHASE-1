@@ -11,11 +11,12 @@
 h2 {
     font-size: 3rem;
     color: #025000;
+    margin-left: 30px;
 }
 
 .resto-list-container {
     width: 90%;
-    margin: 20px auto;
+    margin: 20px 0 20px 20px;
 }
 
 .listed-resto {
@@ -57,8 +58,14 @@ h2 {
     width: 75%;
 }
 
+.resto-name span:hover{
+    color: blue;
+    text-decoration: underline 2px;
+}
+
 .star-rating {
     font-size: 1.3rem;
+    margin-left: 30px;
 }
 
 .resto-desc {
