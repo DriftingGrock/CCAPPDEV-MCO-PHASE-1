@@ -1,3 +1,13 @@
+#background { /* background slant */
+    background: #90c29a;
+    width: 100%;
+    height: min(max(70vw, 400px), 900px);
+    transform: skewY(-10deg);   /* background slant */
+    translate: 0px -200px;
+    z-index: -1;
+    position: absolute;
+}
+
 h2 {
     font-size: 3rem;
     color: #025000;
