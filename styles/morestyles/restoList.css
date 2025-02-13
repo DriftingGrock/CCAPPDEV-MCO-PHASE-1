@@ -12,7 +12,7 @@ h2 {
     display: flex;
     background: white;
     padding: 45px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 15px 15px 0 #98c7a3;
     flex-wrap: wrap;
     width: 92%;
@@ -28,6 +28,7 @@ h2 {
     width: 100%;
     object-fit: cover;
     border-radius: 100px;
+    aspect-ratio: 1/1;
 }
 
 .resto-info-container {
@@ -35,6 +36,22 @@ h2 {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+}
+
+.resto-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 80%;
+}
+
+.star-rating {
+    font-size: 1.3rem;
+}
+
+.resto-desc {
+    margin-top: 10px;;
+    margin-left: 20px;
 }
 
 .star-icon {
