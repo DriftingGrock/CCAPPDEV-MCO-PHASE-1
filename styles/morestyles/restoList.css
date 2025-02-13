@@ -3,7 +3,7 @@
     width: 100%;
     height: min(max(70vw, 400px), 900px);
     transform: skewY(-10deg);   /* background slant */
-    translate: 0px -200px;
+    translate: 0px -350px;
     z-index: -1;
     position: absolute;
 }
