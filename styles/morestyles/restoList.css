@@ -1,6 +1,6 @@
 h2 {
     font-size: 3rem;
-    color: #025000;;
+    color: #025000;
 }
 
 .resto-list-container {
@@ -29,6 +29,7 @@ h2 {
     object-fit: cover;
     border-radius: 100px;
     aspect-ratio: 1/1;
+    border: solid 5px #025000;
 }
 
 .resto-info-container {
