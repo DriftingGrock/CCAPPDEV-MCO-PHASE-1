@@ -1,4 +1,3 @@
-// Add this in a new file called editReview.js
 document.addEventListener('DOMContentLoaded', function() {
     // Get modal and form elements
     const modal = document.getElementById('editReviewModal');
@@ -21,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.edit-review-button').forEach(button => {
         button.addEventListener('click', function(e) {
             currentReview = e.target.closest('.review-container');
-            const rating = currentReview.querySelector('.star-rating').textContent.trim().split(' ')[0];
+            // Extract just the number from the rating text
+            const ratingText = currentReview.querySelector('.star-rating').textContent.trim();
+            const rating = parseInt(ratingText.match(/\d+/)[0]);
             const description = currentReview.querySelector('.description').textContent.trim();
             
             // Populate form with current values
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const newRating = document.getElementById('editRating').value;
             const newText = document.getElementById('editReviewText').value;
             
-            // Update review content
+            // Update review content without decimal
             currentReview.querySelector('.star-rating').innerHTML = 
                 `<img class="star-icon-review" src="../../icons/star.png" alt="star icon"> ${newRating}`;
             currentReview.querySelector('.description').textContent = newText;
