@@ -44,16 +44,18 @@ h2 {
     position: absolute;
     min-width: 100px;
     display: none;
+    /*background-color: rgba(255, 255, 255, 0.634);*/
 }
 
 .dropdown:hover .sort-option {
     display: block;
-    background-color: white;
+    background-color: rgb(229, 229, 229);
 }
 
 .dropdown a:hover {
     display: block;
-    border: solid 2px #025000;;
+    border: solid 2px #025000;
+    box-shadow: 2px 2px 5px hsl(0, 0%, 0%, 0.8);
 }
 
 .resto-list-container {
