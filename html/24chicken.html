@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> -->
-
-    <style>
-        .resto-banner {
-            background-image: url("../../images/resto_banner/angels_pizza_banner.png");
-        }
-    </style>
 </head>
 
 <body>
@@ -66,16 +60,16 @@
 <main>
     <div class="resto-banner">
         <div class="restaurant-info">
-            <h1 class="resto-name">Angel's Pizza</h1>
+            <h1 class="resto-name"> 24 Chicken</h1>
             <div class="primary-details">
-                <p class="rating">1.0<img class="star-icon" src="../../icons/star.png" alt="star">  (1 review)</p>
-                <p class="address">777 Taft Ave. Manila</p>
-                <p class="phone">📞09788 315 7237</p>
+                <p class="rating">1.0<img class="star-icon" src="../../icons/star.png" alt="star">  (1 reviews)</p>
+                <p class="address">1198 Nearby Street, Taft</p>
+                <p class="phone">📞6666 123 1217</p>
             </div>
             <div class="supplementary-details">
-                <span class="hours">Open 8:00am - 12:00am</span>
-                <span class="price">₱400</span>
-                <span class="cuisine">Pizza</span>
+                <span class="hours">Open 1:00pm - 1:00am</span>
+                <span class="price">₱400 for 5</span>
+                <span class="cuisine">Boneless Chicken</span>
             </div>
         </div>
     </div>
@@ -88,13 +82,12 @@
         </div>
 
         <div class="tabs__content" data-tab="1">
-            <p class="establishment-desc">  Angel’s Pizza – Sarap ng Unlimited Flavor! 🍕😇
+            <p class="establishment-desc">
+                24Chicken – Crispy, Flavorful, and Always Ready! 🍗🔥
 
-                When it comes to affordable, cheesy, and flavorful pizza, Angel’s Pizza is a top choice for pizza lovers! Known for its soft yet chewy dough, generous toppings, and signature creamy sauce, every bite is packed with satisfaction.
+                Craving Korean-style fried chicken without breaking the bank? 24Chicken has you covered! Known for its crispy, juicy chicken coated in mouthwatering flavors, this go-to spot serves up satisfying meals perfect for any time of the day (or night!). Whether you love classic soy garlic, spicy yangnyeom, or creamy garlic parmesan, there’s a flavor for every craving.
 
-                Their famous Angel’s Pizza Card (APC) lets you enjoy Buy 1 Take 1 deals, making it a sulit option for families and barkadas. Whether you’re craving their Creamy Spinach Dip Pizza, All-Meat Texas BBQ, or Angel’s Pepperoni, you’re in for a heavenly treat.
-
-                Freshly made, budget-friendly, and always delicious—Angel’s Pizza is truly a slice of heaven! 🍕✨
+                Pair your chicken with rice or fries for a filling meal, or grab a half-and-half box to mix and match flavors. Affordable, convenient, and packed with flavor—24Chicken is the ultimate chicken fix! 🍗🔥
             </p>
 
             <section class="rating-graph">
@@ -120,12 +113,12 @@
 
                 <article class="reviews">
                     <div id="review1" class="review-container">
-                        <img class="display-pic" src="../../images/user_profile/Jericho.png" alt="pfp.jpg">
-                        <div class="heading">Jericho</div>
+                        <img class="display-pic" src="../../images/user_profile/Anthony.png" alt="pfp.jpg">
+                        <div class="heading"> Anthony </div>
                         <div class="star-rating"><img class="star-icon-review" src="../../icons/star.png" alt="star icon"> 4.0 </div>
-                        <div class="description">bruh this is 400.
+                        <div class="description">New flabor dropped🔥🔥🔥
                         </div>
-                        <div class="date">Jan 29, 2025 17:41</div>
+                        <div class="date">Sep 31, 2025 11:12</div>
                         <div class="edited">edited</div>
                         <div class="vote">
                             <button class="upvote">
@@ -136,6 +129,7 @@
                             </button>
                         </div>
                     </div>
+
                 </article>
 
             </section>
@@ -143,7 +137,8 @@
 
         <div class="tabs__content" data-tab="2">
             <div class="menu-tab">
-                <img class="menu-img" src = "../../images/resto_menu/angels_pizza_menu.jpg" alt="establishment menu">
+                <img class="menu-img" src = "../../images/resto_menu/ross_kitchenette_menu.jpg" alt="establishment menu">
+                <img class="menu-img" src = "../../images/resto_menu/24Chicken.png" alt="establishment menu">
             </div>
         </div>
 
@@ -153,6 +148,7 @@
                     <div class="column">
                         <div class="photo">
                             <img src="../../images/image_gallery/beefchop_noodle.jpg" alt="beefchop_noodle image">
+                            <img src="../../images/image_gallery/thing.jpg" alt="beefchop_noodle image">
                         </div>
                         <div class="photo">
                             <img src="../../images/image_gallery/yellow.jpg" alt="beefchop_noodle image">
@@ -217,7 +213,7 @@
 
         let total_rating = 0;
         let star_total_rating = 0;
-         data.forEach(rating => {
+        data.forEach(rating => {
             total_rating += rating.count;
             star_total_rating += rating.count * rating.star;
         });
