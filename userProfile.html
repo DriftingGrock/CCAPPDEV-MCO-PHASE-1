@@ -6,16 +6,9 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/shared_styles/reviews.css">
 	<link rel="stylesheet" href="styles/morestyles/restoProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
     <style>
-        @font-face {
-            font-family: 'SuperRad-Regular';
-            src:url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.woff') format('woff'),
-            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.svg#SuperRad-Regular') format('svg'),
-            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot'),
-            url('styles/morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot?#iefix') format('embedded-opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
 
         .profile-container {
             max-width: 1000px;
@@ -219,6 +212,61 @@
             font-size: 0.8em;
             color: #666;
         }
+	#editProfileModal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1000;
+	}
+
+	#editProfileModal .modal-content {
+		background-color: #fff;
+		padding: 25px;
+		border-radius: 10px;
+		width: 90%;
+		max-width: 500px;
+		margin: 50px auto;
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+	}
+
+	.edit-input {
+		width: 100%;
+		padding: 8px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		margin-top: 5px;
+	}
+
+	.button-group {
+		display: flex;
+		gap: 10px;
+		justify-content: flex-end;
+	}
+
+	.save-button {
+		background-color: #025000;
+		color: white;
+		padding: 8px 16px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	.cancel-button {
+		background-color: #666;
+		color: white;
+		padding: 8px 16px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -318,22 +366,62 @@
         <div class="section-title">Recent Reviews</div>
                  <article class="reviews">
                     <div id="review1" class="review-container">
-                        <img class="display-pic" src="images/robloxHogRider.png" alt="pfp.jpg">
+                        <img class="display-pic" src="images/user_profile/Ross.png" alt="pfp.jpg">
                         <div class="heading"> Ross David B. Tan </div>
                         <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
                         <div class="description">They taste good but their literally just meatballs hshshshshs
                         </div>
                         <div class="date">Jan 27, 2025 17:41</div>
+                        <div class="edit-tag">edited</div>
+                        <div class="vote">
+                            <button class="upvote">
+                                <i class="fa-solid fa-up-long"></i>
+                            </button>
+                            <button class="downvote">
+                                <i class="fa-solid fa-down-long"></i>
+                            </button>
+                        </div>
                     </div>
 					<div id="review1" class="review-container">
-                        <img class="display-pic" src="images/robloxHogRider.png" alt="pfp.jpg">
+                        <img class="display-pic" src="images/user_profile/Ross.png" alt="pfp.jpg">
                         <div class="heading"> Ross David B. Tan </div>
                         <div class="star-rating"><img class="star-icon-review" src="icons/star.png" alt="star icon"> 4.0 </div>
                         <div class="description">They taste good but their literally just meatballs hshshshshs mmm balls so yummy yummy yummy in my tummy
                         </div>
                         <div class="date">Jan 27, 2025 17:41</div>
+                        <div class="vote">
+                            <button class="upvote">
+                                <i class="fa-solid fa-up-long"></i>
+                            </button>
+                            <button class="downvote">
+                                <i class="fa-solid fa-down-long"></i>
+                            </button>
+                        </div>
                     </div>
                 </article>
     </div>
+
+    <script src="scripts/profileModal.js"></script>
+	<div id="editProfileModal" class="modal">
+		<div class="modal-content">
+			<h2>Edit Profile</h2>
+			<form id="editProfileForm">
+				<div class="form-group">
+					<label for="editName">Name:</label>
+					<input type="text" id="editName" class="edit-input" value="Ross David B. Tan">
+				</div>
+				<div class="form-group">
+					<label for="editBio">Bio:</label>
+					<textarea id="editBio" class="edit-input" rows="3">My favorite language is JavaScript.
+					Can find me very attractive.</textarea>
+				</div>
+				<div class="button-group">
+					<button type="submit" class="save-button">Save Changes</button>
+					<button type="button" class="cancel-button">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="scripts/editProfile.js"></script>
 </body>
 </html>

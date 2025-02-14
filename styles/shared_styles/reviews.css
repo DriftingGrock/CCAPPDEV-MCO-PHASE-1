@@ -45,6 +45,13 @@
 .review-container .date {
     color: lightslategray;
 }
+
+.edit-tag{
+    border: none;
+    border-left: 1px solid lightslategray;
+    padding-left: 15px;
+    color: lightslategray;
+}
 .review-container .vote{
     display: inline-flex;
     flex-direction: row;
@@ -53,18 +60,58 @@
 
 }
 .vote .upvote{
-    background-image: url('../../images/reviews/upvote.png');
-    background-size: cover;
+    background-color: white;
     border: none;
     height: 2rem;
     width: 2rem;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s ease;
 }
 .vote .downvote{
-    background-image: url('../../images/reviews/downvote.png');
-    background-size: cover;
+    background-color: white;
     border: none;
     height: 2rem;
     width: 2rem;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+.vote .upvote::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: orangered; /* Semi-transparent white */
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    pointer-events: none;
+}
+
+/* Change to a checkmark on click */
+.vote .upvote:active::after {
+    opacity: 60%;
+}
+
+.vote .downvote::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: orangered; /* Semi-transparent white */
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+    pointer-events: none;
+}
+
+/* Change to a checkmark on click */
+.vote .downvote:active::after {
+    opacity: 60%;
 }
 
 
