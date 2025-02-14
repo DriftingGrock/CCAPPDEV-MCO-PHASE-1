@@ -124,6 +124,9 @@
             border-radius: 8px;
 			grid-column: 2 / span 3;
 			grid-row: 1 / span 2;
+			display: flex; 
+			flex-direction: column; 
+			gap: 15px; 
         }
 
         .rating-bar {
@@ -131,17 +134,20 @@
             align-items: center;
             margin: 5px 0;
             gap: 10px;
+			width: 100%;
         }
 
         .rating-number {
             width: 20px;
+			text-align: right;
         }
 
         .rating-progress {
             flex-grow: 1;
-            height: 20px;
+            height: 30px;
             background-color: #90c29a;
             border-radius: 10px;
+			transition: width 0.3s ease;
         }
 
         /* Recent Reviews Section */
@@ -321,26 +327,6 @@
                 <div>Balls Eaten</div>
             </div>
             <div class="rating-distribution">
-                <div class="rating-bar">
-                    <span class="rating-number">10</span>
-                    <div class="rating-progress" style="width: 90%"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">9</span>
-                    <div class="rating-progress" style="width: 70%"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">8</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">7</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">6</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
                 <div class="rating-bar">
                     <span class="rating-number">5</span>
                     <div class="rating-progress" style="width: 0"></div>
