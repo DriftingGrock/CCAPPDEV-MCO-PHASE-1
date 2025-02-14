@@ -134,18 +134,21 @@
 			width: 100%;
         }
 
-        .rating-number {
-            width: 20px;
-			text-align: right;
-        }
+		.rating-progress-tube {
+			flex-grow: 1;
+			height: 15px;  
+			border-radius: 15px;
+			background-color: #e0e0e0;  
+			overflow: hidden;  
+		}
 
-        .rating-progress {
-            flex-grow: 1;
-            height: 30px;
-            background-color: #90c29a;
-            border-radius: 10px;
+		.rating-progress {
+			height: 100%;
+			background-color: #025000; 
+			border-radius: inherit;
 			transition: width 0.3s ease;
-        }
+		}
+
 
         /* Recent Reviews Section */
         .recent-reviews {
@@ -335,25 +338,35 @@
             </div>
             <div class="rating-distribution">
                 <div class="rating-bar">
-                    <span class="rating-number">5</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">4</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">3</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">2</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
-                <div class="rating-bar">
-                    <span class="rating-number">1</span>
-                    <div class="rating-progress" style="width: 0"></div>
-                </div>
+					<span class="rating-number">5</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">4</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 100%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">3</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">2</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">1</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
             </div>
         </div>
 
