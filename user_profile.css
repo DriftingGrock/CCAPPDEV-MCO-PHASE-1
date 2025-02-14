@@ -1,0 +1,132 @@
+.profile-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.section-title {
+    color: #025000;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* User Profile Card */
+.profile-card {
+    background-color: #d1e1d0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #666;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-bio {
+    color: #666;
+}
+
+/* Statistics Section */
+.stats-section {
+    background-color: #d1e1d0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.reviews-made {
+    text-align: center;
+    padding: 20px;
+    background-color: #e3ece0;
+    border-radius: 8px;
+}
+
+.reviews-count {
+    font-size: 2em;
+    color: #025000;
+    font-weight: bold;
+}
+
+.rating-distribution {
+    background-color: #e3ece0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    gap: 10px;
+}
+
+.rating-number {
+    width: 20px;
+}
+
+.rating-progress {
+    flex-grow: 1;
+    height: 20px;
+    background-color: #90c29a;
+    border-radius: 10px;
+}
+
+/* Edit buttons */
+.edit-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #025000;
+}
+
+.edit-review {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #025000;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* Logo placeholder */
+.logo {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    color: #666;
+}
