@@ -357,26 +357,3 @@ more than one webpage
     position: relative;
 }
 
- .vote{
-     display: inline-flex;
-     flex-direction: column;
-     align-items: center;
-     gap: 3px;
-
- }
-
- .upvote{
-     background-image: url('../../images/reviews/upvote.png');
-     background-size: cover;
-     height: 2rem;
-     width: 2rem;
- }
-
- .downvote{
-     background-image: url('../../images/reviews/downvote.png');
-     background-size: cover;
-     height: 2rem;
-     width: 2rem;
- }
-
-
