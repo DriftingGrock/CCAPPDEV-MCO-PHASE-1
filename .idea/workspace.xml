@@ -6,16 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="d51bfc9a-acdb-4ee1-a442-77959edc7c45" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/morestyles/restoProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/morestyles/restoProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restoProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/restoProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/userProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/userProfile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bea-nsprout&quot;
+  }
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -29,13 +45,16 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.restoProfile.html.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniel Pua/WebstormProjects/test&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/beaan/Documents/GitHub/CCAPPDEV-MCO-PHASE-1/images/reviews&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -44,10 +63,21 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\beaan\Documents\GitHub\CCAPPDEV-MCO-PHASE-1\images\reviews" />
+      <recent name="C:\Users\beaan\Documents\GitHub\CCAPPDEV-MCO-PHASE-1\styles\morestyles" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\beaan\Documents\GitHub\CCAPPDEV-MCO-PHASE-1\scratchwork" />
+      <recent name="C:\Users\beaan\Documents\GitHub\CCAPPDEV-MCO-PHASE-1\images\establishments" />
+      <recent name="C:\Users\beaan\Documents\GitHub\CCAPPDEV-MCO-PHASE-1\images" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
       </set>
     </attachedChunks>
   </component>
@@ -67,6 +97,13 @@
       <workItem from="1738570500164" duration="4304000" />
       <workItem from="1738576601457" duration="390000" />
       <workItem from="1738577494715" duration="167000" />
+      <workItem from="1738604793055" duration="3422000" />
+      <workItem from="1738668287359" duration="1658000" />
+      <workItem from="1739175118899" duration="8191000" />
+      <workItem from="1739184106885" duration="3000" />
+      <workItem from="1739184314734" duration="2000" />
+      <workItem from="1739368957008" duration="1855000" />
+      <workItem from="1739530616561" duration="922000" />
     </task>
     <servers />
   </component>
