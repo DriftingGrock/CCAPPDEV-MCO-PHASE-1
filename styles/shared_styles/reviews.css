@@ -24,6 +24,15 @@
     width: 80%;
 }
 
+.review-container .heading a{
+    text-decoration: none;
+    color: black;
+}
+.review-container .heading a:hover{
+    text-decoration: underline;
+    color: gray;
+}
+
 .review-container .star-rating{
     font-size: 1.5rem;
     width: auto;
