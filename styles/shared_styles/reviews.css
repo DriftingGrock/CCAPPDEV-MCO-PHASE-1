@@ -24,11 +24,11 @@
     width: 80%;
 }
 
-.review-container .heading a{
+.review-container a{
     text-decoration: none;
     color: black;
 }
-.review-container .heading a:hover{
+.review-container a:hover{
     text-decoration: underline;
     color: gray;
 }
