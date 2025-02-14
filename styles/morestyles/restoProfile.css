@@ -21,7 +21,7 @@ hr {
 }
 
 .resto-banner {
-    background-image: url('../../images/ross-kitchenette_banner.jpg');
+    background-image: url('../../images/resto_banner/ross_kitchenette_banner.jpg');
     min-height:500px;
     background-position: center;
     display: flex;
