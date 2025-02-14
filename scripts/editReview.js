@@ -35,27 +35,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle form submission
-    form.addEventListener('submit', function(e) {
+     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (currentReview) {
             const newRating = document.getElementById('editRating').value;
             const newText = document.getElementById('editReviewText').value;
             
-            // Update review content without decimal
+            // Update review content
             currentReview.querySelector('.star-rating').innerHTML = 
                 `<img class="star-icon-review" src="../../icons/star.png" alt="star icon"> ${newRating}`;
             currentReview.querySelector('.description').textContent = newText;
             
-            // Add edited tag if not present
+            // Add edited tag if not present, in the correct position
             if (!currentReview.querySelector('.edit-tag')) {
                 const editTag = document.createElement('div');
                 editTag.className = 'edit-tag';
                 editTag.textContent = 'edited';
-                currentReview.appendChild(editTag);
+                
+                // Find the voting div to use as a reference point
+                const voteDiv = currentReview.querySelector('.vote');
+                // Insert the edit tag before the voting div
+                currentReview.insertBefore(editTag, voteDiv);
             }
         }
         
-        // Close modal
         modal.style.display = 'none';
     });
 
