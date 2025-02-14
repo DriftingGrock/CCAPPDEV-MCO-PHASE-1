@@ -45,6 +45,28 @@
 .review-container .date {
     color: lightslategray;
 }
+.review-container .vote{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+
+}
+.vote .upvote{
+    background-image: url('../../images/reviews/upvote.png');
+    background-size: cover;
+    border: none;
+    height: 2rem;
+    width: 2rem;
+}
+.vote .downvote{
+    background-image: url('../../images/reviews/downvote.png');
+    background-size: cover;
+    border: none;
+    height: 2rem;
+    width: 2rem;
+}
+
 
 .review-images {
     display: flex;
