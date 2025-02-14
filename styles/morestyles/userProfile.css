@@ -228,6 +228,7 @@
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
+    height: auto;
     margin: 50px auto;
 }
 
@@ -297,6 +298,7 @@
     width: 90%;
     max-width: 500px;
     margin: 50px auto;
+    height: auto;
 }
 
 /* Add an edit button to each review */
