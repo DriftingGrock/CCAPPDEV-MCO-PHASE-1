@@ -104,6 +104,9 @@ img:hover + .hidden { /*it will unhide learn more*/
 .hidden {
     display: none;
 }
+.hidden a {
+    color: white;
+}
 
 
 #recent-reviews {
