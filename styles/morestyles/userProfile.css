@@ -273,7 +273,8 @@
     font-size: 0.9em;
 }
 
-.establishment span {
+.establishment a {
     color: #025000;
     font-weight: bold;
 }
+/* note: a hover is inherited from reviews.css*/
