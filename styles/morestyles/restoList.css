@@ -61,6 +61,7 @@ h2 {
 .resto-list-container {
     width: 90%;
     margin: 20px 0 20px 20px;
+    margin-bottom: 40px;
 }
 
 .listed-resto {
