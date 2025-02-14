@@ -5,7 +5,9 @@
     <title>Restaurants</title>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/morestyles/restoList.css">
+    <!--<link rel="stylesheet" href="styles/morestyles/profile_modal.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
 </head>
 <body>
     <!-- header content -->
@@ -20,7 +22,8 @@
     </div>
 
     <div id="profileModal" class="modal">
-        <div class="modal-content"><b>Existing Profile</b><br>
+        <div class="modal-content">
+            <b>Existing Profile</b><br>
             <label for="username">
                 <input id="username" type="text" placeholder="Username"> <br>
             </label>
@@ -38,6 +41,13 @@
 
     <section class ="resto-list-container">
         <h2>Eateries</h2>
+
+        <form>
+            <div class="search">
+                <span class="search-icon material-symbols-outlined">search</span>
+                <input class="search-input" type="search" placeholder="Search Restaurants">
+            </div>
+        </form>
 
         <div class="dropdown">
             <button>Sort By...</button>
