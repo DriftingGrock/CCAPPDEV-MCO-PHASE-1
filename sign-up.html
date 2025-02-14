@@ -29,6 +29,7 @@
         }
 
         .camera-icon {
+            border: none;
             position: absolute;
             bottom: 0;
             right: 0;
@@ -38,19 +39,21 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        .camera-icon:hover {
+            background-color: lightgray;
+        }
+        .file-input {
+            display: none;
+        }
 
         .form-group {
             margin-bottom: 20px;
         }
 
         .form-group input, 
-        .form-group textarea {
-            width: 100%;
+        .form-group textarea { /* inherits property from style.css*/
             padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
             font-size: 16px;
-            background-color: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
@@ -66,22 +69,8 @@
             color: #999;
         }
 
-        .register-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #025000;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-align: center;
-        }
 
-        .register-btn:hover {
-            background-color: #013300;
-        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -97,10 +86,12 @@
         <h1 class="section-title">New Profile</h1>
         
         <div class="profile-pic-section">
-            <div class="camera-icon">
+            <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="loadImage(event)">
+            <label for="fileInput" class="camera-icon">
                 <i class="fa fa-camera"></i>
-            </div>
+            </label>
         </div>
+
 
         <form>
             <div class="form-group">
@@ -115,8 +106,27 @@
                 <textarea placeholder="Short description (optional)"></textarea>
             </div>
 
-            <div class="register-btn">Register</div>
+            <button id="registerButton" class="button_dkgreen" style="width:100%; font-size:16px">
+                Register
+            </button>
+
         </form>
     </div>
+
+
+
+    <script>
+        function loadImage(event) {
+            const profilePicSection = document.querySelector('.profile-pic-section');
+            const reader = new FileReader();
+            reader.onload = function(){
+                profilePicSection.style.backgroundImage = `url(${reader.result})`;
+                profilePicSection.style.backgroundSize = 'cover';
+                profilePicSection.style.backgroundPosition = 'center';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
 </body>
 </html>
