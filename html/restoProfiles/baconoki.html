@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> -->
+
+    <style>
+        .resto-banner{
+            background-image: url("../../images/resto_banner/baconoki_banner.png");
+        }
+    </style>
 </head>
 
 <body>
@@ -60,16 +66,16 @@
 <main>
     <div class="resto-banner">
         <div class="restaurant-info">
-            <h1 class="resto-name"> Ross Kitchenette</h1>
+            <h1 class="resto-name"> Baconoki</h1>
             <div class="primary-details">
-                <p class="rating">4.0<img class="star-icon" src="../../icons/star.png" alt="star">  (69 reviews)</p>
-                <p class="address">123 Taft Ave. Manila</p>
-                <p class="phone">📞0976 115 7417</p>
+                <p class="rating">5.0<img class="star-icon" src="../../icons/star.png" alt="star">  (1 reviews)</p>
+                <p class="address">456 Gandara Street. Binondo</p>
+                <p class="phone">📞0494 209 1217</p>
             </div>
             <div class="supplementary-details">
-                <span class="hours">Open 5:00pm - 1:00am</span>
-                <span class="price">₱1,000 for two</span>
-                <span class="cuisine">Filipino</span>
+                <span class="hours">Open 6:00am - 9:00pm</span>
+                <span class="price">₱60 for one</span>
+                <span class="cuisine"> Bacon Enoki Rolls</span>
             </div>
         </div>
     </div>
@@ -82,11 +88,10 @@
         </div>
 
         <div class="tabs__content" data-tab="1">
-            <p class="establishment-desc">  Ross Kitchenette is a cozy and inviting spot that serves up delicious Filipino comfort
-                food with a special focus on hearty, flavorful meatballs. They taste good but their literally just meatballs. Known for its rich, home-style dishes and laid-back ambiance,
-                it’s the perfect place for a satisfying meal after a long day. Whether you’re craving classic Filipino flavors or looking
-                to try something new, Ross Kitchenette delivers a warm, comforting dining experience that feels just like home. With
-                generous portions at a great value, it’s a go-to destination for food lovers seeking bold flavors and a relaxed atmosphere.
+            <p class="establishment-desc">  
+                We bring you the perfect fusion of crispy, smoky bacon and delicate, umami-rich enoki mushrooms. Our specialty? Irresistible Bacon Enoki Rolls, carefully crafted to deliver the perfect balance of crunch and juiciness in every bite.
+
+Whether you're craving a savory snack, a protein-packed meal, or a gourmet treat to share, our rolls are grilled to perfection, glazed with house-made sauces, and served fresh off the pan. Pair them with our signature dipping sauces, refreshing beverages, and other flavorful side dishes to elevate your dining experience.
             </p>
 
             <section class="rating-graph">
@@ -112,12 +117,12 @@
 
                 <article class="reviews">
                     <div id="review1" class="review-container">
-                        <img class="display-pic" src="../../images/user_profile/Ross.png" alt="pfp.jpg">
-                        <div class="heading"> Ross David B. Tan </div>
+                        <img class="display-pic" src="../../images/user_profile/Grock.jpg" alt="pfp.jpg">
+                        <div class="heading"> Grock </div>
                         <div class="star-rating"><img class="star-icon-review" src="../../icons/star.png" alt="star icon"> 4.0 </div>
-                        <div class="description">They taste good but their literally just meatballs hshshshshs
+                        <div class="description">WHEN I LEFT UR STALL AND ATE UR FOOD i was blown away IT WAS THE BEST THING THAT WHOLE YEAR AND IVE CRAVED IT EVERY YEAR SINCE
                         </div>
-                        <div class="date">Jan 27, 2025 17:41</div>
+                        <div class="date">Aug 88, 2021 12:12</div>
                         <div class="edited">edited</div>
                         <div class="vote">
                             <button class="upvote">
@@ -128,32 +133,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <div id="owner-rep1" class="reply-container">
-                        <img class="display-pic" src="../../images/user_profile/Ross.png" alt="pfp.jpg">
-                        <div class="heading"> Owner </div>
-                        <div class="description">Ur mom meet my balls
-                        </div>
-                        <div class="date">Jan 32, 2021 11:33</div>
-                        <div class="vote">
-                            <button class="upvote"></button>
-                            <button class="downvote"></button>
-                        </div>
-                    </div>
-
-                    <div id="review2" class="review-container">
-
-                        <img class="display-pic" src="../../images/user_profile/Ross.png" alt="pfp.jpg">
-                        <div class="heading"> Jericho Migell Reyes</div>
-                        <div class="star-rating"><img class="star-icon-review" src="../../icons/star.png" alt="star icon"> 4.0 </div>
-                        <div class="description">are they the libag balls
-                        </div>
-                        <div class="date">Feb 4, 2025 00:11</div>
-                        <div class="vote">
-                            <button class="upvote"></button>
-                            <button class="downvote"></button>
-                        </div>
-                    </div>
                 </article>
 
             </section>
@@ -161,7 +140,7 @@
 
         <div class="tabs__content" data-tab="2">
             <div class="menu-tab">
-                <img class="menu-img" src = "../../images/resto_menu/ross_kitchenette_menu.jpg" alt="establishment menu">
+                <img class="menu-img" src = "../../images/resto_menu/baconoki_menu.png" alt="establishment menu">
             </div>
         </div>
 
@@ -213,23 +192,23 @@
         let data = [
             {
                 'star': 5,
-                'count': 25,
-            },
-            {
-                'star': 4,
-                'count': 28,
-            },
-            {
-                'star': 3,
                 'count': 1,
             },
             {
+                'star': 4,
+                'count': 0,
+            },
+            {
+                'star': 3,
+                'count': 0,
+            },
+            {
                 'star': 2,
-                'count': 10,
+                'count': 0,
             },
             {
                 'star': 1,
-                'count': 5,
+                'count': 0,
             }
         ]
 
