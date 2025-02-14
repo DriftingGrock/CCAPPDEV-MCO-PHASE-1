@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+  <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/morestyles/homepage.css">
+    <link rel="stylesheet" href="../styles/shared_styles/reviews.css">
+
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+
+<!-- header content -->
+<div class="header">
+    <div class="home">
+        <a href="index.html">ANIMO
+            <img style="height: 40px;" src="../icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
+            EATS</a>
+    </div>
+    <div class="navlink"> <a href="restoList.html">Restaurants</a> </div>
+    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content"><b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
+
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="sign-up.html">Sign-Up</a></p>
+    </div>
+</div>
+<!-- end of header content -->
+
+<div id="background"></div>
+
+
+<section class="searchbar">
+    <input type="text" placeholder="Search establishments...">
+</section>
+<section id="Recommended Eateries">
+    <h2>Recommended Eateries</h2>
+    <article class="recommendations-container">
+        
+        <!--end of restaurant reviews data-->
+
+        <div class="recommendations-item">
+            <div class="desc"> Ross Kitchenette ⭐5</div>
+            <img src="../images/resto_logo/rosskitchenette.jpg" alt="rosskitchennete.jpg">
+            <button type="button" class="hidden"> Learn more </button>
+        </div>
+
+        <div class="recommendations-item">
+            <div class="desc"> 24 Chicken ⭐4</div>
+            <img src="../images/resto_logo/24chicken.jpg" alt="24chicken.jpg">
+            <button type="button" class="hidden"> Learn more </button>
+        </div>
+
+        <div class="recommendations-item">
+            <div class="desc"> Angels Pizza ⭐1</div>
+            <img src="../images/resto_logo/angels_pizza.jpg" alt="angels_pizza.jpg">
+            <button type="button" class="hidden"> Learn more </button>
+        </div>
+
+        <div class="recommendations-item">
+            <div class="desc"> Baconoki ⭐5</div>
+            <img src="images/resto_logo/baconoki.jpg" alt="baconoki.jpg">
+            <button type="button" class="hidden"> Learn more </button>
+        </div>
+
+        <div class="recommendations-item">
+            <div class="desc"> Potato Tower ⭐5</div>
+            <img src="../images/resto_logo/potato_tower.jpg" alt="potato_tower.jpg">
+            <button type="button" class="hidden"> Learn more </button>
+        </div>
+
+        
+
+        <!--end of restaurant reviews data-->
+
+    </article>
+</section>
+<section id="Recent Reviews">
+    <h2>Recent Reviews</h2>
+    <article class="reviews">
+        <div class="review-container">
+            <img class="display-pic" src="../images/resto_logo/rosskitchenette.jpg" alt="rosskitchenette.jpg">
+            <div class="heading">Ross Kitchenette</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 5 </div>
+            <div class="description">They taste good but their literally just meatballs hshshshshs
+            </div>
+            <div class="review-images">
+                <img src="../images/reviews/rosskitchennette.jpg" alt="Meatballs 1">
+                <img src="../images/reviews/rosskitchennette.jpg" alt="Meatballs 2">
+            </div>
+            <div class="date">Jan 27, 2025 17:41 by <span>Ross David B. Tan</span></div>
+        </div>
+
+        <div class="review-container">
+            <img class="display-pic" src="../images/resto_logo/24chicken.jpg" alt="24chicken.jpg">
+            <div class="heading">24 Chicken</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 4 </div>
+            <div class="description">@Jericho Migell Reyes new flavor sweetcorn sprinkle something
+            </div>
+            <div class="date">Feb 10, 2025 17:06 by <span>Anthony</span></div>
+        </div>
+
+        <div class="review-container">
+            <img class="display-pic" src="../images/reviews/angels_pizza%20-%20jericho.jpg">
+            <div class="heading">Angels Pizza - Malate</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 1 </div>
+            <div class="description">bruh this is 400.
+            </div>
+            <div class="review-images"><img src="../images/reviews/angels_pizza%20-%20jericho.jpg" alt="angels_pizza - jericho.jpg"></div>
+            <div class="date">Feb 14, 2025 19:43 by <span>Jericho</span></div>
+        </div>
+
+        <div class="review-container">
+            <img class="display-pic" src="../images/resto_logo/rosskitchenette.jpg" alt="rosskitchenette.jpg">
+            <div class="heading">Ross Kitchenette</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 5 </div>
+            <div class="description">Aah the flavors in my tongue
+            </div>
+            <div class="review-images">
+                <img src="../images/reviews/rosskitchennette.jpg" alt="Meatballs 1">
+                <img src="../images/reviews/rosskitchennette.jpg" alt="Meatballs 2">
+            </div>
+            <div class="date">Feb 15 1:36 by <span>Grock</span></div>
+        </div>
+
+        <div class="review-container">
+            <img class="display-pic" src="images/resto_logo/baconoki.jpg" alt="baconoki.jpg">
+            <div class="heading">Baconoki</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 5 </div>
+            <div class="description">WHEN I LEFT UR STALL AND ATE UR FOOD i was blown away IT WAS THE BEST THING THAT WHOLE YEAR AND IVE CRAVED IT EVERY YEAR SINCE
+            </div>
+            <div class="date">Feb 15 1:39 by <span>Grock</span></div>
+        </div>
+
+        <div class="review-container">
+            <img class="display-pic" src="../images/resto_logo/potato_tower.jpg" alt="potato_tower.jpg">
+            <div class="heading">Potato Tower</div>
+            <div class="star-rating"><img class="star-icon-review" src="../icons/star.png" alt="star icon"> 5 </div>
+            <div class="description">Pinakamataas na patatas
+            </div>
+            <div class="date">Feb 15 1:45 by <span>Sir Art</span></div>
+        </div>
+    </article>
+</section>
+
+
+
+
+<script src="../scripts/profileModal.js"></script>
+</body>
+</html>
