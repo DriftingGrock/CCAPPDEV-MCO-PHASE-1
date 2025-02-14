@@ -288,6 +288,7 @@ main{
 
 .leave-review-bar {
     width: auto;
+    margin-bottom: 15px;
 }
 
 .submit-review {
@@ -330,20 +331,21 @@ more than one webpage
 
  .review-container {
     display: flex;
-    background: rgb(225, 225, 225);
+    background: rgb(255, 255, 255);
     padding: 45px;
     border-radius: 10px;
-    box-shadow: 15px 15px 0 #d3d3d3;
+    box-shadow: 15px 15px 0 #98c7a3;
     gap: 15px;
     flex-wrap: wrap;
     align-items: center;
     width: 75%;
     margin: 0 0 40px 0;
+    position: relative;
  }
 
  .reply-container {
     display: flex;
-    background: rgb(185, 254, 173);
+    background: rgb(255, 255, 255);
     padding: 45px;
     border-radius: 10px;
     box-shadow: 15px 15px 0 #98c7a3;
@@ -351,5 +353,30 @@ more than one webpage
     flex-wrap: wrap;
     align-items: center;
     width: 73%;
-    margin: 0 0 40px 40px; 
+    margin: 0 0 40px 45px;
+    position: relative;
 }
+
+ .vote{
+     display: inline-flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 3px;
+
+ }
+
+ .upvote{
+     background-image: url('../../images/reviews/upvote.png');
+     background-size: cover;
+     height: 2rem;
+     width: 2rem;
+ }
+
+ .downvote{
+     background-image: url('../../images/reviews/downvote.png');
+     background-size: cover;
+     height: 2rem;
+     width: 2rem;
+ }
+
+
