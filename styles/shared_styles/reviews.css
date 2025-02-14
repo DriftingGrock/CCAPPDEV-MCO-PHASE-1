@@ -45,6 +45,13 @@
 .review-container .date {
     color: lightslategray;
 }
+
+.edit-tag{
+    border: none;
+    border-left: 1px solid lightslategray;
+    padding-left: 15px;
+    color: lightslategray;
+}
 .review-container .vote{
     display: inline-flex;
     flex-direction: row;
