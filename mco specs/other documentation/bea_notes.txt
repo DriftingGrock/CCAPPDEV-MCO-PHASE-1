@@ -1,0 +1,11 @@
+IMPORTANT STUFF TO KNOW
+
+/*
+Note the use of :user
+and ${user}
+for dynamic pages
+*/
+    app.get('/userProfiles/:user', (req, res) => {
+      const user = req.params.user;
+      res.sendFile(path.join(__dirname, `views/HTML/userProfiles/${user}.html`));
+    });

@@ -31,6 +31,20 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/index.html'));
 });
 
+// The other links....
+app.get('/restoList', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/HTML/restoList.html'));
+});
+app.get('/sign-up', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
+});
+app.get('/restoProfiles/:resto', (req, res) => {
+    res.sendFile(path.join(__dirname, `views/HTML/restoProfiles/${resto}.html`));
+});
+app.get('/userProfiles/:user', (req, res) => {
+    res.sendFile(path.join(__dirname, `views/HTML/userProfiles/${user}.html`));
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);

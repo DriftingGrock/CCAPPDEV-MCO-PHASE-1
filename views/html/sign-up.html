@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>New Profile - ANIMO EATS</title>
-    <link rel="stylesheet" href="../../public/styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <style>
         .profile-container {
             max-width: 400px;
@@ -76,8 +76,8 @@
 </head>
 <body>
     <div class="header">
-        <a href="index.html">ANIMO
-            <img style="height: 40px;" src="https://archives.bulbagarden.net/media/upload/7/76/LINE_Sticker_Set_Jolly_Snorlax-3.png" alt="jollysnorlax.png">
+        <a href="/">ANIMO
+            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png">
             EATS
         </a>
     </div>
@@ -93,7 +93,7 @@
         </div>
 
 
-        <form action="index.html" method="POST">
+        <form action="/" method="POST">
             <div class="form-group">
                 <input type="text" placeholder="Username" required>
             </div>
@@ -106,7 +106,7 @@
                 <textarea placeholder="Short description (optional)"></textarea>
             </div>
 
-            <button class="button_dkgreen" style="width:100%; font-size:16px" onclick="location.href='index.html';">
+            <button class="button_dkgreen" style="width:100%; font-size:16px" onclick="location.href='/';">
                 Register
             </button>
 
@@ -129,7 +129,7 @@
     <script>
         document.querySelector("form").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevents default form submission
-            window.location.href = "index.html"; // Redirects to index.html
+            window.location.href = "/"; // Redirects to index.html
         });
     </script>
     
