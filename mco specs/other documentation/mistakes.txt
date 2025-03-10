@@ -1,0 +1,10 @@
+The connection for this site is not secure
+localhost sent an invalid response.
+- should be http:// only, without the s
+- https is for SSL certified
+
+
+
+TIPS FROM OTHER PEOPLE
+- for backend: you can test it using postman or thunder ai (suggested by andre/ christian)
+- do controllers before database

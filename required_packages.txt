@@ -1,3 +1,6 @@
 //just writing down the packages
 
 npm install mongoose
+npm install express
+npm install dotenv
+npm install path
