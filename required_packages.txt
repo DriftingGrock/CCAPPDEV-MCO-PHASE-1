@@ -4,3 +4,4 @@ npm install mongoose
 npm install express
 npm install dotenv
 npm install path
+npm install hbs
