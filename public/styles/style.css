@@ -1,0 +1,138 @@
+@font-face { /*custom font to make it close to animosys logo*/
+    font-family: 'SuperRad-Regular';
+    src:url('morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.woff') format('woff'),
+    url('morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.svg#SuperRad-Regular') format('svg'),
+    url('morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot'),
+    url('morestyles/webfonts_SuperRad-Regular/SuperRad-Regular.ttf.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    background-color: #e3ece0;
+    font-family: Verdana, sans-serif;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    padding: 10px 16px;
+    align-content: center;
+    background: #90c29a;
+    color: #025000;
+    height: 50px;
+    text-align: left;
+    font-size: 40px;
+    font-family: 'SuperRad-Regular', serif;
+    box-shadow: 0px 5px 10px darkgray;
+    z-index: 1;
+}
+.header a {
+    text-decoration: none;
+    color: inherit;
+}
+.header .home a:hover {
+    color: #d1e1d0;
+}
+.header .home {
+    float: left;
+    margin-right: 40px;
+}
+.header .navlink {
+    font-size: 20px;
+    float: left;
+    font-family: Verdana, sans-serif;
+    align-content: center;
+    padding: 15px;
+}
+.header .navlink:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
+}
+
+.profile {
+    text-align: right;
+    float: right;
+    font-size: 20px;
+    align-content: center;
+    padding: 15px;
+}
+.profile button {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-family: Verdana, sans-serif;
+    color: #025000;
+}
+.profile button:hover {
+    color: white;
+    cursor: pointer;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
+}
+input,
+textarea{
+    background-color: white;
+    display: inline-block;
+    width: 100%; /* Make the input elements take the full width of the modal content */
+    padding: 10px; /* Add some padding for better appearance */
+    margin: 5px 0;
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add rounded corners */
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+}
+button {
+    font-family: Verdana, sans-serif;
+}
+
+.button_dkgreen {
+    border: none;
+    margin: 10px 0;
+    background-color: #025000;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;    /* changes curser to pointer */
+    padding: 10px;
+    font-family: Verdana, sans-serif;
+    text-align: center;
+}
+
+.button_dkgreen:hover {
+    background-color: #e3ece0;
+    color: #025000;
+    outline: #025000 1px solid;
+}
+
+/* PROFILE MODAL stuff */
+.modal {
+    display: none; /* hidden by default*/
+    background-color: rgba(0,0,0,0.4); /* opacity */
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #e3ece0;
+    padding: 16px;
+    width: 200px;
+    height: 250px;
+    margin: 0 10px 0 auto;     /* Aligns the modal content to the right */
+    border-radius: 0 0 10px 10px;
+    font-family: Verdana, sans-serif;
+    color: #025000;
+}
+
+
+.modal-content p {
+    font-size: 14px;
+    text-align: center;
+    color: darkgray;
+}

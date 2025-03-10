@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update review content
             currentReview.querySelector('.star-rating').innerHTML = 
-                `<img class="star-icon-review" src="../../icons/star.png" alt="star icon"> ${newRating}`;
+                `<img class="star-icon-review" src="../icons/star.png" alt="star icon"> ${newRating}`;
             currentReview.querySelector('.description').textContent = newText;
             
             // Add edited tag if not present, in the correct position
