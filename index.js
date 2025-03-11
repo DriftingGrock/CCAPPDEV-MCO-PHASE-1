@@ -11,7 +11,7 @@ const MONGO_URI = process.env.MONGO_URI; // use MONGO_URI from .env
 
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
