@@ -3,6 +3,11 @@ localhost sent an invalid response.
 - should be http:// only, without the s
 - https is for SSL certified
 
+🔹 Error: User validation failed: reviews.0: Cast to [ObjectId] failed for value "[\n
+Your error occurs because reviews in the User schema expects an array of ObjectIds, but insertData.js is trying to insert raw objects instead.
+🔹 How to Fix It
+Instead of embedding the review objects directly in User.reviews, insert the reviews separately in the Review collection, and then reference their ObjectIds in User.reviews.
+
 
 
 TIPS FROM OTHER PEOPLE

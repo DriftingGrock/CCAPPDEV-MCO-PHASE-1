@@ -9,10 +9,13 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatar: String, // Profile picture URL
-    description: String, // User bio
+    bio: String, // User bio
     role: { type: String, enum: ['reviewer', 'establishment_owner'], required: true },
     establishmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Establishment' }, // For establishment owners
-    reputation: { type: Number, default: 0 }, // Added reputation field
+    stats: {
+        reviewsMade: { type: Number, default: 0 },
+        reputation: { type: Number, default: 0 }
+    },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }], // Reviews made by the user
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
