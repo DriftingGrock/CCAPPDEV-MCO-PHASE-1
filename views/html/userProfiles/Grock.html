@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile - ANIMO EATS</title>
+    <link rel="stylesheet" href="../../../public/styles/style.css">
+    <link rel="stylesheet" href="../../../public/styles/shared_styles/reviews.css">
+	<link rel="stylesheet" href="../../../public/styles/morestyles/restoProfile.css">
+    <link rel="stylesheet" href="../../../public/styles/morestyles/userProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!-- header content -->
+    <div class="header">
+        <div class="home">
+            <a href="../index.html">ANIMO
+                <img style="height: 40px;" src="../../../public/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
+                EATS</a>
+        </div>
+        <div class="navlink"> <a href="../restoList.html">Restaurants</a> </div>
+        <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+    </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content"><b>Existing Profile</b><br>
+            <label for="username">
+                <input id="username" type="text" placeholder="Username"> <br>
+            </label>
+
+            <label for="password">
+                <input id="password" type="password" placeholder="Password">
+            </label>
+            <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+            <p>Don't have an account yet? <a href="../sign-up.html">Sign-Up</a></p>
+        </div>
+    </div>
+    <!-- end of header content -->
+
+    <div class="profile-container">
+        <div class="section-title">User Profile</div>
+        <div class="profile-card">
+            <div class="profile-picture" style="background-image: url('../../../public/images/user_profile/Grock.jpg');"> </div>
+            <div class="profile-info">
+                <div class="profile-name">Grock</div>
+                <div class="profile-bio"> ME EAT FOOD ME FOOD SAY WHAT TASTE LIKE AND RATE
+               </div>
+            </div>
+            <button class="edit-button"><i class="fa fa-pencil"></i></button>
+        </div>
+
+        <div class="section-title">Statistics</div>
+        <div class="stats-section">
+            <div class="reviews-made">
+                <div class="reviews-count">2</div>
+                <div>Reviews Made</div>
+            </div>
+            <div class="reviews-placeholder">
+                <div class="reviews-count">4.5B</div>
+                <div>Reputation</div>
+            </div>
+            <div class="rating-distribution">
+                 <div class="rating-bar">
+					<span class="rating-number">5</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 100%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">4</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">3</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">2</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+               <div class="rating-bar">
+					<span class="rating-number">1</span>
+					<div class="rating-progress-tube">
+						<div class="rating-progress" style="width: 0%"></div>
+					</div>
+				</div>
+            </div>
+        </div>
+
+        <div class="section-title">Recent Reviews</div>
+                 <article class="reviews">
+                    <div class="review-container">
+                        <img class="display-pic" src="../../../public/images/user_profile/Grock.jpg" alt="pfp.jpg">
+                        <div class="heading"> Grock </div>
+                        <div class="star-rating"><img class="star-icon-review" src="../../../public/icons/star.png" alt="star icon"> 5 </div>
+						<div class="establishment">reviewing <a href="../restoProfiles/rossKitchenette.html">Ross Kitchenette</a></div>
+                        <div class="description"> AHH~ THE FLAVORS IN MY TONGUE ARE MELTING.
+                        </div>
+                        <div class="date">Jan 27, 2025 17:41</div>
+                        <div class="edit-tag">edited</div>
+                        <div class="vote">
+                            <button class="upvote">
+                                <i class="fa-solid fa-up-long"></i>
+                            </button>
+                            <button class="downvote">
+                                <i class="fa-solid fa-down-long"></i>
+                            </button>
+                        </div>
+                    </div>
+					<div class="review-container">
+                        <img class="display-pic" src="../../../public/images/user_profile/Grock.jpg" alt="pfp.jpg">
+                        <div class="heading"> Grock </div>
+                        <div class="star-rating"><img class="star-icon-review" src="../../../public/icons/star.png" alt="star icon"> 5 </div>
+						<div class="establishment">reviewing <a href="../restoProfiles/baconoki.html">Baconoki</a></div>
+                        <div class="description">WHEN I LEFT UR STALL AND ATE UR FOOD i was blown away IT WAS THE BEST THING THAT WHOLE YEAR AND IVE CRAVED IT EVERY YEAR SINCE
+                        </div>
+                        <div class="date">Jan 27, 2025 17:41</div>
+                        <div class="vote">
+                            <button class="upvote">
+                                <i class="fa-solid fa-up-long"></i>
+                            </button>
+                            <button class="downvote">
+                                <i class="fa-solid fa-down-long"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+    </div>
+
+    <script src="../../../public/scripts/profileModal.js"></script>
+	<div id="editProfileModal" class="modal">
+		<div class="modal-content">
+			<h2>Edit Profile</h2>
+			<form id="editProfileForm">
+				<div class="form-group">
+					<label for="editName">Name:</label>
+					<input type="text" id="editName" class="edit-input" value="Grock">
+				</div>
+				<div class="form-group">
+					<label for="editBio">Bio:</label>
+					<textarea id="editBio" class="edit-input" rows="3"></textarea>
+				</div>
+				<div class="button-group">
+					<button type="submit" class="save-button">Save Changes</button>
+					<button type="button" class="cancel-button">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="../../../public/scripts/editProfile.js"></script>
+</body>
+</html>

@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 // The other links....
 app.get('/restoList', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/HTML/restoList.hbs'));
+    res.sendFile(path.join(__dirname, 'views/HTML/restoList.html'));
 });
 app.get('/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
