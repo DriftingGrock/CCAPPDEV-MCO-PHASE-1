@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/morestyles/homepage.css">
+    <link rel="stylesheet" href="/styles/shared_styles/reviews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+{{> header}}  <!-- Reusable header partial -->
+
+<div id="background"></div>
+
+<!-- Search Bar -->
+<section class="searchbar">
+    <input type="text" placeholder="Search establishments...">
+</section>
+
+<!-- Recommended Eateries -->
+<section id="Recommended Eateries">
+    <h2>Recommended Eateries</h2>
+    <article class="recommendations-container">
+        {{#each establishments}}
+            <div class="recommendations-item">
+                <div class="desc"> {{this.name}} ⭐{{this.overallRating}}</div>
+                <img src="{{this.bannerImage}}" alt="{{this.name}}">
+                <button type="button" class="hidden"> <a href="/restoProfiles/{{this._id}}">Learn more</a></button>
+            </div>
+        {{/each}}
+    </article>
+</section>
+
+<!-- Recent Reviews -->
+<section id="Recent Reviews">
+    <h2>Recent Reviews</h2>
+    <article class="reviews">
+        {{#each reviews}}
+            <div class="review-container">
+                <img class="display-pic" src="{{this.establishmentId.bannerImage}}" alt="{{this.establishmentId.name}}">
+                <div class="heading"><a href="/restoProfiles/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
+                <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
+                <div class="description">{{this.body}}</div>
+                <div class="date">{{this.createdAt}} by <a href="/userProfiles/{{this.userId._id}}">{{this.userId.username}}</a></div>
+                <div class="vote">
+                    <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
+                    <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
+                </div>
+            </div>
+        {{/each}}
+    </article>
+</section>
+
+<script src="/scripts/profileModal.js"></script>
+</body>
+</html>

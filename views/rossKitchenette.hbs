@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{establishment.name}}</title>
+    <link rel="stylesheet" href="/public/styles/style.css">
+    <link rel="stylesheet" href="/public/styles/shared_styles/reviews.css">
+    <link rel="stylesheet" href="/public/styles/morestyles/restoProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+{{> header}}  <!-- Reusable header partial -->
+
+<main>
+    <!-- Restaurant Banner -->
+    <div class="resto-banner">
+        <div class="restaurant-info">
+            <h1 class="resto-name">{{establishment.name}}</h1>
+            <div class="primary-details">
+                <p class="rating">{{establishment.overallRating}} <img class="star-icon" src="/public/icons/star.png" alt="star"> ({{establishment.reviews.length}} reviews)</p>
+                <p class="address">{{establishment.address}}</p>
+                <p class="phone">📞{{establishment.phone}}</p>
+            </div>
+            <div class="supplementary-details">
+                <span class="hours">Open {{establishment.openingHours}}</span>
+                <span class="price">{{establishment.priceRange}}</span>
+                <span class="cuisine">{{establishment.cuisine}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="establishment-tabs">
+        <div class="tabs__sidebar">
+            <button class="tabs__button" data-for-tab="1"> Overview</button>
+            <button class="tabs__button" data-for-tab="2"> Menu</button>
+            <button class="tabs__button" data-for-tab="3"> Photos</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div class="tabs__content" data-tab="1">
+            <p class="establishment-desc">{{establishment.description}}</p>
+
+            <section class="rating-graph">
+                <div class="rating">
+                    <div class="rating__average">
+                        <h1>{{establishment.overallRating}}</h1>
+                        <div class="star-outer">
+                            <div class="star-inner" style="width: {{establishment.overallRating}}0%;"></div>
+                        </div>
+                        <p>{{establishment.reviews.length}} total reviews</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="reviews-holder">
+                <h2>Reviews</h2>
+
+                {{#each establishment.reviews}}
+                <article class="review-container">
+                    <img class="display-pic" src="{{this.userId.avatar}}" alt="profile picture">
+                    <div class="heading"><a href="/user/{{this.userId._id}}">{{this.userId.username}}</a></div>
+                    <div class="star-rating"><img class="star-icon-review" src="/public/icons/star.png" alt="star icon"> {{this.rating}}</div>
+                    <div class="description">{{this.body}}</div>
+                    <div class="date">{{this.createdAt}}</div>
+                    {{#if this.edited}} <div class="edited">edited</div> {{/if}}
+                    <div class="vote">
+                        <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
+                        <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
+                    </div>
+
+                    {{#if this.ownerResponse.response}}
+                    <div class="reply-container">
+                        <img class="display-pic" src="/public/images/owner_profile.jpg" alt="owner profile">
+                        <div class="heading">Owner</div>
+                        <div class="description">{{this.ownerResponse.response}}</div>
+                        <div class="date">{{this.ownerResponse.respondedAt}}</div>
+                    </div>
+                    {{/if}}
+
+                </article>
+                {{/each}}
+
+            </section>
+        </div>
+
+        <!-- Menu Tab -->
+        <div class="tabs__content" data-tab="2">
+            <div class="menu-tab">
+                {{#each establishment.menu}}
+                <img class="menu-img" src="{{this}}" alt="establishment menu">
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Photos Tab -->
+        <div class="tabs__content" data-tab="3">
+            <div class="photos-container">
+                <div class="photo-gallery">
+                    {{#each establishment.photos}}
+                    <div class="photo">
+                        <img src="{{this}}" alt="establishment photo">
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script src="/public/scripts/profileModal.js"></script>
+<script src="/public/scripts/tabs.js"></script>
+
+</body>
+</html>
