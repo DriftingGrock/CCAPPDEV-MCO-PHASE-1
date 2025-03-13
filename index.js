@@ -17,6 +17,10 @@ mongoose.connect(process.env.MONGO_URI)
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
+hbs.registerHelper('multiply', function(value, multiplier) {
+    return value * multiplier;
+});
+
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry

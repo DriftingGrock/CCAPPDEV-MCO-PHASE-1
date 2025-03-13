@@ -357,3 +357,80 @@ more than one webpage
     position: relative;
 }
 
+.resto-banner {
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    display: flex;
+}
+
+.restaurant-info {
+    background-color: rgba(209, 225, 208, 0.9);
+    padding: 100px 0 20px 50px;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.resto-name {
+    font-size: 3rem;
+    font-weight: bold;
+    max-width: 35%;
+    margin: 0;
+}
+
+.primary-details p, .supplementary-details span {
+    font-size: 1.5rem;
+    margin: 5px 0;
+}
+
+.establishment-tabs {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 25px;
+}
+
+.tabs__sidebar {
+    display: flex;
+    border-bottom: solid #90c29a 6px;
+}
+
+.tabs__button {
+    padding: 10px;
+    width: 15%;
+    background: #d1e1d0;
+    color: #025000;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.tabs__button--active {
+    background: #90c29a;
+}
+
+.tabs__content {
+    display: none;
+}
+
+.tabs__content--active {
+    display: block;
+    padding: 15px;
+}
+
+.menu-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.photos-container .photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+
