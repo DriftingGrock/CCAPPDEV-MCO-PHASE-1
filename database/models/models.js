@@ -51,7 +51,7 @@ const reviewSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     ownerResponse: { // Response from the establishment owner
-        ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' /*, required: true*/ },
         body: String,
         media: [String], // URLs to attached images/videos
         upvoteCount: { type: Number, default: 0 }, // Number of upvotes
@@ -99,10 +99,10 @@ const photoSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 const Establishment = mongoose.model('Establishment', establishmentSchema);
 const Review = mongoose.model('Review', reviewSchema);
-const Comment = mongoose.model('Comment', commentSchema);
+//const Comment = mongoose.model('Comment', commentSchema);
 const Vote = mongoose.model('Vote', voteSchema);
 const Menu = mongoose.model('Menu', menuSchema);
 const Photo = mongoose.model('Photo', photoSchema);
 
 
-module.exports = { User, Establishment, Review, Comment, Vote, Menu, Photo };
+module.exports = { User, Establishment, Review,  Vote, Menu, Photo };

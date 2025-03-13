@@ -51,17 +51,23 @@ app.get('/restoProfiles/:resto', (req, res) => {
     res.sendFile(path.join(__dirname, `views/HTML/restoProfiles/${resto}.html`));
 });
 */
-const { User, Establishment, Review } = require('./database/models/model');
+const { Establishment, Review, User, Menu, Photo } = require('./database/models/models');
 
 app.get('/restoProfile/:id', async (req, res) => {
     try {
         const establishment = await Establishment.findById(req.params.id)
             .populate({
                 path: 'reviews',
-                populate: {
-                    path: 'userId', // Get reviewer info
-                    select: 'username avatar'
-                }
+                populate: [
+                    {
+                        path: 'userId',
+                        select: 'username avatar'
+                    },
+                    {
+                        path: 'ownerResponse.ownerId',
+                        select: 'username avatar'
+                    }
+                ]
             })
             .lean();
 

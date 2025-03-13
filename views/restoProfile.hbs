@@ -47,13 +47,14 @@
     {{/if}}
 
     <!-- Display Reviews -->
-    {{#if reviews.length}}
+    {{#if establishment.reviews.length}}
         <h2>Reviews</h2>
         <ul>
-            {{#each reviews}}
+            {{#each establishment.reviews}}
                 <li>
-                    <strong>{{this.title}}</strong> ({{this.rating}}/5)
-                    <p>{{this.body}}</p>
+                    <p><strong>By {{this.userId.username}}:</strong> {{this.body}}</p>
+                    <p>Rating: {{this.rating}}/5</p>
+
                     {{#if this.media.length}}
                         <div>
                             {{#each this.media}}
@@ -61,10 +62,18 @@
                             {{/each}}
                         </div>
                     {{/if}}
-                    {{#if this.ownerResponse.response}}
-                        <p><strong>Owner Response:</strong> {{this.ownerResponse.response}}</p>
+
+                    {{#if this.ownerResponse.body}}
+                        <p><strong>Owner Response:</strong> {{this.ownerResponse.body}}</p>
+                        {{#if this.ownerResponse.media.length}}
+                            <div>
+                                {{#each this.ownerResponse.media}}
+                                    <img src="{{this}}" alt="Response Media" style="width:100px; height:auto; margin:5px;" />
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        <p>Upvotes: {{this.ownerResponse.upvoteCount}} | Downvotes: {{this.ownerResponse.downvoteCount}}</p>
                     {{/if}}
-                    <p>Upvotes: {{this.upvoteCount}} | Downvotes: {{this.downvoteCount}}</p>
                 </li>
             {{/each}}
         </ul>
