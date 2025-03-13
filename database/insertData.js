@@ -1,8 +1,14 @@
+/*
+NOTE: THIS DOCUMENT IS NO LONGER RELEVANT,
+but will keep here, in case back-enders need a reference!
+some schema/ fields may be outdated
+ */
+
 const mongoose = require('mongoose');
 const { User, Establishment, Review } = require('./models/models');
 require('dotenv').config();
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
     .then(async () => {
         console.log('MongoDB connected');
 

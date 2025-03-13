@@ -1,0 +1,91 @@
+[
+  {
+    "_id": { "$oid": "67d2b0d20b0edd4f6d204780" },
+    "username": "Anthony",
+    "password": "Anthony",
+    "avatar": "/images/user_profile/Anthony.png",
+    "bio": "Certified Critic- Do not argue against me, you will lose.",
+    "role": "reviewer",
+    "stats": {
+      "reviewsMade": 1,
+      "reputation": 1500000
+    },
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204790" }
+    ],
+    "createdAt": { "$date": "2023-10-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-10-01T00:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67d2b0d20b0edd4f6d204781" },
+    "username": "Grock",
+    "password": "Grock",
+    "avatar": "/images/user_profile/Grock.jpg",
+    "bio": "ME EAT FOOD ME FOOD SAY WHAT TASTE LIKE AND RATE",
+    "role": "establishment_owner",
+    "stats": {
+      "reviewsMade": 2,
+      "reputation": 4500000000
+    },
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204791" },
+      { "$oid": "67d2b0d20b0edd4f6d204794" }
+    ],
+    "createdAt": { "$date": "2023-10-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-10-01T00:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67d2b0d20b0edd4f6d204782" },
+    "username": "Jericho Migell Reyes",
+    "password": "Jericho Migell Reyes",
+    "avatar": "/images/user_profile/Jericho.png",
+    "bio": "- Rhythm games player\n- Main Games: SDVX, Arcaea\n- Others: Gachas (HSR, Genshin), Atelier, Touhou (8, 11, 15), Riichi Mahjong\n\nSDVX: 19.731 vf\narcaea: 13.12 ptt\nmaimai: retired, peaked 16.1k",
+    "role": "reviewer",
+    "stats": {
+      "reviewsMade": 1,
+      "reputation": 3
+    },
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204798" }
+    ],
+    "createdAt": { "$date": "2023-10-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-10-01T00:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67d2b0d20b0edd4f6d204783" },
+    "username": "Ross",
+    "password": "Ross",
+    "avatar": "/images/user_profile/Ross.png",
+    "bio": "My favorite language is JavaScript.\nCats find me very attractive.",
+    "role": "establishment_owner",
+    "stats": {
+      "reviewsMade": 3,
+      "reputation": 1500000
+    },
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204792" },
+      { "$oid": "67d2b0d20b0edd4f6d204795" },
+      { "$oid": "67d2b0d20b0edd4f6d204797" }
+    ],
+    "createdAt": { "$date": "2023-10-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-10-01T00:00:00Z" }
+  },
+  {
+    "_id": { "$oid": "67d2b0d20b0edd4f6d204784" },
+    "username": "Sir Art",
+    "password": "Sir Art",
+    "avatar": "/images/user_profile/Sir_art.png",
+    "bio": "World renowned Love Live fan, I teach students to become their best self!",
+    "role": "reviewer",
+    "stats": {
+      "reviewsMade": 2,
+      "reputation": 0
+    },
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204793" },
+      { "$oid": "67d2b0d20b0edd4f6d204796" }
+    ],
+    "createdAt": { "$date": "2023-10-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-10-01T00:00:00Z" }
+  }
+]

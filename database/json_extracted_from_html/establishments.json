@@ -1,0 +1,135 @@
+[
+  {
+    "_id": {"$oid": "67d2b0d20b0edd4f6d204779"},
+    "name": "24 Chicken",
+    "description": "24Chicken – Crispy, Flavorful, and Always Ready! 🍗🔥",
+    "address": "1198 Nearby Street, Taft",
+    "phone": "6666 123 1217",
+    "openingHours": "Open 1:00pm - 1:00am",
+    "priceRange": "₱400 for 5",
+    "cuisine": "Boneless Chicken",
+    "overallRating": 1,
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204790" }
+    ],
+    "menu": [
+      "/images/resto_menu/24Chicken.png"
+    ],
+    "photos": [
+      "/images/image_gallery/24chicken_sweetcorn.jpg"
+    ],
+    "bannerImage": "/images/resto_banner/24chicken_banner.jpg"
+  },
+  {
+    "_id": {"$oid": "67d2b0d20b0edd4f6d20477a"},
+    "name": "Angel's Pizza",
+    "description": "Angel’s Pizza – Sarap ng Unlimited Flavor! 🍕😇 When it comes to affordable, cheesy, and flavorful pizza, Angel’s Pizza is a top choice for pizza lovers! Known for its soft yet chewy dough, generous toppings, and signature creamy sauce, every bite is packed with satisfaction. Their famous Angel’s Pizza Card (APC) lets you enjoy Buy 1 Take 1 deals, making it a sulit option for families and barkadas. Whether you’re craving their Creamy Spinach Dip Pizza, All-Meat Texas BBQ, or Angel’s Pepperoni, you’re in for a heavenly treat. Freshly made, budget-friendly, and always delicious—Angel’s Pizza is truly a slice of heaven! 🍕✨",
+    "address": "777 Taft Ave. Manila",
+    "phone": "09788 315 7237",
+    "openingHours": "Open 8:00am - 12:00am",
+    "priceRange": "₱400",
+    "cuisine": "Pizza",
+    "overallRating": 1.0,
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204798" }
+    ],
+    "menu": ["/images/resto_menu/angels_pizza_menu.jpg"],
+    "photos": [
+      "/images/image_gallery/beefchop_noodle.jpg",
+      "/images/image_gallery/yellow.jpg",
+      "/images/image_gallery/colonel_curry.jpg",
+      "/images/image_gallery/indian_foodjpg.jpg",
+      "/images/image_gallery/lasare_food.jpg",
+      "/images/image_gallery/24chicken_sweetcorn.jpg",
+      "/images/image_gallery/panda_siopao.jpg",
+      "/images/image_gallery/cat.jpg",
+      "/images/image_gallery/egg.jpg"
+    ],
+    "bannerImage": "/images/resto_banner/angels_pizza_banner.png"
+  },
+  {
+    "_id": {"$oid": "67d2b0d20b0edd4f6d20477b"},
+    "name": "Baconoki",
+    "description": "We bring you the perfect fusion of crispy, smoky bacon and delicate, umami-rich enoki mushrooms. Our specialty? Irresistible Bacon Enoki Rolls, carefully crafted to deliver the perfect balance of crunch and juiciness in every bite. Whether you're craving a savory snack, a protein-packed meal, or a gourmet treat to share, our rolls are grilled to perfection, glazed with house-made sauces, and served fresh off the pan. Pair them with our signature dipping sauces, refreshing beverages, and other flavorful side dishes to elevate your dining experience.",
+    "address": "456 Gandara Street. Binondo",
+    "phone": "0494 209 1217",
+    "openingHours": "Open 6:00am - 9:00pm",
+    "priceRange": "₱60 for one",
+    "cuisine": "Bacon Enoki Rolls",
+    "overallRating": 5.0,
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204791" }
+    ],
+    "menu": ["/images/resto_menu/baconoki_menu.png"],
+    "photos": [
+      "/images/image_gallery/beefchop_noodle.jpg",
+      "/images/image_gallery/yellow.jpg",
+      "/images/image_gallery/colonel_curry.jpg",
+      "/images/image_gallery/indian_foodjpg.jpg",
+      "/images/image_gallery/lasare_food.jpg",
+      "/images/image_gallery/24chicken_sweetcorn.jpg",
+      "/images/image_gallery/panda_siopao.jpg",
+      "/images/image_gallery/cat.jpg",
+      "/images/image_gallery/egg.jpg"
+    ],
+    "bannerImage": "/images/resto_banner/baconoki_banner.png"
+  },
+  {
+    "_id": {"$oid": "67d2b0d20b0edd4f6d20477c"},
+    "name": "Potato Tower",
+    "description": "Ang Pinakamataas na Patatas! 🌟🥔 Kung mahilig ka sa crispy, golden fries, Potato Tower ang para sa’yo! Dito, hindi lang basta fries ang makukuha mo—makakakuha ka ng bundok ng sarap! 🌄🥔 Isang patong-patong na tower ng mainit, malutong, at malasang fries na siguradong mapapaulit ka. At ang pinaka-astig? Puwede mo pang idagdag ang isang malamig at refreshing na iced tea sa napakamurang presyo! 🧊🍹 Perfect ito para sa barkada, midnight cravings, o simpleng merienda na pasabog sa lasa pero hindi sa bulsa. Tara na at tikman ang taas ng sarap sa Potato Tower! 🚀🥔",
+    "address": "2461 G. Masangkay St.",
+    "phone": "0926 115 7638",
+    "openingHours": "Open 9:00am - 5:00pm",
+    "priceRange": "₱60",
+    "cuisine": "Fries",
+    "overallRating": 4.5,
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204792" },
+      { "$oid": "67d2b0d20b0edd4f6d204793" }
+    ],
+    "menu": ["/images/resto_menu/potato_tower_menu.jpg"],
+    "photos": [
+      "/images/image_gallery/beefchop_noodle.jpg",
+      "/images/image_gallery/yellow.jpg",
+      "/images/image_gallery/colonel_curry.jpg",
+      "/images/image_gallery/indian_foodjpg.jpg",
+      "/images/image_gallery/lasare_food.jpg",
+      "/images/image_gallery/24chicken_sweetcorn.jpg",
+      "/images/image_gallery/panda_siopao.jpg",
+      "/images/image_gallery/cat.jpg",
+      "/images/image_gallery/egg.jpg"
+    ],
+    "bannerImage": "/images/resto_banner/potato_tower_banner.jpg"
+  },
+  {
+    "_id": {"$oid": "67d2b0d20b0edd4f6d20477d"},
+    "name": "Ross Kitchenette",
+    "description": "Ross Kitchenette is a cozy and inviting spot that serves up delicious Filipino comfort food with a special focus on hearty, flavorful meatballs. They taste good but their literally just meatballs. Known for its rich, home-style dishes and laid-back ambiance, it’s the perfect place for a satisfying meal after a long day. Whether you’re craving classic Filipino flavors or looking to try something new, Ross Kitchenette delivers a warm, comforting dining experience that feels just like home. With generous portions at a great value, it’s a go-to destination for food lovers seeking bold flavors and a relaxed atmosphere.",
+    "address": "123 Taft Ave. Manila",
+    "phone": "0976 115 7417",
+    "openingHours": "Open 5:00pm - 1:00am",
+    "priceRange": "₱1,000 for two",
+    "cuisine": "Filipino",
+    "overallRating": 4.0,
+    "reviews": [
+      { "$oid": "67d2b0d20b0edd4f6d204794" },
+      { "$oid": "67d2b0d20b0edd4f6d204795" },
+      { "$oid": "67d2b0d20b0edd4f6d204796" },
+      { "$oid": "67d2b0d20b0edd4f6d204797" }
+    ],
+    "menu": ["/images/resto_menu/ross_kitchenette_menu.jpg"],
+    "photos": [
+      "/images/image_gallery/beefchop_noodle.jpg",
+      "/images/image_gallery/yellow.jpg",
+      "/images/image_gallery/colonel_curry.jpg",
+      "/images/image_gallery/indian_foodjpg.jpg",
+      "/images/image_gallery/lasare_food.jpg",
+      "/images/image_gallery/24chicken_sweetcorn.jpg",
+      "/images/image_gallery/panda_siopao.jpg",
+      "/images/image_gallery/cat.jpg",
+      "/images/image_gallery/egg.jpg"
+    ],
+    "bannerImage": "/images/resto_banner/ross_kitchenette_banner.jpg"
+  }
+]
