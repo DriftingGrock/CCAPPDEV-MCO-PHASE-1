@@ -16,7 +16,7 @@
 <div class="header">
     <div class="home">
         <a href="../index.html">ANIMO
-            <img style="height: 40px;" src="../../../public/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
+            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
             EATS</a>
     </div>
     <div class="navlink"> <a href="../restoList.html">Restaurants</a> </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="supplementary-details">
             <span class="hours">Open {{establishment.openingHours}}</span>
-            <span class="price">₱{{establishment.priceRange}}</span>
+            <span class="price">{{establishment.priceRange}}</span>
             <span class="cuisine">{{establishment.cuisine}}</span>
         </div>
     </div>
@@ -71,15 +71,25 @@
     <div class="tabs__content" data-tab="1">
         <p class="establishment-desc">{{establishment.description}}</p>
 
-        <!-- Rating Section -->
         <section class="rating-graph">
             <div class="rating">
                 <div class="rating__average">
-                    <h1>{{establishment.overallRating}}</h1>
+                    <h1>{{averageRating}}</h1>
                     <div class="star-outer">
-                        <div class="star-inner" style="width: {{multiply establishment.overallRating 20}}%;"></div>
+                        <div class="star-inner" style="width: {{multiply averageRating 20}}%;"></div>
                     </div>
-                    <p>{{establishment.reviews.length}} reviews</p>
+                    <p>{{totalRatings}} review{{#if (gt totalRatings 1)}}s{{/if}}</p>
+                </div>
+                <div class="rating__progress">
+                    {{#each ratingData}}
+                        <div class="rating__progress-value">
+                            <p>{{this.star}} <span class="star"> &#9733;</span></p>
+                            <div class="progress">
+                                <div class="bar" style="width: {{this.percentage}}%;"></div>
+                            </div>
+                            <p>{{this.count}}</p>
+                        </div>
+                    {{/each}}
                 </div>
             </div>
         </section>
@@ -117,9 +127,8 @@
     <div class="tabs__content" data-tab="2">
         <div class="menu-tab">
             {{#each menu.items}}
-                <img class="menu-img" src="{{this.image}}" alt="{{this.name}}">
+                <img src="/images/resto_menu/{{this.image}}" alt="{{this.name}}">
             {{/each}}
-        </div>
     </div>
 
     <!-- Photos -->
@@ -128,7 +137,7 @@
             <div class="photo-gallery">
                 {{#each photos}}
                     <div class="photo">
-                        <img src="{{this.imageUrl}}" alt="Gallery Image">
+                        <img src="/images/image_gallery/{{this.imageUrl}}" alt="Gallery Image">
                     </div>
                 {{/each}}
             </div>
