@@ -2,7 +2,27 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "hbs": "^4.2.0",
     "mongoose": "^8.12.1",
+    "nodemon": "^3.1.9",
     "path": "^0.12.7"
-  }
+  },
+  "name": "ccappdev-mco-phase-1",
+  "version": "1.0.0",
+  "description": "STACK UNDERFLOW LOCKED IN QTS XQLMEJIRWMLICTIRTJERT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DriftingGrock/CCAPPDEV-MCO-PHASE-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DriftingGrock/CCAPPDEV-MCO-PHASE-1/issues"
+  },
+  "homepage": "https://github.com/DriftingGrock/CCAPPDEV-MCO-PHASE-1#readme"
 }

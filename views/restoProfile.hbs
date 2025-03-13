@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{establishment.name}} - Profile</title>
+</head>
+<body>
+    <!-- Banner Image -->
+    {{#if establishment.bannerImage}}
+        <img src="{{establishment.bannerImage}}" alt="{{establishment.name}} Banner" style="width:100%; height:auto;" />
+    {{/if}}
+
+    <h1>{{establishment.name}}</h1>
+    <p><strong>Description:</strong> {{establishment.description}}</p>
+    <p><strong>Address:</strong> {{establishment.address}}</p>
+    <p><strong>Phone:</strong> {{establishment.phone}}</p>
+    <p><strong>Opening Hours:</strong> {{establishment.openingHours}}</p>
+    <p><strong>Price Range:</strong> {{establishment.priceRange}}</p>
+    <p><strong>Cuisine:</strong> {{establishment.cuisine}}</p>
+    <p><strong>Overall Rating:</strong> {{establishment.overallRating}} stars</p>
+
+    <!-- Display Menu -->
+    {{#if menu.items.length}}
+        <h2>Menu</h2>
+        <ul>
+            {{#each menu.items}}
+                <li>
+                    <strong>{{this.name}}</strong> - {{this.description}} - ₱{{this.price}}
+                    {{#if this.image}}
+                        <br />
+                        <img src="{{this.image}}" alt="{{this.name}}" style="width:150px; height:auto; margin:5px;" />
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    <!-- Display Photos -->
+    {{#if photos.length}}
+        <h2>Gallery</h2>
+        <div>
+            {{#each photos}}
+                <img src="{{this.imageUrl}}" alt="Gallery Image" style="width:150px; height:auto; margin:5px;" />
+            {{/each}}
+        </div>
+    {{/if}}
+
+    <!-- Display Reviews -->
+    {{#if reviews.length}}
+        <h2>Reviews</h2>
+        <ul>
+            {{#each reviews}}
+                <li>
+                    <strong>{{this.title}}</strong> ({{this.rating}}/5)
+                    <p>{{this.body}}</p>
+                    {{#if this.media.length}}
+                        <div>
+                            {{#each this.media}}
+                                <img src="{{this}}" alt="Review Media" style="width:100px; height:auto; margin:5px;" />
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                    {{#if this.ownerResponse.response}}
+                        <p><strong>Owner Response:</strong> {{this.ownerResponse.response}}</p>
+                    {{/if}}
+                    <p>Upvotes: {{this.upvoteCount}} | Downvotes: {{this.downvoteCount}}</p>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No reviews yet.</p>
+    {{/if}}
+
+    <p><em>Last updated: {{establishment.updatedAt}}</em></p>
+</body>
+</html>
