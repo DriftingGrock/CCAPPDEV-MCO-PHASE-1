@@ -126,21 +126,18 @@
     <!-- Menu -->
     <div class="tabs__content" data-tab="2">
         <div class="menu-tab">
-            {{#each menu.items}}
-                <img src="/images/resto_menu/{{this.image}}" alt="{{this.name}}">
+            {{#each menu}}
+                <img src="{{this}}" alt="Menu Image">
             {{/each}}
+        </div>
     </div>
 
     <!-- Photos -->
     <div class="tabs__content" data-tab="3">
-        <div class="photos-container">
-            <div class="photo-gallery">
-                {{#each photos}}
-                    <div class="photo">
-                        <img src="/images/image_gallery/{{this.imageUrl}}" alt="Gallery Image">
-                    </div>
-                {{/each}}
-            </div>
+        <div class="photo-tab">
+            {{#each photos}}
+                <img src="{{this}}" alt="Gallery Image">
+            {{/each}}
         </div>
     </div>
 </div>

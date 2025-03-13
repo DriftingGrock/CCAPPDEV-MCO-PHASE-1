@@ -25,7 +25,7 @@ hbs.registerHelper('gt', (a, b) => a > b);
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry
-
+app.use('/images', express.static('public/images'));
 // Routes
 // const establishmentRoutes = require('./controllers/establishmentController');
 // app.use('/api', establishmentRoutes);
