@@ -31,14 +31,50 @@ app.use('/images', express.static('public/images'));
 // app.use('/api', establishmentRoutes);
 
 // Serve HTML files from views/HTML
+/*
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/index.html'));
 });
+*/
+app.get('/', async (req, res) => {
+    try {
+        // Get top 5 rated restaurants
+        const recommendedEstablishments = await Establishment.find()
+            .sort({ overallRating: -1 })
+            .limit(5)
+            .lean();
 
-// The other links....
+        // Get 5 most recent reviews with populated restaurant & user
+        const recentReviews = await Review.find()
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .populate('establishmentId', 'name bannerImage')
+            .populate('userId', 'username')
+            .lean();
+
+        res.render('index', { recommendedEstablishments, recentReviews });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+/* The other links....
 app.get('/restoList', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/restoList.html'));
 });
+*/
+app.get('/restoList', async (req, res) => {
+    try {
+        const establishments = await Establishment.find().lean();
+        res.render('restoList', { establishments });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
 app.get('/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
 });
@@ -104,10 +140,28 @@ app.get('/restoProfile/:id', async (req, res) => {
     }
 });
 
-
+/*
 app.get('/userProfiles/:user', (req, res) => {
     res.sendFile(path.join(__dirname, `views/HTML/userProfiles/${user}.html`));
 });
+*/
+app.get('/user/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).lean();
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        res.render('userProfile', { user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
 
 // Start the server
 app.listen(PORT, () => {

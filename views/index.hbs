@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/morestyles/homepage.css">
+    <link rel="stylesheet" href="/styles/shared_styles/reviews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- Header -->
+<div class="header">
+    <div class="home">
+        <a href="/">ANIMO
+            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="logo">
+            EATS</a>
+    </div>
+    <div class="navlink"> <a href="/restoList">Restaurants</a> </div>
+    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="/sign-up">Sign-Up</a></p>
+    </div>
+</div>
+
+<div id="background"></div>
+
+<!-- Search Bar -->
+<section class="searchbar">
+    <input type="text" placeholder="Search establishments...">
+</section>
+
+<!-- Recommended Eateries -->
+<section id="Recommended Eateries">
+    <h2>Recommended Eateries</h2>
+    <article class="recommendations-container">
+        {{#each recommendedEstablishments}}
+        <div class="recommendations-item">
+            <div class="desc"> {{name}} ⭐{{overallRating}} </div>
+            <img src="{{bannerImage}}" alt="{{name}}">
+            <button type="button" class="hidden"> <a href="/restoProfile/{{_id}}">Learn more</a></button>
+        </div>
+        {{/each}}
+    </article>
+</section>
+
+<!-- Recent Reviews -->
+<section id="Recent Reviews">
+    <h2>Recent Reviews</h2>
+    <article class="reviews">
+        {{#each recentReviews}}
+        <div class="review-container">
+            <img class="display-pic" src="{{establishment.bannerImage}}" alt="{{establishment.name}}">
+            <div class="heading"><a href="/restoProfile/{{establishment._id}}"> {{establishment.name}} </a></div>
+            <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{rating}} </div>
+            <div class="description">{{body}}</div>
+            <div class="date">{{createdAt}} by <a href="/userProfiles/{{userId.username}}">{{userId.username}}</a></div>
+            <div class="vote">
+                <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
+                <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
+            </div>
+        </div>
+        {{/each}}
+    </article>
+</section>
+
+<script src="/scripts/profileModal.js"></script>
+</body>
+</html>
