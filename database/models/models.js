@@ -42,29 +42,24 @@ const establishmentSchema = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema({
     establishmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Establishment', required: true },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    title: { type: String, required: true }, // Review title
     body: { type: String, required: true }, // Review text
     rating: { type: Number, required: true, min: 1, max: 5 }, // Rating (1-5 stars)
     media: [String], // URLs to attached images/videos
     upvoteCount: { type: Number, default: 0 }, // Number of upvotes
     downvoteCount: { type: Number, default: 0 }, // Number of downvotes
     edited: { type: Boolean, default: false }, // Indicates if the review was edited
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
     ownerResponse: { // Response from the establishment owner
-        response: String,
-        respondedAt: Date
-    },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-});
-
-// Comment Schema (included here is the Establishment Owner's response)
-const commentSchema = new mongoose.Schema({
-    reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review', required: true },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    comment: { type: String, required: true }, // Comment text
-    edited: { type: Boolean, default: false }, // Indicates if the comment was edited
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+        ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        body: String,
+        media: [String], // URLs to attached images/videos
+        upvoteCount: { type: Number, default: 0 }, // Number of upvotes
+        downvoteCount: { type: Number, default: 0 }, // Number of downvotes
+        edited: { type: Boolean, default: false }, // Indicates if the review was edited
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date, default: Date.now }
+    }
 });
 
 // Up/Down Vote Schema
