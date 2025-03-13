@@ -8,6 +8,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
@@ -25,14 +27,7 @@ hbs.registerHelper('multiply', function(value, multiplier) {
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
-/*
-honestly, not sure if that should be used, or remove dotenv and use
-mongoose.connect('mongodb://localhost/galleryDB')
- */
+
 
 // Routes
 // const establishmentRoutes = require('./controllers/establishmentController');
