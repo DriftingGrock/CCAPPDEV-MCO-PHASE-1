@@ -1,0 +1,85 @@
+[
+  {
+    "establishmentId": "67d2b0d20b0edd4f6d204779",
+    "items": [
+      {
+        "name": "Spicy Chicken Wings",
+        "description": "Crispy chicken wings tossed in spicy sauce",
+        "price": 8.99,
+        "image": "/images/resto_menu/24Chicken.png"
+      },
+      {
+        "name": "Garlic Parmesan Fries",
+        "description": "Fries coated in garlic butter and parmesan cheese",
+        "price": 4.99,
+        "image": "/images/resto_menu/24Chicken.png"
+      }
+    ],
+    "createdAt": "2025-03-15T12:00:00Z",
+    "updatedAt": "2025-03-15T12:00:00Z"
+  },
+  {
+    "establishmentId": "67d2b0d20b0edd4f6d20477a",
+    "items": [
+      {
+        "name": "Pepperoni Pizza",
+        "description": "Classic pepperoni pizza with mozzarella cheese",
+        "price": 12.99,
+        "image": "/images/resto_menu/angels_pizza_menu.jpg"
+      },
+      {
+        "name": "Cheesy Breadsticks",
+        "description": "Soft breadsticks topped with melted cheese",
+        "price": 5.99,
+        "image": "/images/resto_menu/angels_pizza_menu.jpg"
+      }
+    ],
+    "createdAt": "2025-03-15T12:00:00Z",
+    "updatedAt": "2025-03-15T12:00:00Z"
+  },
+  {
+    "establishmentId": "67d2b0d20b0edd4f6d20477b",
+    "items": [
+      {
+        "name": "Bacon Wrapped Okonomiyaki",
+        "description": "Japanese savory pancake wrapped with crispy bacon",
+        "price": 10.49,
+        "image": "/images/resto_menu/baconoki_menu.png"
+      }
+    ],
+    "createdAt": "2025-03-15T12:00:00Z",
+    "updatedAt": "2025-03-15T12:00:00Z"
+  },
+  {
+    "establishmentId": "67d2b0d20b0edd4f6d20477c",
+    "items": [
+      {
+        "name": "Ross Special Burger",
+        "description": "Juicy beef patty with special house sauce and toppings",
+        "price": 9.99,
+        "image": "/images/resto_menu/ross_kitchenette.jpg"
+      },
+      {
+        "name": "Loaded Nachos",
+        "description": "Nachos topped with melted cheese, salsa, and jalapeños",
+        "price": 7.99,
+        "image": "/images/resto_menu/ross_kitchenette.jpg"
+      }
+    ],
+    "createdAt": "2025-03-15T12:00:00Z",
+    "updatedAt": "2025-03-15T12:00:00Z"
+  },
+  {
+    "establishmentId": "67d2b0d20b0edd4f6d20477d",
+    "items": [
+      {
+        "name": "Potato Tower",
+        "description": "Stacked crispy potato slices with special dipping sauce",
+        "price": 6.99,
+        "image": "/images/resto_menu/potato_tower_menu.jpg"
+      }
+    ],
+    "createdAt": "2025-03-15T12:00:00Z",
+    "updatedAt": "2025-03-15T12:00:00Z"
+  }
+]
