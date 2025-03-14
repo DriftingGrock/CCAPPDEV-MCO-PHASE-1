@@ -247,9 +247,11 @@
         <h2>Reviews</h2>
         <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()">
         <label for="reviewSort">Sort by Rating:</label>
+        <label for="reviewSort">Sort Reviews:</label>
         <select id="reviewSort" onchange="sortReviews()">
-            <option value="desc">Highest to Lowest</option>
-            <option value="asc">Lowest to Highest</option>
+            <option value="desc">Highest to Lowest Rating</option>
+            <option value="asc">Lowest to Highest Rating</option>
+            <option value="count">Most Upvoted Reviews</option>
         </select>
         <script>
             function sortReviews() {
@@ -259,6 +261,7 @@
                 window.location.search = urlParams.toString();
             }
         </script>
+
 
         <script>
             function filterReviews() {
