@@ -68,7 +68,7 @@
             <div class="heading"><a href="/restoProfile/{{establishmentId._id}}"> {{establishmentId.name}} </a></div>
             <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{rating}} </div>
             <div class="heading"> {{this.title}} </div>
-            <div class="description">{{body}}</div>
+            <div class="description">{{{body}}}</div>
             {{#if this.media}}
                 <div class="review-images">
                     {{#each this.media}}
