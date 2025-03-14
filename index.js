@@ -28,6 +28,8 @@ hbs.registerHelper('gt', (a, b) => a > b);
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry
 app.use('/images', express.static('public/images'));
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
 // Routes
 // const establishmentRoutes = require('./controllers/establishmentController');
 // app.use('/api', establishmentRoutes);
@@ -147,33 +149,59 @@ app.get('/restoProfile/:id', async (req, res) => {
 const multer = require("multer");
 const upload = multer({ dest: "public/uploads/" });
 
+// Default user function
+async function getDefaultUser() {
+    try {
+        const defaultUser = await User.findOne(); // Get the first user in the database
+        if (!defaultUser) {
+            console.error("No default user found in the database.");
+            return null;
+        }
+        return defaultUser;
+    } catch (error) {
+        console.error("Error fetching default user:", error);
+        return null;
+    }
+}
+
 app.post("/api/reviews", upload.array("media"), async (req, res) => {
     try {
-        const { establishmentId, userId, body, rating } = req.body;
+        console.log("Incoming review request:", req.body);
 
-        if (!establishmentId || !userId || !body || !rating) {
+        const { establishmentId, body, rating } = req.body;
+
+        if (!establishmentId || !body || !rating) {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
-        let mediaUrls = req.files.map(file => `/uploads/${file.filename}`);
+        const defaultUser = await User.findOne();
+        if (!defaultUser) {
+            return res.status(500).json({ error: "No default user found. Please add a user to the database." });
+        }
+
+        let mediaUrls = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
         const newReview = new Review({
             establishmentId,
-            userId,
+            userId: defaultUser._id,
+            username: defaultUser.username,
             body,
             rating,
-            media: mediaUrls
+            media: mediaUrls // ✅ Save correct file paths
         });
 
         await newReview.save();
         await Establishment.findByIdAndUpdate(establishmentId, { $push: { reviews: newReview._id } });
 
+        console.log("Review posted successfully:", newReview);
         res.status(201).json({ message: "Review posted successfully", review: newReview });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Server error" });
+        console.error("Error posting review:", err);
+        res.status(500).json({ error: "Server error", details: err.message });
     }
 });
+
+
 
 // Fetch reviews for a restaurant
 app.get("/api/reviews/:establishmentId", async (req, res) => {
