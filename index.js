@@ -128,14 +128,13 @@ app.get('/restoList', async (req, res) => {
 app.get('/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
 });
+
+const multer = require("multer");
+const upload = multer({ dest: "public/uploads/" });
+const { Establishment, Review, User, Menu, Photo, Vote } = require('./database/models/models');
 /*
 RESTOPROFILES SECTION ===============================================================================
-/* old bea code
-app.get('/restoProfiles/:resto', (req, res) => {
-    res.sendFile(path.join(__dirname, `views/HTML/restoProfiles/${resto}.html`));
-});
 */
-const { Establishment, Review, User, Menu, Photo, Vote } = require('./database/models/models');
 
 const getRatingData = (reviews) => {
     const ratingCounts = [0, 0, 0, 0, 0]; // Index 0 = 1-star, Index 4 = 5-star
@@ -191,9 +190,34 @@ app.get('/restoProfile/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+// backend route for editing restaurant profiles
+app.post('/restoProfile/:id/edit', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, description } = req.body;
+        const bannerFile = req.files?.banner; // Assuming you're using a middleware like multer for file uploads
 
-const multer = require("multer");
-const upload = multer({ dest: "public/uploads/" });
+        // Update the restaurant's profile
+        const updateData = { name, description };
+        if (bannerFile) {
+            // Save the banner file and update the banner URL
+            const bannerUrl = `/uploads/${bannerFile.name}`; // Adjust this based on your file storage logic
+            updateData.bannerImage = bannerUrl;
+        }
+
+        await Establishment.findByIdAndUpdate(id, updateData);
+
+        res.json({ success: true, bannerUrl: updateData.bannerImage });
+    } catch (error) {
+        console.error('Error updating restaurant profile:', error);
+        res.status(500).json({ success: false, message: 'Failed to update restaurant profile' });
+    }
+});
+app.post('/restoProfile/:id/edit', upload.single('banner'), async (req, res) => {
+    // Handle file upload and profile update
+});
+
+
 
 // Default user function
 async function getDefaultUser() {
