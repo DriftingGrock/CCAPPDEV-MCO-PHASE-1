@@ -218,7 +218,7 @@
         <h2>Reviews</h2>
         {{#each establishment.reviews}}
             <article class="reviews">
-                <div class="review-container">
+                <div class="review-container" data-review-id="{{this._id}}">
                     <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
                     <div class="heading">
                         <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
@@ -241,8 +241,8 @@
                         <div class="edit-tag"> edited </div>
                     {{/if}}
                     <div class="vote">
-                        <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
-                        <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
+						<button class="upvote"><i class="fa-solid fa-up-long"></i> <span class="upvote-count">{{this.upvoteCount}}</span></button>
+						<button class="downvote"><i class="fa-solid fa-down-long"></i> <span class="downvote-count">{{this.downvoteCount}}</span></button>
                     </div>
                 </div>
             </div>

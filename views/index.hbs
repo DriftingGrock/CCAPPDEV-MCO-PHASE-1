@@ -63,7 +63,7 @@
     <h2>Recent Reviews</h2>
     <article class="reviews">
         {{#each recentReviews}}
-        <div class="review-container">
+        <div class="review-container" data-review-id="{{this._id}}">
             <img class="display-pic" src="{{establishmentId.bannerImage}}" alt="{{establishmentId.name}}">
             <div class="heading"><a href="/restoProfile/{{establishmentId._id}}"> {{establishmentId.name}} </a></div>
             <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{rating}} </div>
