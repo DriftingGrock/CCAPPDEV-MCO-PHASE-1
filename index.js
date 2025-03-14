@@ -9,7 +9,7 @@ const fs = require('fs');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Ensure it defaults to 3000 if PORT is undefined
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
@@ -214,7 +214,11 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
     try {
         console.log("Incoming review request:", req.body);
 
-        const { establishmentId, body, rating } = req.body;
+        const { establishmentId, title, body, rating } = req.body;
+
+        if (!establishmentId || !title || !body || !rating) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
 
         if (!establishmentId || !body || !rating) {
             return res.status(400).json({ error: "Missing required fields" });
@@ -231,9 +235,10 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
             establishmentId,
             userId: defaultUser._id,
             username: defaultUser.username,
+            title,  // ✅ Add title field here
             body,
             rating,
-            media: mediaUrls // ✅ Save correct file paths
+            media: mediaUrls
         });
 
         await newReview.save();
