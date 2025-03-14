@@ -40,7 +40,7 @@
 
 <section class="resto-list-container">
     <h2>Eateries</h2>
-
+    <!--
     <form>
         <div class="search">
             <span class="search-icon material-symbols-outlined">search</span>
@@ -55,6 +55,23 @@
             <a href="?sort=most">Most Ratings</a>
             <a href="?sort=reviews">Most Reviewed</a>
             <a href="?sort=recent">Recently Reviewed</a>
+        </div>
+    </div>
+    -->
+    <form action="/restoList" method="GET">
+        <div class="search">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input class="search-input" type="search" name="search" placeholder="Search Restaurants">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="dropdown">
+        <button>Sort By...</button>
+        <div class="sort-option">
+            <a href="/restoList?sort=best">Best Rated</a>
+            <a href="/restoList?sort=most">Most Ratings</a>
+            <a href="/restoList?sort=recent">Recently Reviewed</a>
         </div>
     </div>
 

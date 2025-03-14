@@ -216,6 +216,24 @@
     -->
     <section class="reviews-holder">
         <h2>Reviews</h2>
+        <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()">
+        <script>
+            function filterReviews() {
+                let searchQuery = document.getElementById('reviewSearch').value.toLowerCase();
+                let reviews = document.querySelectorAll('.reviews');
+
+                reviews.forEach(review => {
+                    let reviewText = review.querySelector('.description').innerText.toLowerCase();
+                    if (reviewText.includes(searchQuery)) {
+                        review.style.display = "block";
+                    } else {
+                        review.style.display = "none";
+                    }
+                });
+            }
+        </script>
+
+
         {{#each establishment.reviews}}
             <article class="reviews">
                 <div class="review-container" data-review-id="{{this._id}}">

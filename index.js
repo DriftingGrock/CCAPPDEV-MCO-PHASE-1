@@ -68,13 +68,52 @@ app.get('/', async (req, res) => {
 app.get('/restoList', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/restoList.html'));
 });
-*/
+
 app.get('/restoList', async (req, res) => {
     try {
         const establishments = await Establishment.find().lean();
         res.render('restoList', { establishments });
     } catch (err) {
         console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+*/
+app.get('/restoList', async (req, res) => {
+    try {
+        let query = {};
+        let sortOption = {};
+
+        // Search by keyword in name or description
+        if (req.query.search) {
+            const searchTerm = req.query.search;
+            query = { 
+                $or: [
+                    { name: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search
+                    { description: { $regex: searchTerm, $options: 'i' } }
+                ] 
+            };
+        }
+
+        // Sorting logic
+        switch (req.query.sort) {
+            case 'best': 
+                sortOption = { overallRating: -1 }; // Highest rating first
+                break;
+            case 'most': 
+                sortOption = { reviews: -1 }; // Most reviews first
+                break;
+            case 'recent': 
+                sortOption = { updatedAt: -1 }; // Recently updated first
+                break;
+        }
+
+        // Fetch establishments with applied search and sorting
+        const establishments = await Establishment.find(query).sort(sortOption).populate('reviews');
+
+        res.render('restoList', { establishments });
+    } catch (error) {
+        console.error(error);
         res.status(500).send('Server Error');
     }
 });
