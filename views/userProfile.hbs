@@ -103,6 +103,7 @@
                     <div class="heading"> {{this.userId.username}} </div>
                     <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
                     <div class="establishment">reviewing <a href="/restoProfile/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
+                    <div class="heading"> {{this.title}} </div>
                     <div class="description"> {{this.body}} </div>
                     {{#if this.media}}
                         <div class="review-images">
@@ -111,7 +112,7 @@
                             {{/each}}
                         </div>
                     {{/if}}
-                    <div class="date">{{formatDate this.createdAt}} | </div>
+                    <div class="date">{{formatDate this.createdAt}} </div>
                     {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
                     <div class="vote">
                         <button class="upvote">

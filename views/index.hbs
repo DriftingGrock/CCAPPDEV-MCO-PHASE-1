@@ -67,8 +67,16 @@
             <img class="display-pic" src="{{establishmentId.bannerImage}}" alt="{{establishmentId.name}}">
             <div class="heading"><a href="/restoProfile/{{establishmentId._id}}"> {{establishmentId.name}} </a></div>
             <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{rating}} </div>
+            <div class="heading"> {{this.title}} </div>
             <div class="description">{{body}}</div>
-            <div class="date">{{formatDate createdAt}} | by <a href="/userProfiles/{{userId.username}}">{{userId.username}}</a></div>
+            {{#if this.media}}
+                <div class="review-images">
+                    {{#each this.media}}
+                        <img src="{{this}}" alt="Review Image">
+                    {{/each}}
+                </div>
+            {{/if}}
+            <div class="date">{{formatDate createdAt}} by <a href="/userProfile/{{userId._id}}">{{userId.username}}</a></div>
             <div class="vote">
                 <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
                 <button class="downvote"><i class="fa-solid fa-down-long"></i></button>

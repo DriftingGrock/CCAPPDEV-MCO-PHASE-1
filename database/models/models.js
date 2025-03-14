@@ -42,6 +42,7 @@ const establishmentSchema = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema({
     establishmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Establishment', required: true },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    title: { type: String, required: true },
     body: { type: String, required: true }, // Review text
     rating: { type: Number, required: true, min: 1, max: 5 }, // Rating (1-5 stars)
     media: [String], // URLs to attached images/videos
