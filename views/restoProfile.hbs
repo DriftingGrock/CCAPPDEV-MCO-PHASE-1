@@ -140,8 +140,11 @@
         <div class="review-section">
             <h2>Leave a Review</h2>
 			<form id="reviewForm">
-                <input type="text" id="reviewTitle" placeholder="Enter a title for your review" required>
-				<textarea id="reviewBody" placeholder="Share your experience..." required></textarea>
+				<!-- Replace textarea with Quill editor container -->
+				 <input type="text" id="reviewTitle" placeholder="Review title" style="margin-bottom: 10px; width: 100%;">
+				<div id="quill-editor" style="height: 150px; margin-bottom: 15px;"></div>
+				<input type="hidden" id="reviewBody" name="body">
+    
 				<select id="reviewRating">
 					<option value="5">⭐️⭐️⭐️⭐️⭐️</option>
 					<option value="4">⭐️⭐️⭐️⭐️</option>
@@ -154,13 +157,31 @@
 				<button type="submit">Submit Review</button>
 			</form>
         </div>
+		
 
         <script>
+		const quill = new Quill('#quill-editor', {
+			theme: 'snow',
+			placeholder: 'Share your experience...',
+			modules: {
+				toolbar: [
+					['bold', 'italic', 'underline'],
+					[{ 'list': 'ordered' }, { 'list': 'bullet' }],
+					['clean']
+				]
+			}
+		});
 		document.getElementById("reviewForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const title = document.getElementById("reviewTitle").value;
-            const body = document.getElementById("reviewBody").value;
-            const rating = document.getElementById("reviewRating").value;
+			e.preventDefault();
+    
+			// Get HTML content from Quill editor, sanitize it, and store in hidden input
+			const quillContent = quill.root.innerHTML;
+			const sanitizedContent = DOMPurify.sanitize(quillContent);
+			document.getElementById("reviewBody").value = sanitizedContent;
+    
+			const body = document.getElementById("reviewBody").value;
+			const rating = document.getElementById("reviewRating").value;
+			const title = document.getElementById("reviewTitle").value;
             const establishmentId = "{{establishment._id}}";
 
             let formData = new FormData();

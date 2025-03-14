@@ -252,9 +252,6 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
-        if (!establishmentId || !body || !rating) {
-            return res.status(400).json({ error: "Missing required fields" });
-        }
 
         const defaultUser = await User.findOne();
         if (!defaultUser) {
