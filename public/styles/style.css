@@ -17,6 +17,9 @@ body {
     background-color: #e3ece0;
     font-family: Verdana, sans-serif;
 }
+h1, h2 {
+    color: #025000;
+}
 
 .header {
     position: sticky;

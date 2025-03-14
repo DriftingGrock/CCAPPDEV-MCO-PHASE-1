@@ -110,7 +110,7 @@
     </div>
 
     <!-- Overview -->
-    <div class="tabs__content" data-tab="1">
+    <section class="tabs__content" data-tab="1">
         <p class="establishment-desc">{{establishment.description}}</p>
 
         <section class="rating-graph">
@@ -137,26 +137,28 @@
         </section>
 
         <!-- Review Submission Form -->
-        <div class="review-section">
+        <section class="review-section">
             <h2>Leave a Review</h2>
-			<form id="reviewForm">
-				<!-- Replace textarea with Quill editor container -->
-				 <input type="text" id="reviewTitle" placeholder="Review title" style="margin-bottom: 10px; width: 100%;">
-				<div id="quill-editor" style="height: 150px; margin-bottom: 15px;"></div>
-				<input type="hidden" id="reviewBody" name="body">
-    
-				<select id="reviewRating">
-					<option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-					<option value="4">⭐️⭐️⭐️⭐️</option>
-					<option value="3">⭐️⭐️⭐️</option>
-					<option value="2">⭐️⭐️</option>
-					<option value="1">⭐️</option>
-				</select>
-				<input type="file" id="reviewMedia" multiple accept="image/*" onchange="loadReviewImages(event)">
-				<div id="reviewImagesPreview" class="review-images-preview"></div>
-				<button type="submit">Submit Review</button>
-			</form>
-        </div>
+            <article class="review-container">
+                <form id="reviewForm" style="width: 100%">
+                    <!-- Replace textarea with Quill editor container -->
+                     <input type="text" id="reviewTitle" placeholder="Review title" style="margin-bottom: 10px; width: 100%;">
+                    <div id="quill-editor" style="height: 150px; margin-bottom: 15px;"></div>
+                    <input type="hidden" id="reviewBody" name="body">
+
+                    <select id="reviewRating">
+                        <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                        <option value="4">⭐️⭐️⭐️⭐️</option>
+                        <option value="3">⭐️⭐️⭐️</option>
+                        <option value="2">⭐️⭐️</option>
+                        <option value="1">⭐️</option>
+                    </select>
+                    <input type="file" id="reviewMedia" multiple accept="image/*" onchange="loadReviewImages(event)">
+                    <div id="reviewImagesPreview" class="review-images-preview"></div>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </article>
+        </section>
 		
 
         <script>
@@ -245,10 +247,10 @@
     -->
     <section class="reviews-holder">
         <h2>Reviews</h2>
-        <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()">
-        <label for="reviewSort">Sort by Rating:</label>
+        <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()" style="width: 50%;">
+
         <label for="reviewSort">Sort Reviews:</label>
-        <select id="reviewSort" onchange="sortReviews()">
+        <select id="reviewSort" onchange="sortReviews()" style='font-size: 1rem; padding: 0.5rem; outline: lightgray 1px solid'>
             <option value="desc">Highest to Lowest Rating</option>
             <option value="asc">Lowest to Highest Rating</option>
             <option value="upvotes">Most Upvoted Reviews</option>
