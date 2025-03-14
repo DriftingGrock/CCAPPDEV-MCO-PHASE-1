@@ -8,6 +8,10 @@
     font-style: normal;
 }
 
+* {
+font-family: Verdana, sans-serif
+}
+
 body {
     margin: 0;
     background-color: #e3ece0;
