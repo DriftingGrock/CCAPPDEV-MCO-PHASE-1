@@ -89,7 +89,9 @@
             </p>
             <p class="address">{{establishment.address}}</p>
             <p class="phone">📞{{establishment.phone}}</p>
-            <button class="edit-resto-button"><i class="fa fa-pencil"></i> Edit Profile</button>
+			{{#if isOwner}}
+				<button class="edit-resto-button"><i class="fa fa-pencil"></i> Edit Restaurant</button>
+			{{/if}}
         </div>
         <div class="supplementary-details">
             <span class="hours">Open {{establishment.openingHours}}</span>
@@ -316,6 +318,7 @@
                 <button type="submit" class="save-button">Save Changes</button>
                 <button type="button" class="cancel-resto-button">Cancel</button>
             </div>
+			 <input type="hidden" id="establishmentId" value="{{establishment._id}}">
         </form>
     </div>
 </div>
@@ -413,5 +416,6 @@
     });
 </script>
 <script src="/scripts/profileModal.js"></script>
+<script src="/scripts/editRestoProfile.js"></script>
 </body>
 </html>

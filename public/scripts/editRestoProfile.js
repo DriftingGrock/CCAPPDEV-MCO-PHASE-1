@@ -9,8 +9,8 @@ const restoDescription = document.querySelector('.establishment-desc');
 // Show modal when edit button is clicked
 editButton.addEventListener('click', () => {
     // Pre-fill the form with current values
-    document.getElementById('editRestoName').value = restoName.textContent;
-    document.getElementById('editRestoDescription').value = restoDescription.textContent;
+    document.getElementById('editRestoName').value = restoName.textContent.trim();
+    document.getElementById('editRestoDescription').value = restoDescription.textContent.trim();
     editModal.style.display = 'block';
 });
 
@@ -23,6 +23,9 @@ cancelButton.addEventListener('click', () => {
 editForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Get the establishment ID from the hidden input
+    const establishmentId = document.getElementById('establishmentId').value;
+    
     // Get new values
     const newName = document.getElementById('editRestoName').value;
     const newDescription = document.getElementById('editRestoDescription').value;

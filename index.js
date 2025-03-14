@@ -177,13 +177,18 @@ app.get('/restoProfile/:id', async (req, res) => {
         // Extract rating data
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
 
+        // Set ownership for testing purposes
+        // In a real app, you'd check if the logged-in user ID matches the establishment owner ID
+        const isOwner = true; // For testing, we'll allow anyone to edit
+
         res.render('restoProfile', {
             establishment,
             menu,
             photos,
             ratingData,
-            averageRating,   // ✅ Include averageRating
-            totalRatings     // ✅ Include totalRatings
+            averageRating,
+            totalRatings,
+            isOwner  // Add this to let the template know we're the owner
         });
     } catch (err) {
         console.error(err);
@@ -191,30 +196,33 @@ app.get('/restoProfile/:id', async (req, res) => {
     }
 });
 // backend route for editing restaurant profiles
-app.post('/restoProfile/:id/edit', async (req, res) => {
+app.post('/restoProfile/:id/edit', upload.single('banner'), async (req, res) => {
     try {
         const { id } = req.params;
         const { name, description } = req.body;
-        const bannerFile = req.files?.banner; // Assuming you're using a middleware like multer for file uploads
-
+        
         // Update the restaurant's profile
         const updateData = { name, description };
-        if (bannerFile) {
-            // Save the banner file and update the banner URL
-            const bannerUrl = `/uploads/${bannerFile.name}`; // Adjust this based on your file storage logic
+        
+        // Handle file upload if a file was provided
+        if (req.file) {
+            const bannerUrl = `/uploads/${req.file.filename}`;
             updateData.bannerImage = bannerUrl;
         }
 
         await Establishment.findByIdAndUpdate(id, updateData);
 
-        res.json({ success: true, bannerUrl: updateData.bannerImage });
+        res.json({ 
+            success: true, 
+            bannerUrl: updateData.bannerImage 
+        });
     } catch (error) {
         console.error('Error updating restaurant profile:', error);
-        res.status(500).json({ success: false, message: 'Failed to update restaurant profile' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Failed to update restaurant profile' 
+        });
     }
-});
-app.post('/restoProfile/:id/edit', upload.single('banner'), async (req, res) => {
-    // Handle file upload and profile update
 });
 
 
