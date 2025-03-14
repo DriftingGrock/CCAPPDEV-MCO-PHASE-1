@@ -89,7 +89,7 @@ app.get('/restoList', async (req, res) => {
             const searchTerm = req.query.search;
             query = { 
                 $or: [
-                    { name: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search
+                    { name: { $regex: searchTerm, $options: 'i' } }, 
                     { description: { $regex: searchTerm, $options: 'i' } }
                 ] 
             };
@@ -101,15 +101,21 @@ app.get('/restoList', async (req, res) => {
                 sortOption = { overallRating: -1 }; // Highest rating first
                 break;
             case 'most': 
-                sortOption = { reviews: -1 }; // Most reviews first
+                sortOption = { numReviews: -1 }; // Most ratings first (fix applied)
                 break;
             case 'recent': 
                 sortOption = { updatedAt: -1 }; // Recently updated first
                 break;
         }
 
-        // Fetch establishments with applied search and sorting
-        const establishments = await Establishment.find(query).sort(sortOption).populate('reviews');
+        // Fetch establishments with review count
+        const establishments = await Establishment.aggregate([
+            {
+                $addFields: { numReviews: { $size: "$reviews" } } // Count number of reviews
+            },
+            { $match: query }, // Apply search filter
+            { $sort: sortOption } // Apply sorting
+        ]);
 
         res.render('restoList', { establishments });
     } catch (error) {
@@ -117,6 +123,7 @@ app.get('/restoList', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
 
 app.get('/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
