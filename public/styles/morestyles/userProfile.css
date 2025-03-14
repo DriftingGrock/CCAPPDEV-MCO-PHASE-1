@@ -22,6 +22,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
+	min-width: 300px; /* Ensures minimum width */
+	flex-wrap: wrap; /* Allows content to wrap if needed */
 }
 
 .profile-picture {
@@ -31,10 +33,14 @@
     background-image: url('../../images/user_profile/Anthony.png');
     background-size: cover;
     background-position: center;
+	margin-bottom: 15px;
 }
 
 .profile-info {
     flex-grow: 1;
+	min-width: 250px; /* Minimum width for the text area */
+	word-wrap: break-word; /* Ensures text wraps properly */
+	overflow-wrap: break-word; /* Modern version of word-wrap */
 }
 
 .profile-name {
@@ -45,7 +51,22 @@
 
 .profile-bio {
     color: #666;
+	max-width: 100%; /* Ensures bio doesn't overflow */
+	white-space: pre-wrap; /* Preserves line breaks but allows wrapping */
+	word-break: break-word; /* Breaks words only when necessary */
 }
+
+@media (max-width: 600px) {
+  .profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .profile-picture {
+    margin-bottom: 15px;
+  }
+}
+
 
 .edit-button {
     position: absolute;
