@@ -64,8 +64,8 @@
     <article class="reviews">
         {{#each recentReviews}}
         <div class="review-container">
-            <img class="display-pic" src="{{establishment.bannerImage}}" alt="{{establishment.name}}">
-            <div class="heading"><a href="/restoProfile/{{establishment._id}}"> {{establishment.name}} </a></div>
+            <img class="display-pic" src="{{establishmentId.bannerImage}}" alt="{{establishmentId.name}}">
+            <div class="heading"><a href="/restoProfile/{{establishmentId._id}}"> {{establishmentId.name}} </a></div>
             <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{rating}} </div>
             <div class="description">{{body}}</div>
             <div class="date">{{formatDate createdAt}} | by <a href="/userProfiles/{{userId.username}}">{{userId.username}}</a></div>
