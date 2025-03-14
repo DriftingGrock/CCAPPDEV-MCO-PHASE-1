@@ -13,6 +13,23 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+	<style>
+		.review-images-preview {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 10px;
+			margin-bottom: 15px;
+		}
+    
+		.preview-image {
+			width: 100px;
+			height: 100px;
+			object-fit: cover;
+			border-radius: 4px;
+			border: 1px solid #ddd;
+		}
+	</style>
 </head>
 <body>
 
@@ -115,7 +132,8 @@
 						<option value="2">⭐️⭐️</option>
 						<option value="1">⭐️</option>
 					</select>
-					<input type="file" id="reviewMedia" multiple>
+					<input type="file" id="reviewMedia" multiple accept="image/*" onchange="loadReviewImages(event)">
+					<div id="reviewImagesPreview" class="review-images-preview"></div>
 					<button type="submit">Submit Review</button>
 				</form>
 			</div>
@@ -243,6 +261,30 @@
         // Auto activate the first tab
         document.querySelector('.tabs__button[data-for-tab="1"]').click();
     });
+</script>
+<script>
+    function loadReviewImages(event) {
+        const previewContainer = document.getElementById('reviewImagesPreview');
+        previewContainer.innerHTML = ''; // Clear previous previews
+        
+        const files = event.target.files;
+        
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function() {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    img.className = 'preview-image';
+                    previewContainer.appendChild(img);
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        }
+    }
 </script>
 <script src="/scripts/profileModal.js"></script>
 </body>
