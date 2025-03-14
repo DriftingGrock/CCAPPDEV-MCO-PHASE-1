@@ -60,39 +60,17 @@
                 <div class="reviews-count">{{user.stats.reputation}}</div>
                 <div>Reputation</div>
             </div>
-            <div class="rating-distribution">
-                <div class="rating-bar">
-					<span class="rating-number">5</span>
-					<div class="rating-progress-tube">
-						<div class="rating-progress" style="width: 50%"></div>
+				<div class="rating-distribution">
+					{{#each userRatingData}}
+					<div class="rating-bar">
+						<span class="rating-number">{{this.star}}</span>
+						<div class="rating-progress-tube">
+							<div class="rating-progress" style="width: {{this.percentage}}%"></div>
+						</div>
 					</div>
-				</div>
-               <div class="rating-bar">
-					<span class="rating-number">4</span>
-					<div class="rating-progress-tube">
-						<div class="rating-progress" style="width: 0%"></div>
-					</div>
-				</div>
-               <div class="rating-bar">
-					<span class="rating-number">3</span>
-					<div class="rating-progress-tube">
-						<div class="rating-progress" style="width: 50%"></div>
-					</div>
-				</div>
-               <div class="rating-bar">
-					<span class="rating-number">2</span>
-					<div class="rating-progress-tube">
-						<div class="rating-progress" style="width: 0%"></div>
-					</div>
-				</div>
-               <div class="rating-bar">
-					<span class="rating-number">1</span>
-					<div class="rating-progress-tube">
-						<div class="rating-progress" style="width: 0%"></div>
-					</div>
+					{{/each}}
 				</div>
             </div>
-        </div>
 
 
         <div class="section-title">Recent Reviews</div>
