@@ -28,6 +28,8 @@ hbs.registerHelper('gt', (a, b) => a > b);
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from public directry
 app.use('/images', express.static('public/images'));
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
 // Routes
 // const establishmentRoutes = require('./controllers/establishmentController');
 // app.use('/api', establishmentRoutes);
@@ -172,8 +174,7 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
-        // Get default user
-        const defaultUser = await getDefaultUser();
+        const defaultUser = await User.findOne();
         if (!defaultUser) {
             return res.status(500).json({ error: "No default user found. Please add a user to the database." });
         }
@@ -182,11 +183,11 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
 
         const newReview = new Review({
             establishmentId,
-            userId: defaultUser._id, // Assign default user
-            username: defaultUser.username, // Use the user's name
+            userId: defaultUser._id,
+            username: defaultUser.username,
             body,
             rating,
-            media: mediaUrls
+            media: mediaUrls // ✅ Save correct file paths
         });
 
         await newReview.save();
@@ -199,6 +200,7 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
         res.status(500).json({ error: "Server error", details: err.message });
     }
 });
+
 
 
 // Fetch reviews for a restaurant

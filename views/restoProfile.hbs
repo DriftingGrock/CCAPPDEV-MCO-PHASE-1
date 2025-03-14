@@ -165,8 +165,7 @@
             });
         </script>
 
-
-        <!-- Reviews -->
+        <!-- Reviews 
         <section class="reviews-holder">
             <h2>Reviews</h2>
             {{#each establishment.reviews}}
@@ -194,6 +193,38 @@
             {{/each}}
         </section>
     </div>
+    -->
+    <section class="reviews-holder">
+        <h2>Reviews</h2>
+        {{#each establishment.reviews}}
+            <article class="reviews">
+                <div class="review-container">
+                    <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
+                    <div class="heading">
+                        <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
+                    </div>
+                    <div class="star-rating">
+                        <img class="star-icon-review" src="/icons/star.png" alt="star">
+                        {{this.rating}}
+                    </div>
+                    <div class="description">{{{this.body}}}</div>
+                    <div class="date">{{formatDate this.createdAt}} |</div>
+                    {{#if this.edited}}
+                        <div class="edited">edited |</div>
+                    {{/if}}
+                    <div class="review-images">
+                        {{#each this.media}}
+                            <img class="review-image" src="{{this}}" alt="Review image">
+                        {{/each}}
+                    </div>
+                    <div class="vote">
+                        <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
+                        <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
+                    </div>
+                </div>
+            </article>
+        {{/each}}
+    </section>
 
     <!-- Menu -->
     <div class="tabs__content" data-tab="2">
