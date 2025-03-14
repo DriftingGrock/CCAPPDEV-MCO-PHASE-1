@@ -140,27 +140,43 @@ app.get('/restoProfile/:id', async (req, res) => {
     }
 });
 
-/*
-app.get('/userProfiles/:user', (req, res) => {
-    res.sendFile(path.join(__dirname, `views/HTML/userProfiles/${user}.html`));
-});
-*/
-app.get('/user/:id', async (req, res) => {
+// User Profiles Section
+// app.get('/userProfile/:userID', (req, res) => {
+//     res.sendFile(path.join(__dirname, `views/HTML/userProfile/${userID}.html`));
+// });
+app.get('/userProfile/:user', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).lean();
+        // Fetch the user's profile data (to be handed to userProfile.hbs)
+        const user = await User.findById(req.params.user)
+            .populate({
+                path: 'reviews',
+                populate: [
+                    {
+                        path: 'establishmentId',
+                        select: 'name bannerImage'
+                    },
+                    {
+                        path: 'ownerResponse.ownerId',
+                        select: 'username avatar'
+                    }
+                ]
+            })
+            .lean();
 
         if (!user) {
             return res.status(404).send('User not found');
         }
 
-        res.render('userProfile', { user });
+        // Fetch establishments owned by the user (if applicable)
+        const ownedEstablishments = await Establishment.find({ ownerId: req.params.user }).lean();
+
+        // Render the user profile page with the fetched data
+        res.render('userProfile', { user, ownedEstablishments });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
-
-
 
 
 // Start the server
