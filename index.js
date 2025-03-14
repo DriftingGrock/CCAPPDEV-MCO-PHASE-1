@@ -362,6 +362,42 @@ app.post('/userProfile/:user/edit', upload.single('avatar'), async (req, res) =>
     }
 });
 
+// Route: Edit Review
+app.post("/edit-review/:id", async (req, res) => {
+    try {
+        const { title, body, rating } = req.body;
+
+        const updatedReview = await Review.findByIdAndUpdate(
+            req.params.id,
+            { title, body, rating, edited: true, updatedAt: new Date() },
+            { new: true }
+        );
+
+        if (!updatedReview) return res.status(404).json({ error: "Review not found" });
+
+        res.json(updatedReview);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error updating review" });
+    }
+});
+
+// Route: Delete Review
+app.delete("/delete-review/:id", async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review) return res.status(404).json({ error: "Review not found" });
+
+        await Review.findByIdAndDelete(req.params.id);
+        await Establishment.findByIdAndUpdate(review.establishmentId, { $pull: { reviews: req.params.id } });
+
+        res.json({ message: "Review deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error deleting review" });
+    }
+});
+
 /*
 	Claude's own implementation of routing!
 	-- Gideon on upvotes.

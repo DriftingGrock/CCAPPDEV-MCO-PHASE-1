@@ -1,76 +1,78 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get modal and form elements
-    const modal = document.getElementById('editReviewModal');
-    const form = document.getElementById('editReviewForm');
-    const cancelButton = modal.querySelector('.cancel-button');
-    
-    // Add edit buttons to all reviews
-    const reviews = document.querySelectorAll('.review-container');
-    reviews.forEach(review => {
-        const editButton = document.createElement('button');
-        editButton.innerHTML = '<i class="fa fa-pencil"></i>';
-        editButton.className = 'edit-review-button';
-        review.appendChild(editButton);
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    const editReviewModal = document.getElementById("editReviewModal");
+    const editReviewForm = document.getElementById("editReviewForm");
+    const editReviewId = document.getElementById("editReviewId");
+    const editTitle = document.getElementById("editTitle");
+    const editReviewText = document.getElementById("editReviewText");
+    const editRating = document.getElementById("editRating");
 
-    // Current review being edited
-    let currentReview = null;
-
-    // Add click event listeners to all edit buttons
-    document.querySelectorAll('.edit-review-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            currentReview = e.target.closest('.review-container');
-            // Extract just the number from the rating text
-            const ratingText = currentReview.querySelector('.star-rating').textContent.trim();
-            const rating = parseInt(ratingText.match(/\d+/)[0]);
-            const description = currentReview.querySelector('.description').textContent.trim();
-            
-            // Populate form with current values
-            document.getElementById('editRating').value = rating;
-            document.getElementById('editReviewText').value = description;
-            
-            // Show modal
-            modal.style.display = 'block';
+    // Open Edit Review Modal
+    document.querySelectorAll(".edit-review-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            editReviewId.value = button.dataset.id;
+            editTitle.value = button.dataset.title;
+            editReviewText.value = button.dataset.body;
+            editRating.value = button.dataset.rating;
+            editReviewModal.style.display = "block";
         });
     });
 
-    // Handle form submission
-     form.addEventListener('submit', function(e) {
+    // Handle Edit Review Submission
+    editReviewForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        if (currentReview) {
-            const newRating = document.getElementById('editRating').value;
-            const newText = document.getElementById('editReviewText').value;
-            
-            // Update review content
-            currentReview.querySelector('.star-rating').innerHTML = 
-                `<img class="star-icon-review" src="../icons/star.png" alt="star icon"> ${newRating}`;
-            currentReview.querySelector('.description').textContent = newText;
-            
-            // Add edited tag if not present, in the correct position
-            if (!currentReview.querySelector('.edit-tag')) {
-                const editTag = document.createElement('div');
-                editTag.className = 'edit-tag';
-                editTag.textContent = 'edited';
-                
-                // Find the voting div to use as a reference point
-                const voteDiv = currentReview.querySelector('.vote');
-                // Insert the edit tag before the voting div
-                currentReview.insertBefore(editTag, voteDiv);
+        const reviewId = editReviewId.value;
+
+        const response = await fetch(`/edit-review/${reviewId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: editTitle.value,
+                body: editReviewText.value,
+                rating: editRating.value
+            })
+        });
+
+        if (response.ok) {
+            const updatedReview = await response.json();
+            const reviewContainer = document.querySelector(`.edit-review-btn[data-id="${reviewId}"]`).closest(".review-container");
+
+            reviewContainer.querySelector(".heading").textContent = updatedReview.title;
+            reviewContainer.querySelector(".description").textContent = updatedReview.body;
+            reviewContainer.querySelector(".star-rating").innerHTML = `<img class="star-icon-review" src="/icons/star.png" alt="star icon"> ${updatedReview.rating}`;
+
+            if (!reviewContainer.querySelector(".edit-tag")) {
+                const editTag = document.createElement("div");
+                editTag.className = "edit-tag";
+                editTag.textContent = "edited";
+                reviewContainer.appendChild(editTag);
             }
+
+            editReviewModal.style.display = "none"; // Close modal
+        } else {
+            alert("Error updating review.");
         }
-        
-        modal.style.display = 'none';
     });
 
-    // Handle cancel button
-    cancelButton.addEventListener('click', function() {
-        modal.style.display = 'none';
+    // Handle Delete Review
+    document.querySelectorAll(".delete-review-btn").forEach(button => {
+        button.addEventListener("click", async function () {
+            const reviewId = button.dataset.id;
+            if (!confirm("Are you sure you want to delete this review?")) return;
+
+            const response = await fetch(`/delete-review/${reviewId}`, { method: "DELETE" });
+
+            if (response.ok) {
+                document.querySelector(`.delete-review-btn[data-id="${reviewId}"]`).closest(".review-container").remove();
+            } else {
+                alert("Error deleting review.");
+            }
+        });
     });
 
     // Close modal when clicking outside
-    window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
+    window.addEventListener("click", function (event) {
+        if (event.target === editReviewModal) {
+            editReviewModal.style.display = "none";
         }
     });
 });
