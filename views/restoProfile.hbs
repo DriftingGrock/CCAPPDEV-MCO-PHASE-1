@@ -30,6 +30,25 @@
 			border: 1px solid #ddd;
 		}
 	</style>
+	<style>
+		.vote button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 5px;
+			margin: 0 5px;
+			color: #666;
+		}
+		.vote button.active {
+			color: #025000;
+			font-weight: bold;
+		}
+    
+		.upvote-count, .downvote-count {
+			font-size: 0.8em;
+			margin-left: 2px;
+		}
+	</style>
 </head>
 <body>
 
@@ -117,18 +136,19 @@
         <!-- Review Submission Form -->
         <div class="review-section">
             <h2>Leave a Review</h2>
-            <form id="reviewForm">
-                <textarea id="reviewBody" placeholder="Share your experience..." required></textarea>
-                <select id="reviewRating">
-                    <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                    <option value="4">⭐️⭐️⭐️⭐️</option>
-                    <option value="3">⭐️⭐️⭐️</option>
-                    <option value="2">⭐️⭐️</option>
-                    <option value="1">⭐️</option>
-                </select>
-                <input type="file" id="reviewMedia" multiple>
-                <button type="submit">Submit Review</button>
-            </form>
+			<form id="reviewForm">
+				<textarea id="reviewBody" placeholder="Share your experience..." required></textarea>
+				<select id="reviewRating">
+					<option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+					<option value="4">⭐️⭐️⭐️⭐️</option>
+					<option value="3">⭐️⭐️⭐️</option>
+					<option value="2">⭐️⭐️</option>
+					<option value="1">⭐️</option>
+				</select>
+				<input type="file" id="reviewMedia" multiple accept="image/*" onchange="loadReviewImages(event)">
+				<div id="reviewImagesPreview" class="review-images-preview"></div>
+				<button type="submit">Submit Review</button>
+			</form>
         </div>
 
         <script>
@@ -195,36 +215,43 @@
     </div>
     -->
     <section class="reviews-holder">
-        <h2>Reviews</h2>
-        {{#each establishment.reviews}}
-            <article class="reviews">
-                <div class="review-container">
-                    <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
-                    <div class="heading">
-                        <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
-                    </div>
-                    <div class="star-rating">
-                        <img class="star-icon-review" src="/icons/star.png" alt="star">
-                        {{this.rating}}
-                    </div>
-                    <div class="description">{{{this.body}}}</div>
-                    <div class="date">{{formatDate this.createdAt}} |</div>
-                    {{#if this.edited}}
-                        <div class="edited">edited |</div>
-                    {{/if}}
-                    <div class="review-images">
-                        {{#each this.media}}
-                            <img class="review-image" src="{{this}}" alt="Review image">
-                        {{/each}}
-                    </div>
-                    <div class="vote">
-                        <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
-                        <button class="downvote"><i class="fa-solid fa-down-long"></i></button>
-                    </div>
+    <h2>Reviews</h2>
+    {{#each establishment.reviews}}
+        <article class="reviews">
+            <div class="review-container" data-review-id="{{this._id}}">
+                <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
+                <div class="heading">
+                    <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
                 </div>
-            </article>
-        {{/each}}
-    </section>
+                <div class="star-rating">
+                    <img class="star-icon-review" src="/icons/star.png" alt="star">
+                    {{this.rating}}
+                </div>
+                <div class="description">{{{this.body}}}</div>
+                <div class="date">{{formatDate this.createdAt}} |</div>
+                {{#if this.edited}}
+                    <div class="edited">edited |</div>
+                {{/if}}
+                <div class="review-images">
+                    {{#each this.media}}
+                        <img class="review-image" src="{{this}}" alt="Review image">
+                    {{/each}}
+                </div>
+                <div class="vote">
+                    <button class="upvote">
+                        <i class="fa-solid fa-up-long"></i>
+                        <span class="upvote-count">{{this.upvoteCount}}</span>
+                    </button>
+                    <button class="downvote">
+                        <i class="fa-solid fa-down-long"></i>
+                        <span class="downvote-count">{{this.downvoteCount}}</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+    {{/each}}
+</section>
+</div> <!-- This closing div is important! It ends the Overview tab content -->
 
     <!-- Menu -->
     <div class="tabs__content" data-tab="2">
@@ -289,6 +316,53 @@
             }
         }
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add click handlers to vote buttons
+        document.querySelectorAll('.upvote, .downvote').forEach(button => {
+            button.addEventListener('click', async function() {
+                const reviewContainer = this.closest('.review-container');
+                const reviewId = reviewContainer.dataset.reviewId;
+                const voteType = this.classList.contains('upvote') ? 'up' : 'down';
+                
+                try {
+                    const response = await fetch('/api/vote-simple', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                       body: JSON.stringify({
+							reviewId,
+							voteType
+						})
+                    });
+                    
+                    if (response.ok) {
+                        // Simple toggle active class
+                        if (this.classList.contains('active')) {
+                            this.classList.remove('active');
+                        } else {
+                            if (voteType === 'up') {
+                                reviewContainer.querySelector('.upvote').classList.add('active');
+                                reviewContainer.querySelector('.downvote').classList.remove('active');
+                            } else {
+                                reviewContainer.querySelector('.upvote').classList.remove('active');
+                                reviewContainer.querySelector('.downvote').classList.add('active');
+                            }
+                        }
+                        
+                        // Reload to update count
+                        location.reload();
+                    } else {
+                        console.error('Vote failed');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
 </script>
 <script src="/scripts/profileModal.js"></script>
 </body>

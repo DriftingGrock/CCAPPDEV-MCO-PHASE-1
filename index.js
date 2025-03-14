@@ -89,7 +89,7 @@ app.get('/restoProfiles/:resto', (req, res) => {
     res.sendFile(path.join(__dirname, `views/HTML/restoProfiles/${resto}.html`));
 });
 */
-const { Establishment, Review, User, Menu, Photo } = require('./database/models/models');
+const { Establishment, Review, User, Menu, Photo, Vote } = require('./database/models/models');
 
 const getRatingData = (reviews) => {
     const ratingCounts = [0, 0, 0, 0, 0]; // Index 0 = 1-star, Index 4 = 5-star
@@ -287,6 +287,139 @@ app.post('/userProfile/:user/edit', upload.single('avatar'), async (req, res) =>
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
+
+/*
+	Claude's own implementation of routing!
+	-- Gideon on upvotes.
+*/
+// Vote on a review (upvote/downvote)
+app.post("/api/vote", async (req, res) => {
+    try {
+        const { reviewId, userId, voteType } = req.body;
+        
+        if (!reviewId || !userId || !voteType) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        
+        if (voteType !== 'up' && voteType !== 'down') {
+            return res.status(400).json({ error: "Vote type must be 'up' or 'down'" });
+        }
+        
+        // Check if user has already voted on this review
+        const existingVote = await Vote.findOne({ reviewId, userId });
+        
+        if (existingVote) {
+            // User has already voted, check if they're changing their vote
+            if (existingVote.voteType === voteType) {
+                // User is clicking the same vote type - remove their vote
+                await Vote.deleteOne({ _id: existingVote._id });
+                
+                // Update the review counts
+                if (voteType === 'up') {
+                    await Review.findByIdAndUpdate(reviewId, { $inc: { upvoteCount: -1 } });
+                } else {
+                    await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: -1 } });
+                }
+                
+                return res.json({ message: "Vote removed" });
+            } else {
+                // User is changing their vote (up to down or down to up)
+                existingVote.voteType = voteType;
+                await existingVote.save();
+                
+                // Update the review counts
+                if (voteType === 'up') {
+                    await Review.findByIdAndUpdate(reviewId, { 
+                        $inc: { upvoteCount: 1, downvoteCount: -1 } 
+                    });
+                } else {
+                    await Review.findByIdAndUpdate(reviewId, { 
+                        $inc: { upvoteCount: -1, downvoteCount: 1 } 
+                    });
+                }
+                
+                return res.json({ message: "Vote updated" });
+            }
+        } else {
+            // New vote
+            const newVote = new Vote({
+                reviewId,
+                userId,
+                voteType
+            });
+            
+            await newVote.save();
+            
+            // Update the review count
+            if (voteType === 'up') {
+                await Review.findByIdAndUpdate(reviewId, { $inc: { upvoteCount: 1 } });
+            } else {
+                await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: 1 } });
+            }
+            
+            return res.json({ message: "Vote recorded" });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// Get user's votes for a specific establishment (to highlight which reviews the user has voted on)
+app.get("/api/votes/:userId/:establishmentId", async (req, res) => {
+    try {
+        const { userId, establishmentId } = req.params;
+        
+        // Find all reviews for this establishment
+        const reviews = await Review.find({ establishmentId });
+        const reviewIds = reviews.map(review => review._id);
+        
+        // Find all votes by this user for these reviews
+        const votes = await Vote.find({
+            userId,
+            reviewId: { $in: reviewIds }
+        });
+        
+        // Format as a map for easy frontend lookup
+        const voteMap = {};
+        votes.forEach(vote => {
+            voteMap[vote.reviewId] = vote.voteType;
+        });
+        
+        res.json(voteMap);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// Simplified vote API that doesn't require user authentication
+app.post("/api/vote-simple", async (req, res) => {
+    try {
+        const { reviewId, voteType } = req.body;
+        
+        if (!reviewId || !voteType) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        
+        if (voteType !== 'up' && voteType !== 'down') {
+            return res.status(400).json({ error: "Vote type must be 'up' or 'down'" });
+        }
+        
+        // Simply update the count without tracking user
+        if (voteType === 'up') {
+            await Review.findByIdAndUpdate(reviewId, { $inc: { upvoteCount: 1 } });
+        } else {
+            await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: 1 } });
+        }
+        
+        return res.json({ message: "Vote recorded" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error", details: err.message });
+    }
+});
+
 
 /*
 HELPER FUNCTIONS ===============================================================================
