@@ -153,10 +153,10 @@ app.get('/userProfile/:user', async (req, res) => {
         const user = await User.findById(req.params.user)
             .populate({
                 path: 'reviews',
-                populate: [
+                populate: [         // the ff. are needed for displaying review (relating ID to other collections)
                     {
                         path: 'establishmentId',
-                        select: 'name bannerImage'
+                        select: 'name'
                     },
                     {
                         path: 'ownerResponse.ownerId',
@@ -164,6 +164,9 @@ app.get('/userProfile/:user', async (req, res) => {
                     }, {
                         path: 'establishmentId',
                         select: 'name'
+                    }, {
+                        path: 'userId',
+                        select: 'username avatar'
                     }
                 ]
             })
