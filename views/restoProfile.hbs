@@ -89,6 +89,7 @@
             </p>
             <p class="address">{{establishment.address}}</p>
             <p class="phone">📞{{establishment.phone}}</p>
+            <button class="edit-resto-button"><i class="fa fa-pencil"></i> Edit Profile</button>
         </div>
         <div class="supplementary-details">
             <span class="hours">Open {{establishment.openingHours}}</span>
@@ -290,6 +291,32 @@
                 <img src="{{this}}" alt="Gallery Image">
             {{/each}}
         </div>
+    </div>
+</div>
+
+
+<!-- Edit Restaurant Profile Modal -->
+<div id="editRestoProfileModal" class="modal">
+    <div class="modal-content">
+        <h2>Edit Restaurant Profile</h2>
+        <form id="editRestoProfileForm">
+            <div class="form-group">
+                <label for="editRestoName">Name:</label>
+                <input type="text" id="editRestoName" class="edit-input">
+            </div>
+            <div class="form-group">
+                <label for="editRestoDescription">Description:</label>
+                <textarea id="editRestoDescription" class="edit-input" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="editRestoBanner">Banner Image:</label>
+                <input type="file" id="editRestoBanner" accept="image/*">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="save-button">Save Changes</button>
+                <button type="button" class="cancel-resto-button">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
 
