@@ -15,7 +15,7 @@
 
 <div class="header">
     <div class="home">
-        <a href="../index.html">ANIMO
+        <a href="/">ANIMO
             <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
             EATS</a>
     </div>
@@ -102,16 +102,16 @@
                     <div class="review-container">
                         <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
                         <div class="heading">
-                            <a href="/user/{{this.userId._id}}">{{this.userId.username}}</a>
+                            <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
                         </div>
                         <div class="star-rating">
                             <img class="star-icon-review" src="/icons/star.png" alt="star">
                             {{this.rating}}
                         </div>
                         <div class="description">{{this.body}}</div>
-                        <div class="date">{{this.createdAt}}</div>
+                        <div class="date">{{formatDate this.createdAt}} |</div>
                         {{#if this.edited}}
-                            <div class="edited">edited</div>
+                            <div class="edited">edited |</div>
                         {{/if}}
                         <div class="vote">
                             <button class="upvote"><i class="fa-solid fa-up-long"></i></button>
