@@ -246,6 +246,20 @@
     <section class="reviews-holder">
         <h2>Reviews</h2>
         <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()">
+        <label for="reviewSort">Sort by Rating:</label>
+        <select id="reviewSort" onchange="sortReviews()">
+            <option value="desc">Highest to Lowest</option>
+            <option value="asc">Lowest to Highest</option>
+        </select>
+        <script>
+            function sortReviews() {
+                const sortOrder = document.getElementById('reviewSort').value;
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('sort', sortOrder);
+                window.location.search = urlParams.toString();
+            }
+        </script>
+
         <script>
             function filterReviews() {
                 let searchQuery = document.getElementById('reviewSearch').value.toLowerCase();

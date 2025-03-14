@@ -160,9 +160,12 @@ const getRatingData = (reviews) => {
 
 app.get('/restoProfile/:id', async (req, res) => {
     try {
+        const sortOption = req.query.sort || 'desc'; // Default to descending order
+
         const establishment = await Establishment.findById(req.params.id)
             .populate({
                 path: 'reviews',
+                options: { sort: { rating: sortOption === 'asc' ? 1 : -1 } }, // Sort by rating
                 populate: { path: 'userId', select: 'username avatar' }
             })
             .lean();
@@ -174,12 +177,7 @@ app.get('/restoProfile/:id', async (req, res) => {
             return res.status(404).send('Establishment not found');
         }
 
-        // Extract rating data
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-
-        // Set ownership for testing purposes
-        // In a real app, you'd check if the logged-in user ID matches the establishment owner ID
-        const isOwner = true; // For testing, we'll allow anyone to edit
 
         res.render('restoProfile', {
             establishment,
@@ -188,13 +186,15 @@ app.get('/restoProfile/:id', async (req, res) => {
             ratingData,
             averageRating,
             totalRatings,
-            isOwner  // Add this to let the template know we're the owner
+            sortOption // Pass sort option to frontend
         });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
+
+
 // backend route for editing restaurant profiles
 app.post('/restoProfile/:id/edit', upload.single('banner'), async (req, res) => {
     try {
