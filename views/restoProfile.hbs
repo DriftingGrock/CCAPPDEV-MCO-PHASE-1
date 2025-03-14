@@ -94,6 +94,68 @@
             </div>
         </section>
 
+        <!-- Hidden input for storing logged-in user ID -->
+        <input type="hidden" id="loggedInUserId" value="{{user._id}}">
+
+        <!-- Review Submission Form -->
+        <div class="review-section">
+            <h2>Leave a Review</h2>
+            <form id="reviewForm">
+                <textarea id="reviewBody" placeholder="Share your experience..." required></textarea>
+                <select id="reviewRating">
+                    <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                    <option value="4">⭐️⭐️⭐️⭐️</option>
+                    <option value="3">⭐️⭐️⭐️</option>
+                    <option value="2">⭐️⭐️</option>
+                    <option value="1">⭐️</option>
+                </select>
+                <input type="file" id="reviewMedia" multiple>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+
+        <script>
+            document.getElementById("reviewForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const body = document.getElementById("reviewBody").value;
+            const rating = document.getElementById("reviewRating").value;
+            const userId = document.getElementById("loggedInUserId").value;
+            const establishmentId = "{{establishment._id}}";
+
+            if (!userId) {
+                alert("You must be logged in to post a review.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("establishmentId", establishmentId);
+            formData.append("userId", userId);
+            formData.append("body", body);
+            formData.append("rating", rating);
+
+            const mediaFiles = document.getElementById("reviewMedia").files;
+            for (let i = 0; i < mediaFiles.length; i++) {
+                formData.append("media", mediaFiles[i]);
+            }
+
+            const response = await fetch("/api/reviews", {
+                method: "POST",
+                body: formData, // No need for Content-Type header, FormData sets it automatically
+            });
+
+            if (response.ok) {
+                document.getElementById("reviewBody").value = "";
+                alert("Review posted!");
+                location.reload(); // Refresh the page to update the existing reviews section
+            } else {
+                const errorData = await response.json();
+                alert("Failed to post review: " + errorData.error);
+            }
+        });
+        </script>
+
+
         <!-- Reviews -->
         <section class="reviews-holder">
             <h2>Reviews</h2>

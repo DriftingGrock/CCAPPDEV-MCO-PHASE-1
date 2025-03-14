@@ -78,6 +78,8 @@ app.get('/restoList', async (req, res) => {
 app.get('/sign-up', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/HTML/sign-up.html'));
 });
+/*
+RESTOPROFILES SECTION ===============================================================================
 /* old bea code
 app.get('/restoProfiles/:resto', (req, res) => {
     res.sendFile(path.join(__dirname, `views/HTML/restoProfiles/${resto}.html`));
@@ -140,6 +142,50 @@ app.get('/restoProfile/:id', async (req, res) => {
     }
 });
 
+const multer = require("multer");
+const upload = multer({ dest: "public/uploads/" });
+
+app.post("/api/reviews", upload.array("media"), async (req, res) => {
+    try {
+        const { establishmentId, userId, body, rating } = req.body;
+
+        if (!establishmentId || !userId || !body || !rating) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+
+        let mediaUrls = req.files.map(file => `/uploads/${file.filename}`);
+
+        const newReview = new Review({
+            establishmentId,
+            userId,
+            body,
+            rating,
+            media: mediaUrls
+        });
+
+        await newReview.save();
+        await Establishment.findByIdAndUpdate(establishmentId, { $push: { reviews: newReview._id } });
+
+        res.status(201).json({ message: "Review posted successfully", review: newReview });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+// Fetch reviews for a restaurant
+app.get("/api/reviews/:establishmentId", async (req, res) => {
+    try {
+        const reviews = await Review.find({ establishmentId: req.params.establishmentId })
+            .populate("userId", "username avatar")
+            .sort({ createdAt: -1 });
+
+        res.json(reviews);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
 
 /*
 USER PROFILES SECTION ===============================================================================

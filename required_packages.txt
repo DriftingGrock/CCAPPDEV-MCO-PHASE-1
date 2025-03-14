@@ -5,6 +5,7 @@ npm install express
 npm install dotenv
 npm install path
 npm install hbs
+npm install multer
 
 //for ctrl c ctrl v
-npm install mongoose express dotenv path hbs 
+npm install mongoose express dotenv path hbs multer
