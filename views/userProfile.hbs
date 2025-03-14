@@ -155,8 +155,31 @@
 		</div>
 	</div>
 	</div>
-	<script src="/scripts/editProfile.js"></script>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" required>
+
+                <label for="editBio">Bio:</label>
+                <textarea id="editBio" required></textarea>
+
+                <label for="editAvatar">Profile Picture:</label>
+                <input type="file" id="editAvatar" accept="image/*">
+
+                <div class="button-group">
+                    <button type="submit">Save Changes</button>
+                    <button type="button" id="cancelProfileEdit" class="cancel-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/scripts/editProfile.js"></script>
 	<script src="/scripts/editReview.js"></script>
-        <script src="/scripts/profileModal.js"></script>
+    <script src="/scripts/profileModal.js"></script>
 </body>
 </html>
