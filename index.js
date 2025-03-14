@@ -81,45 +81,45 @@ app.get('/restoList', async (req, res) => {
 */
 app.get('/restoList', async (req, res) => {
     try {
-        let query = {};
-        let sortOption = {};
+        let matchQuery = {}; // Default: no filters
+        let sortOption = {}; // Default: no sorting
 
-        // Search by keyword in name or description
+        // 🔎 Handle Search Query
         if (req.query.search) {
-            const searchTerm = req.query.search;
-            query = { 
+            const searchTerm = req.query.search.trim();
+            matchQuery = {
                 $or: [
-                    { name: { $regex: searchTerm, $options: 'i' } }, 
+                    { name: { $regex: searchTerm, $options: 'i' } },
                     { description: { $regex: searchTerm, $options: 'i' } }
-                ] 
+                ]
             };
         }
 
-        // Sorting logic
+        // 📌 Handle Sorting
         switch (req.query.sort) {
             case 'best': 
                 sortOption = { overallRating: -1 }; // Highest rating first
                 break;
             case 'most': 
-                sortOption = { numReviews: -1 }; // Most ratings first (fix applied)
+                sortOption = { numReviews: -1 }; // Most ratings first
                 break;
             case 'recent': 
-                sortOption = { updatedAt: -1 }; // Recently updated first
+                sortOption = { updatedAt: -1 }; // Recently reviewed first
                 break;
+            default:
+                sortOption = { name: 1 }; // Default: Alphabetical order
         }
 
-        // Fetch establishments with review count
+        // 🔄 Fetch establishments using MongoDB aggregation
         const establishments = await Establishment.aggregate([
-            {
-                $addFields: { numReviews: { $size: "$reviews" } } // Count number of reviews
-            },
-            { $match: query }, // Apply search filter
+            { $match: matchQuery }, // Apply search filter
+            { $addFields: { numReviews: { $size: "$reviews" } } }, // Count number of reviews
             { $sort: sortOption } // Apply sorting
         ]);
 
         res.render('restoList', { establishments });
     } catch (error) {
-        console.error(error);
+        console.error("Error in /restoList:", error);
         res.status(500).send('Server Error');
     }
 });
