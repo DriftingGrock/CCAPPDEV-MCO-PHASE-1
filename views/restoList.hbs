@@ -14,11 +14,25 @@
 <div class="header">
     <div class="home">
         <a href="/">ANIMO
-            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="logo">
+            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
             EATS</a>
     </div>
     <div class="navlink"> <a href="/restoList">Restaurants</a> </div>
     <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content"><b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
+
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="../sign-up.html">Sign-Up</a></p>
+    </div>
 </div>
 
 <script src="/scripts/profileModal.js"></script>
