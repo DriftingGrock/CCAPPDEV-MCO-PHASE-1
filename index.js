@@ -271,7 +271,11 @@ app.post("/api/reviews", upload.array("media"), async (req, res) => {
         });
 
         await newReview.save();
-        await Establishment.findByIdAndUpdate(establishmentId, { $push: { reviews: newReview._id } });
+		await Establishment.findByIdAndUpdate(establishmentId, { $push: { reviews: newReview._id } });
+		await User.findByIdAndUpdate(defaultUser._id, { 
+			$push: { reviews: newReview._id },
+			$inc: { 'stats.reviewsMade': 1 }  // Also increment the review count
+		});
 
         console.log("Review posted successfully:", newReview);
         res.status(201).json({ message: "Review posted successfully", review: newReview });
@@ -418,7 +422,11 @@ app.delete("/delete-review/:id", async (req, res) => {
         if (!review) return res.status(404).json({ error: "Review not found" });
 
         await Review.findByIdAndDelete(req.params.id);
-        await Establishment.findByIdAndUpdate(review.establishmentId, { $pull: { reviews: req.params.id } });
+		await Establishment.findByIdAndUpdate(review.establishmentId, { $pull: { reviews: req.params.id } });
+		await User.findByIdAndUpdate(review.userId, { 
+			$pull: { reviews: req.params.id },
+			$inc: { 'stats.reviewsMade': -1 }  // Decrement the review count
+		});
 
         res.json({ message: "Review deleted successfully" });
     } catch (err) {
