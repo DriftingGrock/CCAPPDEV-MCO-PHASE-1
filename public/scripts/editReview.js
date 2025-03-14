@@ -1,92 +1,111 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const editReviewModal = document.getElementById("editReviewModal");
-    const editReviewForm = document.getElementById("editReviewForm");
-    const editReviewId = document.getElementById("editReviewId");
-    const editTitle = document.getElementById("editTitle");
-    const editReviewText = document.getElementById("editReviewText");
-    const editRating = document.getElementById("editRating");
-    const cancelReviewButton = editReviewModal?.querySelector(".cancel-button");
-
-    if (!editReviewModal || !editReviewForm) {
-        console.error("Edit Review modal or form not found. Make sure it's included in userProfile.hbs.");
-        return;
-    }
-
-    // Open Edit Review Modal
-    document.querySelectorAll(".edit-review-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            editReviewId.value = button.dataset.id;
-            editTitle.value = button.dataset.title;
-            editReviewText.value = button.dataset.body;
-            editRating.value = button.dataset.rating;
-            editReviewModal.style.display = "block";
-        });
-    });
-
-    // Close Edit Review Modal when clicking Cancel
-    if (cancelReviewButton) {
-        cancelReviewButton.addEventListener("click", function () {
-            editReviewModal.style.display = "none";
-        });
-    }
-
-    // Close modal when clicking outside
-    window.addEventListener("click", function (event) {
-        if (event.target === editReviewModal) {
-            editReviewModal.style.display = "none";
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Quill editor
+    const editQuill = new Quill('#edit-quill-editor', {
+        theme: 'snow',
+        placeholder: 'Edit your review...',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['clean']
+            ]
         }
     });
-
-    // Handle Edit Review Submission
-    editReviewForm.addEventListener("submit", async function (e) {
+    
+    // Add event listeners to edit buttons
+    document.querySelectorAll('.edit-review-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-id');
+            const title = this.getAttribute('data-title');
+            const body = this.getAttribute('data-body');
+            const rating = this.getAttribute('data-rating');
+            
+            // Populate the form
+            document.getElementById('editReviewId').value = reviewId;
+            document.getElementById('editTitle').value = title;
+            editQuill.root.innerHTML = body;
+            document.getElementById('editRating').value = rating;
+            
+            // Show the modal
+            document.getElementById('editReviewModal').style.display = 'block';
+        });
+    });
+    
+    // Handle form submission
+    document.getElementById('editReviewForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        const reviewId = editReviewId.value;
-
-        const response = await fetch(`/edit-review/${reviewId}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                title: editTitle.value,
-                body: editReviewText.value,
-                rating: editRating.value
-            })
-        });
-
-        if (response.ok) {
-            const updatedReview = await response.json();
-            const reviewContainer = document.querySelector(`.edit-review-btn[data-id="${reviewId}"]`)?.closest(".review-container");
-
-            if (reviewContainer) {
-                reviewContainer.querySelector(".heading").textContent = updatedReview.title;
-                reviewContainer.querySelector(".description").textContent = updatedReview.body;
-                reviewContainer.querySelector(".star-rating").innerHTML = `<img class="star-icon-review" src="/icons/star.png" alt="star icon"> ${updatedReview.rating}`;
-
-                if (!reviewContainer.querySelector(".edit-tag")) {
-                    const editTag = document.createElement("div");
-                    editTag.className = "edit-tag";
-                    editTag.textContent = "edited";
-                    reviewContainer.appendChild(editTag);
-                }
+        
+        // Get values from form
+        const reviewId = document.getElementById('editReviewId').value;
+        const title = document.getElementById('editTitle').value;
+        
+        // Get and sanitize Quill content
+        const quillContent = editQuill.root.innerHTML;
+        const sanitizedContent = DOMPurify.sanitize(quillContent);
+        
+        // Get rating
+        const rating = document.getElementById('editRating').value;
+        
+        try {
+            const response = await fetch(`/edit-review/${reviewId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    body: sanitizedContent,
+                    rating
+                })
+            });
+            
+            if (response.ok) {
+                // Success, refresh the page
+                location.reload();
+            } else {
+                const errorData = await response.json();
+                alert(`Error: ${errorData.error}`);
             }
-
-            editReviewModal.style.display = "none"; // Close modal
-        } else {
-            alert("Error updating review.");
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while updating the review');
         }
     });
-
-    // Handle Delete Review
-    document.querySelectorAll(".delete-review-btn").forEach(button => {
-        button.addEventListener("click", async function () {
-            const reviewId = button.dataset.id;
-            if (!confirm("Are you sure you want to delete this review?")) return;
-
-            const response = await fetch(`/delete-review/${reviewId}`, { method: "DELETE" });
-
-            if (response.ok) {
-                document.querySelector(`.delete-review-btn[data-id="${reviewId}"]`)?.closest(".review-container").remove();
-            } else {
-                alert("Error deleting review.");
+    
+    // Close modal when cancel button is clicked
+    document.querySelector('#editReviewModal .cancel-button').addEventListener('click', function() {
+        document.getElementById('editReviewModal').style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    };
+    
+    // Handle delete buttons
+    document.querySelectorAll('.delete-review-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+            if (confirm('Are you sure you want to delete this review?')) {
+                const reviewId = this.getAttribute('data-id');
+                
+                try {
+                    const response = await fetch(`/delete-review/${reviewId}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (response.ok) {
+                        // Success, refresh the page
+                        location.reload();
+                    } else {
+                        const errorData = await response.json();
+                        alert(`Error: ${errorData.error}`);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the review');
+                }
             }
         });
     });
