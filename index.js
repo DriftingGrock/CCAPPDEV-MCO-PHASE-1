@@ -140,10 +140,13 @@ app.get('/restoProfile/:id', async (req, res) => {
     }
 });
 
-// User Profiles Section
-// app.get('/userProfile/:userID', (req, res) => {
-//     res.sendFile(path.join(__dirname, `views/HTML/userProfile/${userID}.html`));
-// });
+
+/*
+USER PROFILES SECTION ===============================================================================
+
+All functions related are seen below this comment:
+- fetching user data from database
+ */
 app.get('/userProfile/:user', async (req, res) => {
     try {
         // Fetch the user's profile data (to be handed to userProfile.hbs)
@@ -179,6 +182,29 @@ app.get('/userProfile/:user', async (req, res) => {
         console.error(err);
         res.status(500).send('Server Error');
     }
+});
+
+/*
+HELPER FUNCTIONS ===============================================================================
+
+- Date formatting
+    handlebar: {{formatDate this.createdAt}}
+    formatted: Jul 9, 2020 7:59 PM
+ */
+hbs.registerHelper('formatDate', function (date) {
+    if (!date) return ''; // Handle cases where date is null or undefined
+
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true, // Use 12-hour format (AM/PM)
+    };
+
+    // Format the date using Intl.DateTimeFormat
+    return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 });
 
 
