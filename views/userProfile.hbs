@@ -124,21 +124,26 @@
 	<div id="editProfileModal" class="modal">
 		<div class="modal-content">
 			<h2>Edit Profile</h2>
-			<form id="editProfileForm">
-				<div class="form-group">
-					<label for="editName">Name:</label>
-					<input type="text" id="editName" class="edit-input" value="Sir Art">
-				</div>
-				<div class="form-group">
-					<label for="editBio">Bio:</label>
-					<textarea id="editBio" class="edit-input" rows="3"></textarea>
-				</div>
-				<div class="button-group">
-					<button type="submit" class="save-button">Save Changes</button>
-					<button type="button" class="cancel-button">Cancel</button>
-				</div>
-			</form>
-		</div>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editAvatar">Avatar:</label>
+                    <input type="file" id="editAvatar" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="editName">Name:</label>
+                    <input type="text" id="editName" class="edit-input" value="Sir Art">
+                </div>
+                <div class="form-group">
+                    <label for="editBio">Bio:</label>
+                    <textarea id="editBio" class="edit-input" rows="3"></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="save-button">Save Changes</button>
+                    <button type="button" class="cancel-button">Cancel</button>
+                </div>
+            </form>
+
+        </div>
 	</div>
 	<div id="editReviewModal" class="modal">
 		<div class="modal-content">

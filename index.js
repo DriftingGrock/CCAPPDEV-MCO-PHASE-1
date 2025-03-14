@@ -4,6 +4,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 const hbs = require('hbs');
 
+const fs = require('fs');
+
 dotenv.config();
 
 const app = express();
@@ -230,6 +232,31 @@ app.get('/userProfile/:user', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
+    }
+});
+
+app.post('/userProfile/:user/edit', upload.single('avatar'), async (req, res) => {
+    try {
+        const { name, bio } = req.body;
+        const userId = req.params.user; // Get user ID from the URL parameter
+        let updateFields = { username: name, bio };
+
+        // Handle avatar upload
+        if (req.file) {
+            const avatarPath = `/uploads/${req.file.filename}`; // Path for frontend
+            updateFields.avatar = avatarPath;
+        }
+
+        // Update user in database
+        const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true });
+
+        res.json({
+            success: true,
+            avatarUrl: updatedUser.avatar || null
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
 
