@@ -126,15 +126,10 @@
             </article>
         {{/each}}
 
-    <script src="../public/scripts/profileModal.js"></script>
 	<div id="editProfileModal" class="modal">
 		<div class="modal-content">
 			<h2>Edit Profile</h2>
             <form id="editProfileForm">
-                <div class="form-group">
-                    <label for="editAvatar">Avatar:</label>
-                    <input type="file" id="editAvatar" accept="image/*">
-                </div>
                 <div class="form-group">
                     <label for="editName">Name:</label>
                     <input type="text" id="editName" class="edit-input" value="Sir Art">
@@ -143,6 +138,10 @@
                     <label for="editBio">Bio:</label>
                     <textarea id="editBio" class="edit-input" rows="3"></textarea>
                 </div>
+				<div class="form-group">
+					<label for="editAvatar">Profile Picture:</label>
+					<input type="file" id="editAvatar" class="edit-input" accept="image/*">
+				</div>
                 <div class="button-group">
                     <button type="submit" class="save-button">Save Changes</button>
                     <button type="button" class="cancel-button">Cancel</button>
@@ -176,10 +175,9 @@
 			</form>
 		</div>
 	</div>
+	</div>
 	<script src="/scripts/editProfile.js"></script>
 	<script src="/scripts/editReview.js"></script>
         <script src="/scripts/profileModal.js"></script>
-
-    </div>
 </body>
 </html>

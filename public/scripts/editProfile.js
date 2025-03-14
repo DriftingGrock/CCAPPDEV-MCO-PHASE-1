@@ -1,10 +1,13 @@
 // Get DOM elements
+let userId;
 const editButton = document.querySelector('.edit-button');
 const editModal = document.getElementById('editProfileModal');
 const editForm = document.getElementById('editProfileForm');
 const cancelButton = document.querySelector('.cancel-button');
 const profileName = document.querySelector('.profile-name');
 const profileBio = document.querySelector('.profile-bio');
+
+userId = window.location.pathname.split('/').pop();
 
 // Show modal when edit button is clicked
 editButton.addEventListener('click', () => {
