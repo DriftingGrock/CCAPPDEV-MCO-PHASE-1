@@ -187,7 +187,7 @@ app.get('/restoProfile/:id', async (req, res) => {
         }
 
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-
+		const isOwner = true;
         res.render('restoProfile', {
             establishment,
             menu,
@@ -195,6 +195,7 @@ app.get('/restoProfile/:id', async (req, res) => {
             ratingData,
             averageRating,
             totalRatings,
+			isOwner,
             sortOption // Pass sorting option to frontend
         });
     } catch (err) {
