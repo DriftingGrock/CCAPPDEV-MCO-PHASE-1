@@ -163,7 +163,7 @@ app.get('/restoProfile/:id', async (req, res) => {
         const sortOption = req.query.sort || 'desc'; // Default: Highest rating first
         let sortQuery = {};
 
-        if (sortOption === 'count') {
+        if (sortOption === 'upvotes') {
             sortQuery = { upvoteCount: -1 }; // Sort by most upvoted reviews
         } else if (sortOption === 'asc') {
             sortQuery = { rating: 1 }; // Sort by lowest rating first
@@ -195,13 +195,14 @@ app.get('/restoProfile/:id', async (req, res) => {
             ratingData,
             averageRating,
             totalRatings,
-            sortOption // Pass sorting option to the frontend
+            sortOption // Pass sorting option to frontend
         });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
+
 
 
 

@@ -251,9 +251,9 @@
         <select id="reviewSort" onchange="sortReviews()">
             <option value="desc">Highest to Lowest Rating</option>
             <option value="asc">Lowest to Highest Rating</option>
-            <option value="count">Most Upvoted Reviews</option>
+            <option value="upvotes">Most Upvoted Reviews</option>
         </select>
-        <script>
+       <script>
             function sortReviews() {
                 const sortOrder = document.getElementById('reviewSort').value;
                 const urlParams = new URLSearchParams(window.location.search);
@@ -261,7 +261,6 @@
                 window.location.search = urlParams.toString();
             }
         </script>
-
 
         <script>
             function filterReviews() {
