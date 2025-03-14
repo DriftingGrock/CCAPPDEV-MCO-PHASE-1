@@ -307,7 +307,30 @@ app.get('/userProfile/:user', async (req, res) => {
         const ownedEstablishments = await Establishment.find({ ownerId: req.params.user }).lean();
 
         // Render the user profile page with the fetched data
-        res.render('userProfile', { user, ownedEstablishments });
+		// Calculate rating distribution for the user's reviews
+		const ratingCounts = [0, 0, 0, 0, 0]; // Index 0 = 1-star, Index 4 = 5-star
+		const userReviews = user.reviews || [];
+
+		userReviews.forEach(review => {
+			if (review.rating >= 1 && review.rating <= 5) {
+				ratingCounts[review.rating - 1]++;
+			}
+		});
+
+		const totalUserRatings = ratingCounts.reduce((sum, count) => sum + count, 0);
+		const userRatingData = ratingCounts.map((count, index) => ({
+			star: index + 1,
+			count: count,
+			percentage: totalUserRatings > 0 ? (count / totalUserRatings) * 100 : 0
+		}));
+
+		// Add this data to what we pass to the template
+		res.render('userProfile', { 
+			user, 
+			ownedEstablishments, 
+			userRatingData, 
+			totalUserRatings 
+		});
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
