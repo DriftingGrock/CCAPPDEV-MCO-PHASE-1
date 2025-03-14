@@ -104,7 +104,8 @@ exports.getRestoProfile = async (req, res) => {
             .populate({
                 path: 'reviews',
                 options: { sort: sortQuery },
-                populate: { path: 'userId', select: 'username avatar' }
+                populate: [{ path: 'userId', select: 'username avatar' },
+                 { path: 'ownerResponse.ownerId', select: 'username avatar' }]
             })
             .lean();
 

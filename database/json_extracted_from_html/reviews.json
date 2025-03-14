@@ -43,7 +43,7 @@
     "createdAt": { "$date": "2025-01-27T17:41:00Z" },
     "updatedAt": { "$date": "2025-01-27T17:41:00Z" },
     "ownerResponse": {
-      "$oid": "67d2b0d20b0edd4f6d204781",
+      "ownerId": {"$oid": "67d2b0d20b0edd4f6d204781"},
       "body": "Thank you very much, tell a friend!",
       "media": [],
       "upvoteCount": 0,
@@ -105,7 +105,7 @@
     "createdAt": { "$date": "2025-01-27T17:41:00Z" },
     "updatedAt": { "$date": "2025-01-27T17:41:00Z" },
     "ownerResponse": {
-      "$oid": "67d2b0d20b0edd4f6d204783",
+      "ownerId": { "$oid": "67d2b0d20b0edd4f6d204783"},
       "body": "Ur mom meet my balls",
       "media": [],
       "upvoteCount": 0,
