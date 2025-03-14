@@ -89,6 +89,9 @@ textarea{
     box-sizing: border-box;
     font-family: Verdana, sans-serif;
 }
+textarea {
+    resize: vertical;
+}
 button {
     font-family: Verdana, sans-serif;
 }

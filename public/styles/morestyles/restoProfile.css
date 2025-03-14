@@ -381,6 +381,7 @@ more than one webpage
     width: 90%;
     max-width: 500px;
     margin: 50px auto;
+    height: auto;
     max-height: 80vh; /* Cap the height */
     overflow-y: auto; /* Enable scrolling if content is too tall */
     position: relative;
