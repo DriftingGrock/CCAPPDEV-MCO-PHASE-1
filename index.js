@@ -158,6 +158,9 @@ app.get('/userProfile/:user', async (req, res) => {
                     {
                         path: 'ownerResponse.ownerId',
                         select: 'username avatar'
+                    }, {
+                        path: 'establishmentId',
+                        select: 'name'
                     }
                 ]
             })
