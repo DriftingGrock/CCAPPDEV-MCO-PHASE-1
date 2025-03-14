@@ -160,12 +160,21 @@ const getRatingData = (reviews) => {
 
 app.get('/restoProfile/:id', async (req, res) => {
     try {
-        const sortOption = req.query.sort || 'desc'; // Default to descending order
+        const sortOption = req.query.sort || 'desc'; // Default: Highest rating first
+        let sortQuery = {};
+
+        if (sortOption === 'upvotes') {
+            sortQuery = { upvoteCount: -1 }; // Sort by most upvoted reviews
+        } else if (sortOption === 'asc') {
+            sortQuery = { rating: 1 }; // Sort by lowest rating first
+        } else {
+            sortQuery = { rating: -1 }; // Default: Highest rating first
+        }
 
         const establishment = await Establishment.findById(req.params.id)
             .populate({
                 path: 'reviews',
-                options: { sort: { rating: sortOption === 'asc' ? 1 : -1 } }, // Sort by rating
+                options: { sort: sortQuery }, // Apply sorting
                 populate: { path: 'userId', select: 'username avatar' }
             })
             .lean();
@@ -178,7 +187,7 @@ app.get('/restoProfile/:id', async (req, res) => {
         }
 
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-
+		const isOwner = true;
         res.render('restoProfile', {
             establishment,
             menu,
@@ -186,13 +195,16 @@ app.get('/restoProfile/:id', async (req, res) => {
             ratingData,
             averageRating,
             totalRatings,
-            sortOption // Pass sort option to frontend
+			isOwner,
+            sortOption // Pass sorting option to frontend
         });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 });
+
+
 
 
 // backend route for editing restaurant profiles
