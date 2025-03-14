@@ -19,6 +19,22 @@
 .searchbar input {
     width: 30vw;
 }
+#search-establishments {
+    background-color: white;
+    display: inline-block;
+    width: 30vw; /* Make the input elements take the full width of the modal content */
+    padding: 10px; /* Add some padding for better appearance */
+    margin: 5px 0;
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 4px; /* Add rounded corners */
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+    color: darkgray;
+    text-align: left;
+}
+#search-establishments:hover {
+    cursor: text;
+}
 section {
     margin: 0  100px  0 100px; /* top right bottom left*/
     padding: 40px;
