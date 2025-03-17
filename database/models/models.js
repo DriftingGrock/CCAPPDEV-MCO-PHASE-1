@@ -51,16 +51,17 @@ const reviewSchema = new mongoose.Schema({
     edited: { type: Boolean, default: false }, // Indicates if the review was edited
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    ownerResponse: { // Response from the establishment owner
-        ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' /*, required: true*/ },
-        body: String,
-        media: [String], // URLs to attached images/videos
-        upvoteCount: { type: Number, default: 0 }, // Number of upvotes
-        downvoteCount: { type: Number, default: 0 }, // Number of downvotes
-        edited: { type: Boolean, default: false }, // Indicates if the review was edited
-        createdAt: { type: Date, default: Date.now },
-        updatedAt: { type: Date, default: Date.now }
-    }
+    ownerResponse: { type: mongoose.Schema.Types.Mixed, default: null } // Initialize to null
+    // ownerResponse: { // Response from the establishment owner
+    //     ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' /*, required: true*/ },
+    //     body: String,
+    //     media: [String], // URLs to attached images/videos
+    //     upvoteCount: { type: Number, default: 0 }, // Number of upvotes
+    //     downvoteCount: { type: Number, default: 0 }, // Number of downvotes
+    //     edited: { type: Boolean, default: false }, // Indicates if the review was edited
+    //     createdAt: { type: Date, default: Date.now },
+    //     updatedAt: { type: Date, default: Date.now }
+    // }
 });
 
 // Up/Down Vote Schema

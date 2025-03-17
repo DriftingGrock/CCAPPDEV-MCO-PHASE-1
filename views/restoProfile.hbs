@@ -319,7 +319,7 @@
 
                 {{#if this.ownerResponse}}
                     <div id="owner-rep1" class="reply-container">
-                        <img class="display-pic" src="{{this.ownerResponse.ownerId.avatar}}" alt="pfp.jpg">
+                        <img class="display-pic" src="{{../establishment.bannerImage}}" alt="pfp.jpg">
                         <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId._id}}">Owner</a></div>
                         <div class="description">{{this.ownerResponse.body}}</div>
                         <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
