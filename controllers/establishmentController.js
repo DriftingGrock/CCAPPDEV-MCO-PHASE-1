@@ -238,7 +238,7 @@ exports.replyToReview = async (req, res) => {
     try {
         const { reviewId } = req.params; // Get the review ID from the URL
         const { body } = req.body; // Get the reply body from the request
-        const ownerId = '67d2b0d20b0edd4f6d204780' // PLACEHOLDER FOR NOW
+        const ownerId = new ObjectId('67d2b0d20b0edd4f6d204780') // PLACEHOLDER FOR NOW
 
         // Find the review by ID
         const review = await Review.findById(reviewId);
