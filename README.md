@@ -8,8 +8,7 @@ How to run:
 4. to load files into the database, open mongodb compass and load the .json files in `database > json_extracted_from_html`
 
 MCO2 Demo link:
-https://zoom.us/rec/share/4lSAuPAowhl8_XnBehpMR7cs9lxoymsVwVnvDqVd4xHJRMRvslukwu-wMysFT03y.i1YVFiMryovgbDZk?startTime=1741994011000
-Passcode: yC?8iDt6
+https://drive.google.com/file/d/1yPrx53hb7k8Fkqaw6q9NxpEbfoo0zZLe/view?usp=sharing
 
 Group members:
 Chua, Gideon
