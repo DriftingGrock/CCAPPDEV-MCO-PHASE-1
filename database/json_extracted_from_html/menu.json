@@ -1,6 +1,6 @@
 [
   {
-    "establishmentId": "67d2b0d20b0edd4f6d204779",
+    "establishmentId": { "$oid": "67d2b0d20b0edd4f6d204779" },
     "items": [
       {
         "name": "Spicy Chicken Wings",
@@ -15,11 +15,11 @@
         "image": "/images/resto_menu/24Chicken.png"
       }
     ],
-    "createdAt": "2025-03-15T12:00:00Z",
-    "updatedAt": "2025-03-15T12:00:00Z"
+    "createdAt": { "$date": "2025-03-15T12:00:00Z" },
+    "updatedAt": { "$date": "2025-03-15T12:00:00Z" }
   },
   {
-    "establishmentId": "67d2b0d20b0edd4f6d20477a",
+    "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477a" },
     "items": [
       {
         "name": "Pepperoni Pizza",
@@ -34,11 +34,11 @@
         "image": "/images/resto_menu/angels_pizza_menu.jpg"
       }
     ],
-    "createdAt": "2025-03-15T12:00:00Z",
-    "updatedAt": "2025-03-15T12:00:00Z"
+    "createdAt": { "$date": "2025-03-15T12:00:00Z" },
+    "updatedAt": { "$date": "2025-03-15T12:00:00Z" }
   },
   {
-    "establishmentId": "67d2b0d20b0edd4f6d20477b",
+    "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477b" },
     "items": [
       {
         "name": "Bacon Wrapped Okonomiyaki",
@@ -47,11 +47,11 @@
         "image": "/images/resto_menu/baconoki_menu.png"
       }
     ],
-    "createdAt": "2025-03-15T12:00:00Z",
-    "updatedAt": "2025-03-15T12:00:00Z"
+    "createdAt": { "$date": "2025-03-15T12:00:00Z" },
+    "updatedAt": { "$date": "2025-03-15T12:00:00Z" }
   },
   {
-    "establishmentId": "67d2b0d20b0edd4f6d20477c",
+    "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477c" },
     "items": [
       {
         "name": "Ross Special Burger",
@@ -66,11 +66,11 @@
         "image": "/images/resto_menu/ross_kitchenette.jpg"
       }
     ],
-    "createdAt": "2025-03-15T12:00:00Z",
-    "updatedAt": "2025-03-15T12:00:00Z"
+    "createdAt": { "$date": "2025-03-15T12:00:00Z" },
+    "updatedAt": { "$date": "2025-03-15T12:00:00Z" }
   },
   {
-    "establishmentId": "67d2b0d20b0edd4f6d20477d",
+    "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477d" },
     "items": [
       {
         "name": "Potato Tower",
@@ -79,7 +79,7 @@
         "image": "/images/resto_menu/potato_tower_menu.jpg"
       }
     ],
-    "createdAt": "2025-03-15T12:00:00Z",
-    "updatedAt": "2025-03-15T12:00:00Z"
+    "createdAt": { "$date": "2025-03-15T12:00:00Z" },
+    "updatedAt": { "$date": "2025-03-15T12:00:00Z" }
   }
 ]
