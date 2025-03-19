@@ -160,23 +160,24 @@ exports.deleteReview = async (req, res) => {
     }
 };
 
-
 //------------------EDIT AND DELETE REPLY---------------------------
 // Edit Reply
 exports.editReply = async (req, res) => {
     try {
         const { body } = req.body;
-        const replyId = req.params.id;
+        const reviewId = req.params.id;
 
-        const updatedReply = await Review.findOneAndUpdate(
-            { 'ownerResponse._id': replyId },
-            { $set: { 'ownerResponse.body': body, 'ownerResponse.edited': true, 'ownerResponse.updatedAt': new Date() } },
-            { new: true }
-        );
+        const review = await Review.findById(reviewId);
+        if (!review || !review.ownerResponse) {
+            return res.status(404).json({ error: "Reply not found" });
+        }
 
-        if (!updatedReply) return res.status(404).json({ error: "Reply not found" });
+        review.ownerResponse.body = body;
+        review.ownerResponse.edited = true;
+        review.ownerResponse.updatedAt = new Date();
+        await review.save();
 
-        res.json(updatedReply);
+        res.json(review);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Error updating reply" });
@@ -186,15 +187,15 @@ exports.editReply = async (req, res) => {
 // Delete Reply
 exports.deleteReply = async (req, res) => {
     try {
-        const replyId = req.params.id;
+        const reviewId = req.params.id;
 
-        const updatedReview = await Review.findOneAndUpdate(
-            { 'ownerResponse._id': replyId },
-            { $unset: { ownerResponse: 1 } },
-            { new: true }
-        );
+        const review = await Review.findById(reviewId);
+        if (!review || !review.ownerResponse) {
+            return res.status(404).json({ error: "Reply not found" });
+        }
 
-        if (!updatedReview) return res.status(404).json({ error: "Reply not found" });
+        review.ownerResponse = null;
+        await review.save();
 
         res.json({ message: "Reply deleted successfully" });
     } catch (err) {

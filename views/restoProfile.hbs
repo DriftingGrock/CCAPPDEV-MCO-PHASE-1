@@ -351,12 +351,12 @@
 
                         <!-- Edit and Delete buttons for replies -->
                         {{#if ../isOwnerView}}
-                            <button class="edit-reply-btn" data-id="{{this.ownerResponse._id}}" data-body="{{this.ownerResponse.body}}">
-                                <i class="fa fa-edit"></i> Edit
-                            </button>
-                            <button class="delete-reply-btn" data-id="{{this.ownerResponse._id}}">
-                                <i class="fa fa-trash"></i> Delete
-                            </button>
+                           <button class="edit-reply-btn" data-id="{{this._id}}" data-body="{{this.ownerResponse.body}}">
+							<i class="fa fa-edit"></i> Edit
+							</button>
+							<button class="delete-reply-btn" data-id="{{this._id}}">
+							<i class="fa fa-trash"></i> Delete
+							</button>
                         {{/if}}
                     </div>
                 {{/if}}

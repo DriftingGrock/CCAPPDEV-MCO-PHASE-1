@@ -14,22 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Handle Edit Reply Button
-    document.querySelectorAll('.edit-reply-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const replyId = this.getAttribute('data-id');
-            const replyBody = this.getAttribute('data-body');
-            console.log(replyBody);
-
-            // Populate the edit modal with the reply data
-            document.getElementById('editReplyId').value = replyId;
-            document.getElementById('editReplyBody').value = replyBody;
-
-            // Show the edit modal
-            document.getElementById('editReplyModal').style.display = 'block';
-        });
-    });
-
     // Handle Delete Reply Button
     document.querySelectorAll('.delete-reply-btn').forEach(button => {
         button.addEventListener('click', async function() {
