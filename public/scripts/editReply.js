@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.edit-reply-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const replyId = this.getAttribute('data-id');
+            const replyBody = this.getAttribute('data-body');
+            console.log(replyBody); // Debugging: Ensure the reply body is correct
+
+            // Populate the edit modal with the reply data
+            document.getElementById('editReplyId').value = replyId;
+            quillEditReply.root.innerHTML = replyBody; // Populate Quill editor with the reply body
+
+            // Show the edit modal
+            document.getElementById('editReplyModal').style.display = 'block';
+        });
+    });
+
     // Handle Edit Reply Button
     document.querySelectorAll('.edit-reply-btn').forEach(button => {
         button.addEventListener('click', function() {
