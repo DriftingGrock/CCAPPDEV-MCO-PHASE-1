@@ -250,17 +250,18 @@
         <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()" style="width: 50%;">
 
         <label for="reviewSort">Sort Reviews:</label>
-        <select id="reviewSort" onchange="sortReviews()" style='font-size: 1rem; padding: 0.5rem; outline: lightgray 1px solid'>
-            <option value="desc">Highest to Lowest Rating</option>
-            <option value="asc">Lowest to Highest Rating</option>
-            <option value="upvotes">Most Upvoted Reviews</option>
+        <select id="reviewSort" onchange="sortReviews()" style="font-size: 1rem; padding: 0.5rem; outline: lightgray 1px solid">
+            <option value="desc" {{#if (eq sortOption 'desc')}}selected{{/if}}>Highest to Lowest Rating</option>
+            <option value="asc" {{#if (eq sortOption 'asc')}}selected{{/if}}>Lowest to Highest Rating</option>
+            <option value="upvotes" {{#if (eq sortOption 'upvotes')}}selected{{/if}}>Most Upvoted Reviews</option>
         </select>
-       <script>
+
+        <script>
             function sortReviews() {
                 const sortOrder = document.getElementById('reviewSort').value;
                 const urlParams = new URLSearchParams(window.location.search);
                 urlParams.set('sort', sortOrder);
-                window.location.search = urlParams.toString();
+                window.location.search = urlParams.toString(); // ✅ Reload with new sort option
             }
         </script>
 

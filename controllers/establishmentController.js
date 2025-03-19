@@ -95,40 +95,41 @@ exports.getRestoProfile = async (req, res) => {
         let sortQuery = {};
 
         if (sortOption === 'upvotes') {
-            sortQuery = { upvoteCount: -1 };
+            sortQuery = { upvoteCount: -1 }; // ✅ Most upvoted
         } else if (sortOption === 'asc') {
-            sortQuery = { rating: 1 };
+            sortQuery = { rating: 1 }; // ✅ Lowest to highest rating
         } else {
-            sortQuery = { rating: -1 };
+            sortQuery = { rating: -1 }; // ✅ Highest to lowest rating (default)
         }
 
         const establishment = await Establishment.findById(req.params.id)
-        .populate({
-            path: 'reviews',
-            options: { sort: { createdAt: -1 } }, // ✅ Sort by latest
-            populate: [{ path: 'userId', select: 'username avatar' },
-                       { path: 'ownerResponse.ownerId', select: 'username avatar' }]
-        })
-        .lean();
-    
-    if (!establishment) {
-        return res.status(404).send('Establishment not found');
-    }
-    
-    const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-    
-    res.render('restoProfile', {
-        establishment,
-        ratingData,
-        averageRating,
-        totalRatings
-    });
-    
+            .populate({
+                path: 'reviews',
+                options: { sort: sortQuery },
+                populate: [{ path: 'userId', select: 'username avatar' },
+                           { path: 'ownerResponse.ownerId', select: 'username avatar' }]
+            })
+            .lean();
+
+        if (!establishment) {
+            return res.status(404).send('Establishment not found');
+        }
+
+        const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
+
+        res.render('restoProfile', {
+            establishment,
+            ratingData,
+            averageRating,
+            totalRatings,
+            sortOption
+        });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
 };
+
 
 exports.editRestoProfile = async (req, res) => {
     try {

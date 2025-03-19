@@ -32,6 +32,10 @@ hbs.registerHelper('formatDate', function (date) {
     };
     return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 });
+hbs.registerHelper('eq', function (a, b) {
+    return a === b;
+});
+
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
