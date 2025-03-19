@@ -157,3 +157,45 @@ exports.deleteReview = async (req, res) => {
         res.status(500).json({ error: "Error deleting review" });
     }
 };
+
+//------------------EDIT AND DELETE REPLY---------------------------
+// Edit Reply
+exports.editReply = async (req, res) => {
+    try {
+        const { body } = req.body;
+        const replyId = req.params.id;
+
+        const updatedReply = await Review.findOneAndUpdate(
+            { 'ownerResponse._id': replyId },
+            { $set: { 'ownerResponse.body': body, 'ownerResponse.edited': true, 'ownerResponse.updatedAt': new Date() } },
+            { new: true }
+        );
+
+        if (!updatedReply) return res.status(404).json({ error: "Reply not found" });
+
+        res.json(updatedReply);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error updating reply" });
+    }
+};
+
+// Delete Reply
+exports.deleteReply = async (req, res) => {
+    try {
+        const replyId = req.params.id;
+
+        const updatedReview = await Review.findOneAndUpdate(
+            { 'ownerResponse._id': replyId },
+            { $unset: { ownerResponse: 1 } },
+            { new: true }
+        );
+
+        if (!updatedReview) return res.status(404).json({ error: "Reply not found" });
+
+        res.json({ message: "Reply deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Error deleting reply" });
+    }
+};

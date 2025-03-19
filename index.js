@@ -61,6 +61,9 @@ app.get("/api/reviews/:establishmentId", reviewController.getReviews);
 app.post("/edit-review/:id", reviewController.editReview);
 app.delete("/delete-review/:id", reviewController.deleteReview);
 
+app.post("/edit-reply/:id", reviewController.editReply);
+app.delete("/delete-reply/:id", reviewController.deleteReply);
+
 app.get('/userProfile/:user', userController.getUserProfile);
 app.post('/userProfile/:user/edit', upload.single('avatar'), userController.editUserProfile);
 

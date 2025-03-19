@@ -348,6 +348,16 @@
                                 <span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
                             </button>
                         </div>
+
+                        <!-- Edit and Delete buttons for replies -->
+                        {{#if ../isOwnerView}}
+                            <button class="edit-reply-btn" data-id="{{this.ownerResponse._id}}" data-body="{{this.ownerResponse.body}}">
+                                <i class="fa fa-edit"></i> Edit
+                            </button>
+                            <button class="delete-reply-btn" data-id="{{this.ownerResponse._id}}">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        {{/if}}
                     </div>
                 {{/if}}
             </article>
@@ -377,6 +387,27 @@
             </form>
         </div>
     </div>
+
+    <!-- Edit Reply Modal -->
+    <div id="editReplyModal" class="modal">
+        <div class="modal-content" style="background-color:white;">
+            <h2>Edit Reply</h2>
+            <form id="editReplyForm">
+                <!-- Hidden Input for Reply ID -->
+                <input type="hidden" id="editReplyId" value="">
+
+                <!-- Quill Editor for Rich Text Formatting -->
+                <div id="quill-edit-reply-editor" style="height: 150px; margin-bottom: 15px;"></div>
+                <input type="hidden" id="editReplyBody" name="body">
+
+                <div class="button-group">
+                    <button type="submit" class="save-button">Save Changes</button>
+                    <button type="button" class="cancel-button" onclick="closeEditReplyModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
 
 
@@ -539,6 +570,7 @@
 <script src="/scripts/profileModal.js"></script>
 <script src="/scripts/editRestoProfile.js"></script>
 <script src="/scripts/replyModal.js"></script>
+<script src="/scripts/editReply.js"></script>
 <script>
     // Initialize Quill Editor for Reply Modal
     const quillReply = new Quill('#quill-reply-editor', {
