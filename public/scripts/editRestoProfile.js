@@ -2,7 +2,7 @@
 const editButton = document.querySelector('.edit-resto-button');
 const editModal = document.getElementById('editRestoProfileModal');
 const editForm = document.getElementById('editRestoProfileForm');
-const cancelButton = document.querySelector('.cancel-resto-button');
+const cancelButton = document.querySelector('#editRestoProfileModal .cancel-button');
 const restoName = document.querySelector('.resto-name');
 const restoDescription = document.querySelector('.establishment-desc');
 
