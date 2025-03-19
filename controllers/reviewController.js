@@ -93,22 +93,24 @@ exports.editReview = async (req, res) => {
 
         if (!updatedReview) return res.status(404).json({ error: "Review not found" });
 
+        // Fetch the user who wrote the review
+        const reviewUser = await User.findById(updatedReview.userId);
+        if (!reviewUser) return res.status(404).json({ error: "User not found" });
+
         // Update establishment rating
         const establishment = await Establishment.findById(updatedReview.establishmentId).populate('reviews');
         const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
         establishment.overallRating = (totalRating / establishment.reviews.length).toFixed(1);
         await establishment.save();
 
-        // Emit socket event to update client
+        // Emit socket event to update UI
         if (global.io) {
-            global.io.emit('reviewUpdated'); // ✅ Notify profile pages
-            global.io.emit('userProfileUpdated', { userId: defaultUser._id }); // ✅ Specific user profile update
-        }
-         else {
+            global.io.emit('reviewUpdated');
+            global.io.emit('userProfileUpdated', { userId: reviewUser._id });
+        } else {
             console.error("Socket.io is not initialized");
         }
-        
-        
+
         res.json(updatedReview);
     } catch (err) {
         console.error(err);
@@ -116,18 +118,25 @@ exports.editReview = async (req, res) => {
     }
 };
 
-
 exports.deleteReview = async (req, res) => {
     try {
         const review = await Review.findById(req.params.id);
         if (!review) return res.status(404).json({ error: "Review not found" });
 
+        // Find the user who posted the review
+        const reviewUser = await User.findById(review.userId);
+        if (!reviewUser) return res.status(404).json({ error: "User not found" });
+
+        // Delete the review
         await Review.findByIdAndDelete(req.params.id);
+
+        // Update the user's review list and decrement review count
         await User.findByIdAndUpdate(review.userId, {
             $pull: { reviews: review._id },
-            $inc: { "stats.reviewsMade": -1 } // ✅ Reduce count
+            $inc: { "stats.reviewsMade": -1 }
         }, { new: true });
 
+        // Update the establishment's rating
         const establishment = await Establishment.findById(review.establishmentId).populate('reviews');
         const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
         establishment.overallRating = establishment.reviews.length
@@ -136,20 +145,13 @@ exports.deleteReview = async (req, res) => {
 
         await establishment.save();
 
-        // Emit socket event to update client
+        // Emit socket events
         if (global.io) {
-            global.io.emit('reviewUpdated'); // ✅ Notify profile pages
-            global.io.emit('userProfileUpdated', { userId: defaultUser._id }); // ✅ Specific user profile update
-        }
-         else {
-            console.error("Socket.io is not initialized");
-        }
-
-        if (io) {
-            io.emit('reviewUpdated');
+            global.io.emit('reviewUpdated');
+            global.io.emit('userProfileUpdated', { userId: reviewUser._id });
         } else {
             console.error("Socket.io is not initialized");
-        }        
+        }
 
         res.json({ message: "Review deleted successfully" });
     } catch (err) {
@@ -157,6 +159,7 @@ exports.deleteReview = async (req, res) => {
         res.status(500).json({ error: "Error deleting review" });
     }
 };
+
 
 //------------------EDIT AND DELETE REPLY---------------------------
 // Edit Reply
