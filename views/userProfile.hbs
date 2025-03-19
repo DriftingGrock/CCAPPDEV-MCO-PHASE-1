@@ -176,5 +176,14 @@
     <script src="/scripts/editProfile.js"></script>
 	<script src="/scripts/editReview.js"></script>
     <script src="/scripts/profileModal.js"></script>
-</body>
+</body><script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('reviewUpdated', () => {
+        console.log('Review updated - refreshing list');
+        location.reload(); // Reload to reflect new data
+    });
+</script>
+
 </html>

@@ -26,13 +26,26 @@ exports.postReview = async (req, res) => {
             rating,
             media: mediaUrls
         });
-
+        
         await newReview.save();
-        await Establishment.findByIdAndUpdate(establishmentId, { $push: { reviews: newReview._id } });
-        await User.findByIdAndUpdate(defaultUser._id, {
-            $push: { reviews: newReview._id },
-            $inc: { 'stats.reviewsMade': 1 }
-        });
+        
+        // ✅ Use { new: true } to update and return latest version
+        const updatedEstablishment = await Establishment.findByIdAndUpdate(
+            establishmentId,
+            { $push: { reviews: newReview._id } },
+            { new: true }
+        ).populate('reviews');
+        
+        const totalRating = updatedEstablishment.reviews.reduce((sum, r) => sum + r.rating, 0);
+        updatedEstablishment.overallRating = (totalRating / updatedEstablishment.reviews.length).toFixed(1);
+        await updatedEstablishment.save();
+        
+        // ✅ Emit socket event
+        if (global.io) {
+            global.io.emit('reviewUpdated');
+        } else {
+            console.error("Socket.io is not initialized");
+        }        
 
         res.status(201).json({ message: "Review posted successfully", review: newReview });
     } catch (err) {
@@ -66,6 +79,21 @@ exports.editReview = async (req, res) => {
 
         if (!updatedReview) return res.status(404).json({ error: "Review not found" });
 
+        // Update establishment rating
+        const establishment = await Establishment.findById(updatedReview.establishmentId).populate('reviews');
+        const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
+        establishment.overallRating = (totalRating / establishment.reviews.length).toFixed(1);
+        await establishment.save();
+
+        // Emit socket event to update client
+        io.emit('reviewUpdated');
+
+        if (io) {
+            io.emit('reviewUpdated');
+        } else {
+            console.error("Socket.io is not initialized");
+        }
+        
         res.json(updatedReview);
     } catch (err) {
         console.error(err);
@@ -73,17 +101,30 @@ exports.editReview = async (req, res) => {
     }
 };
 
+
 exports.deleteReview = async (req, res) => {
     try {
         const review = await Review.findById(req.params.id);
         if (!review) return res.status(404).json({ error: "Review not found" });
 
         await Review.findByIdAndDelete(req.params.id);
-        await Establishment.findByIdAndUpdate(review.establishmentId, { $pull: { reviews: req.params.id } });
-        await User.findByIdAndUpdate(review.userId, {
-            $pull: { reviews: req.params.id },
-            $inc: { 'stats.reviewsMade': -1 }
-        });
+
+        const establishment = await Establishment.findById(review.establishmentId).populate('reviews');
+        const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
+        establishment.overallRating = establishment.reviews.length
+            ? (totalRating / establishment.reviews.length).toFixed(1)
+            : 0;
+
+        await establishment.save();
+
+        // Emit socket event to update client
+        io.emit('reviewUpdated');
+
+        if (io) {
+            io.emit('reviewUpdated');
+        } else {
+            console.error("Socket.io is not initialized");
+        }        
 
         res.json({ message: "Review deleted successfully" });
     } catch (err) {

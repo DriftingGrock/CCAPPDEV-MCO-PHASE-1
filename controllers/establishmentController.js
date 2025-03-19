@@ -26,15 +26,17 @@ const getRatingData = (reviews) => {
 
 exports.getHomePage = async (req, res) => {
     try {
+        // Get recommended establishments based on latest overall rating
         const recommendedEstablishments = await Establishment.find()
-            .sort({ overallRating: -1 })
+            .sort({ overallRating: -1 }) // Sort by highest rating
             .limit(5)
             .lean();
 
+        // Get latest reviews
         const recentReviews = await Review.find()
             .sort({ createdAt: -1 })
             .limit(5)
-            .populate('establishmentId', 'name bannerImage')
+            .populate('establishmentId', 'name bannerImage overallRating') // Include latest overallRating
             .populate('userId', 'username')
             .lean();
 
@@ -101,34 +103,27 @@ exports.getRestoProfile = async (req, res) => {
         }
 
         const establishment = await Establishment.findById(req.params.id)
-            .populate({
-                path: 'reviews',
-                options: { sort: sortQuery },
-                populate: [{ path: 'userId', select: 'username avatar' },
-                 { path: 'ownerResponse.ownerId', select: 'username avatar' }]
-            })
-            .lean();
-
-        const menu = await Menu.findOne({ establishmentId: req.params.id }).lean();
-        const photos = await Photo.find({ establishmentId: req.params.id }).lean();
-
-        if (!establishment) {
-            return res.status(404).send('Establishment not found');
-        }
-
-        const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-        const isOwner = true;
-
-        res.render('restoProfile', {
-            establishment,
-            menu,
-            photos,
-            ratingData,
-            averageRating,
-            totalRatings,
-            isOwner,
-            sortOption
-        });
+        .populate({
+            path: 'reviews',
+            options: { sort: { createdAt: -1 } }, // ✅ Sort by latest
+            populate: [{ path: 'userId', select: 'username avatar' },
+                       { path: 'ownerResponse.ownerId', select: 'username avatar' }]
+        })
+        .lean();
+    
+    if (!establishment) {
+        return res.status(404).send('Establishment not found');
+    }
+    
+    const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
+    
+    res.render('restoProfile', {
+        establishment,
+        ratingData,
+        averageRating,
+        totalRatings
+    });
+    
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');

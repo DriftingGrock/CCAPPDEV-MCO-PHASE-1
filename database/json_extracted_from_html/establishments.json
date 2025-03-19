@@ -8,7 +8,7 @@
     "openingHours": "1:00pm - 1:00am",
     "priceRange": "₱400 for 5",
     "cuisine": "Boneless Chicken",
-    "overallRating": 1,
+    "overallRating": 4,
     "reviews": [
       { "$oid": "67d2b0d20b0edd4f6d204790" }
     ],
@@ -29,7 +29,7 @@
     "openingHours": "8:00am - 12:00am",
     "priceRange": "₱400",
     "cuisine": "Pizza",
-    "overallRating": 1.0,
+    "overallRating": 4.0,
     "reviews": [
       { "$oid": "67d2b0d20b0edd4f6d204798" }
     ],
@@ -56,7 +56,7 @@
     "openingHours": "6:00am - 9:00pm",
     "priceRange": "₱60 for one",
     "cuisine": "Bacon Enoki Rolls",
-    "overallRating": 5.0,
+    "overallRating": 4.0,
     "reviews": [
       { "$oid": "67d2b0d20b0edd4f6d204791" }
     ],

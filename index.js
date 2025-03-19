@@ -62,6 +62,32 @@ app.post("/api/vote", voteController.vote);
 app.get("/api/votes/:userId/:establishmentId", voteController.getVotes);
 app.post("/api/vote-simple", voteController.voteSimple);
 
+/*
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);
 });
+*/
+
+const http = require('http');
+const socketIo = require('socket.io');
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+    console.log('Client connected');
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
+server.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}`);
+});
+
+// ✅ Attach to global object instead of module.exports
+global.io = io;
+
+
+

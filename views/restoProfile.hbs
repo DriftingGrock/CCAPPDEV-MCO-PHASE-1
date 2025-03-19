@@ -478,6 +478,17 @@
         });
     });
 </script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('reviewUpdated', () => {
+        console.log('Review updated — refreshing page');
+        location.reload(); // ✅ Refresh the page to reflect changes
+    });
+</script>
+
+
 <script src="/scripts/profileModal.js"></script>
 <script src="/scripts/editRestoProfile.js"></script>
 </body>

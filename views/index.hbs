@@ -85,6 +85,25 @@
         {{/each}}
     </article>
 </section>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('reviewUpdated', () => {
+        console.log('Review updated - refreshing page');
+        location.reload(); // Reload to reflect new data
+    });
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('reviewUpdated', () => {
+        console.log('Review updated - refreshing list');
+        location.reload(); // Reload to reflect new data
+    });
+</script>
 
 <script src="/scripts/profileModal.js"></script>
 </body>
