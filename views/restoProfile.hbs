@@ -339,11 +339,11 @@
                         <div class="description">{{{this.ownerResponse.body}}}</div>
                         <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
                         <div class="vote">
-                            <button class="upvote" onclick="voteOwnerResponse('{{this._id}}', 'up')">
+                            <button class="upvote">
                                 <i class="fa-solid fa-up-long"></i>
                                 <span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
                             </button>
-                            <button class="downvote" onclick="voteOwnerResponse('{{this._id}}', 'down')">
+                            <button class="downvote">
                                 <i class="fa-solid fa-down-long"></i>
                                 <span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
                             </button>

@@ -67,8 +67,6 @@ app.post('/userProfile/:user/edit', upload.single('avatar'), userController.edit
 app.post("/api/vote", voteController.vote);
 app.get("/api/votes/:userId/:establishmentId", voteController.getVotes);
 app.post("/api/vote-simple", voteController.voteSimple);
-app.post("/api/vote-owner-response", voteController.voteOwnerResponse);
-
 
 /*
 app.listen(PORT, () => {
