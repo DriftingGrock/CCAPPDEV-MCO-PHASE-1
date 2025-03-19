@@ -132,3 +132,34 @@ exports.deleteReview = async (req, res) => {
         res.status(500).json({ error: "Error deleting review" });
     }
 };
+
+exports.replyToReview = async (req, res) => {
+    try {
+        const { reviewId } = req.params;
+        const { body } = req.body;
+        const ownerId = req.user._id; // Get owner ID from session/auth
+
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ error: "Review not found" });
+        }
+
+        review.ownerResponse = {
+            ownerId,
+            body,
+            media: [],
+            upvoteCount: 0, // ✅ Initialize vote counts
+            downvoteCount: 0,
+            edited: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+
+        await review.save();
+        res.json({ message: "Reply submitted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to submit reply" });
+    }
+};
+
