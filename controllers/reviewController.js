@@ -28,6 +28,20 @@ exports.postReview = async (req, res) => {
         });
         
         await newReview.save();
+
+        // Update user's reviews list
+        await User.findByIdAndUpdate(defaultUser._id, {
+            $push: { reviews: newReview._id },
+            $inc: { "stats.reviewsMade": 1 } // ✅ Increase review count
+        }, { new: true });
+
+        // ✅ Emit socket event to update user profiles
+        if (global.io) {
+            global.io.emit('reviewUpdated');
+        } else {
+            console.error("Socket.io is not initialized");
+        }
+
         
         // ✅ Use { new: true } to update and return latest version
         const updatedEstablishment = await Establishment.findByIdAndUpdate(
@@ -86,13 +100,14 @@ exports.editReview = async (req, res) => {
         await establishment.save();
 
         // Emit socket event to update client
-        io.emit('reviewUpdated');
-
-        if (io) {
-            io.emit('reviewUpdated');
-        } else {
+        if (global.io) {
+            global.io.emit('reviewUpdated'); // ✅ Notify profile pages
+            global.io.emit('userProfileUpdated', { userId: defaultUser._id }); // ✅ Specific user profile update
+        }
+         else {
             console.error("Socket.io is not initialized");
         }
+        
         
         res.json(updatedReview);
     } catch (err) {
@@ -108,6 +123,10 @@ exports.deleteReview = async (req, res) => {
         if (!review) return res.status(404).json({ error: "Review not found" });
 
         await Review.findByIdAndDelete(req.params.id);
+        await User.findByIdAndUpdate(review.userId, {
+            $pull: { reviews: review._id },
+            $inc: { "stats.reviewsMade": -1 } // ✅ Reduce count
+        }, { new: true });
 
         const establishment = await Establishment.findById(review.establishmentId).populate('reviews');
         const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
@@ -118,7 +137,13 @@ exports.deleteReview = async (req, res) => {
         await establishment.save();
 
         // Emit socket event to update client
-        io.emit('reviewUpdated');
+        if (global.io) {
+            global.io.emit('reviewUpdated'); // ✅ Notify profile pages
+            global.io.emit('userProfileUpdated', { userId: defaultUser._id }); // ✅ Specific user profile update
+        }
+         else {
+            console.error("Socket.io is not initialized");
+        }
 
         if (io) {
             io.emit('reviewUpdated');

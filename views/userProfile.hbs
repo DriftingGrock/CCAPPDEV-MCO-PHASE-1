@@ -177,13 +177,14 @@
 	<script src="/scripts/editReview.js"></script>
     <script src="/scripts/profileModal.js"></script>
 </body><script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script>
-    const socket = io();
-
-    socket.on('reviewUpdated', () => {
-        console.log('Review updated - refreshing list');
-        location.reload(); // Reload to reflect new data
+    socket.on('userProfileUpdated', (data) => {
+        const currentUserId = "{{user._id}}"; // ✅ Ensure correct user ID
+        if (data.userId === currentUserId) {
+            console.log('User profile updated - refreshing');
+            location.reload();
+        }
     });
 </script>
-
 </html>
