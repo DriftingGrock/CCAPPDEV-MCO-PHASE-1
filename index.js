@@ -52,7 +52,9 @@ const voteController = require('./controllers/voteController');
 app.get('/', establishmentController.getHomePage);
 app.get('/restoList', establishmentController.getRestoList);
 app.get('/restoProfile/:id', establishmentController.getRestoProfile);
+app.get('/restoProfile/:id/owner', establishmentController.getRestoProfileOwner);
 app.post('/restoProfile/:id/edit', upload.single('banner'), establishmentController.editRestoProfile);
+app.post('/api/reviews/:reviewId/reply', establishmentController.replyToReview);
 
 app.post("/api/reviews", upload.array("media"), reviewController.postReview);
 app.get("/api/reviews/:establishmentId", reviewController.getReviews);

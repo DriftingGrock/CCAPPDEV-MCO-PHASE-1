@@ -157,3 +157,91 @@ exports.editRestoProfile = async (req, res) => {
         });
     }
 };
+
+exports.getRestoProfileOwner = async (req, res) => {
+    try {
+        const sortOption = req.query.sort || 'desc';
+        let sortQuery = {};
+
+        if (sortOption === 'upvotes') {
+            sortQuery = { upvoteCount: -1 };
+        } else if (sortOption === 'asc') {
+            sortQuery = { rating: 1 };
+        } else {
+            sortQuery = { rating: -1 };
+        }
+
+        const establishment = await Establishment.findById(req.params.id)
+            .populate({
+                path: 'reviews',
+                options: { sort: sortQuery },
+                populate: [
+                    { path: 'userId', select: 'username avatar' },
+                    { path: 'ownerResponse.ownerId', select: 'username avatar' },
+                ],
+            })
+            .lean();
+
+        const menu = await Menu.findOne({ establishmentId: req.params.id }).lean();
+        const photos = await Photo.find({ establishmentId: req.params.id }).lean();
+
+        if (!establishment) {
+            return res.status(404).send('Establishment not found');
+        }
+
+        const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
+        const isOwner = true;
+        const isOwnerView = true;
+
+        res.render('restoProfile', {
+            establishment,
+            menu,
+            photos,
+            ratingData,
+            averageRating,
+            totalRatings,
+            isOwner,
+            isOwnerView,
+            sortOption,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
+// Function to reply to a review
+exports.replyToReview = async (req, res) => {
+    try {
+        const { reviewId } = req.params; // Get the review ID from the URL
+        const { body } = req.body; // Get the reply body from the request
+        const ownerId = '67d2b0d20b0edd4f6d204780' // PLACEHOLDER FOR NOW
+
+        // Find the review by ID
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ success: false, message: 'Review not found' });
+        }
+
+        // Add the owner's reply to the review
+        review.ownerResponse = {
+            ownerId,
+            body,
+            media: [], // You can add media URLs here if needed
+            upvoteCount: 0,
+            downvoteCount: 0,
+            edited: false,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+
+        // Save the updated review
+        await review.save();
+
+        // Return success response
+        res.json({ success: true, message: 'Reply submitted successfully' });
+    } catch (error) {
+        console.error('Error replying to review:', error);
+        res.status(500).json({ success: false, message: 'Failed to submit reply' });
+    }
+};

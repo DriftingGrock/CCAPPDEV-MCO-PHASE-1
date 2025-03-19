@@ -117,20 +117,44 @@ button {
     outline: #025000 1px solid;
 }
 
-/* PROFILE MODAL stuff */
+/* GENERIC MODAL stuff */
+/* Modal Styles */
 .modal {
-    display: none; /* hidden by default*/
-    background-color: rgba(0,0,0,0.4); /* opacity */
-    z-index: 1;
-    position: fixed;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 70px;
     width: 100%;
     height: 100%;
-
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
 }
+
 .modal-content {
+    background-color: #e3ece0;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 50%; /* Adjust width as needed */
+    height: auto;
+    max-width: 600px; /* Maximum width */
+    max-height: 80vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.modal-content p {
+    font-size: 14px;
+    text-align: center;
+    color: darkgray;
+}
+
+/* PROFILE MODAL stuff */
+#profileModal > .modal-content {
     display: flex;
     flex-direction: column;
-    background-color: #e3ece0;
     padding: 16px;
     width: 200px;
     height: 250px;
@@ -139,9 +163,7 @@ button {
     font-family: Verdana, sans-serif;
     color: #025000;
 }
-
-
-.modal-content p {
+#profileModal > .modal-content p {
     font-size: 14px;
     text-align: center;
     color: darkgray;
