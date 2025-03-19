@@ -166,6 +166,119 @@
                 </form>
             </article>
         </section>
+
+
+        <section class="reviews-holder">
+            <h2>Reviews</h2>
+            <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()" style="width: 50%;">
+
+            <label for="reviewSort">Sort Reviews:</label>
+            <select id="reviewSort" onchange="sortReviews()" style="font-size: 1rem; padding: 0.5rem; outline: lightgray 1px solid">
+                <option value="desc" {{#if (eq sortOption 'desc')}}selected{{/if}}>Highest to Lowest Rating</option>
+                <option value="asc" {{#if (eq sortOption 'asc')}}selected{{/if}}>Lowest to Highest Rating</option>
+                <option value="upvotes" {{#if (eq sortOption 'upvotes')}}selected{{/if}}>Most Upvoted Reviews</option>
+            </select>
+
+            <script>
+                function sortReviews() {
+                    const sortOrder = document.getElementById('reviewSort').value;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('sort', sortOrder);
+                    window.location.search = urlParams.toString(); // ✅ Reload with new sort option
+                }
+            </script>
+
+            <script>
+                function filterReviews() {
+                    let searchQuery = document.getElementById('reviewSearch').value.toLowerCase();
+                    let reviews = document.querySelectorAll('.reviews');
+
+                    reviews.forEach(review => {
+                        let reviewText = review.querySelector('.description').innerText.toLowerCase();
+                        if (reviewText.includes(searchQuery)) {
+                            review.style.display = "block";
+                        } else {
+                            review.style.display = "none";
+                        }
+                    });
+                }
+            </script>
+
+
+            {{#each establishment.reviews}}
+                <article class="reviews">
+                    <div class="review-container" data-review-id="{{this._id}}">
+                        <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
+                        <div class="heading">
+                            <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
+                        </div>
+                        <div class="star-rating">
+                            <img class="star-icon-review" src="/icons/star.png" alt="star">
+                            {{this.rating}}
+                        </div>
+                        <div class="heading">{{this.title}}</div>
+                        <div class="description">{{{this.body}}}</div>
+                        {{#if this.media}}
+                            <div class="review-images">
+                                {{#each this.media}}
+                                    <img src="{{this}}" alt="Review Image">
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        <div class="date">{{formatDate this.createdAt}}</div>
+                        {{#if this.edited}}
+                            <div class="edit-tag"> edited </div>
+                        {{/if}}
+                        <div class="vote">
+                            <button class="upvote">
+                                <i class="fa-solid fa-up-long"></i>
+                                <span class="upvote-count">{{this.upvoteCount}}</span>
+                            </button>
+                            <button class="downvote">
+                                <i class="fa-solid fa-down-long"></i>
+                                <span class="downvote-count">{{this.downvoteCount}}</span>
+                            </button>
+                        </div>
+
+                        <!-- Owner Reply Button (Visible only in Owner View) -->
+                        {{#if ../isOwnerView}}
+                            <button class="reply-button" onclick="openReplyModal('{{this._id}}')">
+                                <i class="fa fa-reply"></i> Reply
+                            </button>
+                        {{/if}}
+                    </div>
+
+                    {{#if this.ownerResponse}}
+                        <div id="owner-rep1" class="reply-container">
+                            <img class="display-pic" src="{{../establishment.bannerImage}}" alt="pfp.jpg">
+                            <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId}}">Owner</a></div>
+                            <div class="description">{{{this.ownerResponse.body}}}</div>
+                            <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
+                            <div class="vote">
+                                <button class="upvote">
+                                    <i class="fa-solid fa-up-long"></i>
+                                    <span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
+                                </button>
+                                <button class="downvote">
+                                    <i class="fa-solid fa-down-long"></i>
+                                    <span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
+                                </button>
+                            </div>
+
+                            <!-- Edit and Delete buttons for replies -->
+                            {{#if ../isOwnerView}}
+                                <button class="edit-reply-btn" data-id="{{this._id}}" data-body="{{this.ownerResponse.body}}">
+                                    <i class="fa fa-edit"></i> Edit
+                                </button>
+                                <button class="delete-reply-btn" data-id="{{this._id}}">
+                                    <i class="fa fa-trash"></i> Delete
+                                </button>
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                </article>
+            {{/each}}
+        </section>
     </section>
 
         <script>
@@ -252,117 +365,7 @@
         </section>
     </div>
     -->
-    <section class="reviews-holder">
-        <h2>Reviews</h2>
-        <input type="text" id="reviewSearch" placeholder="Search reviews..." oninput="filterReviews()" style="width: 50%;">
 
-        <label for="reviewSort">Sort Reviews:</label>
-        <select id="reviewSort" onchange="sortReviews()" style="font-size: 1rem; padding: 0.5rem; outline: lightgray 1px solid">
-            <option value="desc" {{#if (eq sortOption 'desc')}}selected{{/if}}>Highest to Lowest Rating</option>
-            <option value="asc" {{#if (eq sortOption 'asc')}}selected{{/if}}>Lowest to Highest Rating</option>
-            <option value="upvotes" {{#if (eq sortOption 'upvotes')}}selected{{/if}}>Most Upvoted Reviews</option>
-        </select>
-
-        <script>
-            function sortReviews() {
-                const sortOrder = document.getElementById('reviewSort').value;
-                const urlParams = new URLSearchParams(window.location.search);
-                urlParams.set('sort', sortOrder);
-                window.location.search = urlParams.toString(); // ✅ Reload with new sort option
-            }
-        </script>
-
-        <script>
-            function filterReviews() {
-                let searchQuery = document.getElementById('reviewSearch').value.toLowerCase();
-                let reviews = document.querySelectorAll('.reviews');
-
-                reviews.forEach(review => {
-                    let reviewText = review.querySelector('.description').innerText.toLowerCase();
-                    if (reviewText.includes(searchQuery)) {
-                        review.style.display = "block";
-                    } else {
-                        review.style.display = "none";
-                    }
-                });
-            }
-        </script>
-
-
-        {{#each establishment.reviews}}
-            <article class="reviews">
-                <div class="review-container" data-review-id="{{this._id}}">
-                    <img class="display-pic" src="{{this.userId.avatar}}" alt="User image">
-                    <div class="heading">
-                        <a href="/userProfile/{{this.userId._id}}">{{this.userId.username}}</a>
-                    </div>
-                    <div class="star-rating">
-                        <img class="star-icon-review" src="/icons/star.png" alt="star">
-                        {{this.rating}}
-                    </div>
-                    <div class="heading">{{this.title}}</div>
-                    <div class="description">{{{this.body}}}</div>
-                    {{#if this.media}}
-                        <div class="review-images">
-                            {{#each this.media}}
-                                <img src="{{this}}" alt="Review Image">
-                            {{/each}}
-                        </div>
-                    {{/if}}
-                    <div class="date">{{formatDate this.createdAt}}</div>
-                    {{#if this.edited}}
-                        <div class="edit-tag"> edited </div>
-                    {{/if}}
-                    <div class="vote">
-                        <button class="upvote">
-                            <i class="fa-solid fa-up-long"></i>
-                            <span class="upvote-count">{{this.upvoteCount}}</span>
-                        </button>
-                        <button class="downvote">
-                            <i class="fa-solid fa-down-long"></i>
-                            <span class="downvote-count">{{this.downvoteCount}}</span>
-                        </button>
-                    </div>
-
-                    <!-- Owner Reply Button (Visible only in Owner View) -->
-                    {{#if ../isOwnerView}}
-                        <button class="reply-button" onclick="openReplyModal('{{this._id}}')">
-                            <i class="fa fa-reply"></i> Reply
-                        </button>
-                    {{/if}}
-                </div>
-
-                {{#if this.ownerResponse}}
-                    <div id="owner-rep1" class="reply-container">
-                        <img class="display-pic" src="{{../establishment.bannerImage}}" alt="pfp.jpg">
-                        <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId}}">Owner</a></div>
-                        <div class="description">{{{this.ownerResponse.body}}}</div>
-                        <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
-                        <div class="vote">
-                            <button class="upvote">
-                                <i class="fa-solid fa-up-long"></i>
-                                <span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
-                            </button>
-                            <button class="downvote">
-                                <i class="fa-solid fa-down-long"></i>
-                                <span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
-                            </button>
-                        </div>
-
-                        <!-- Edit and Delete buttons for replies -->
-                        {{#if ../isOwnerView}}
-                           <button class="edit-reply-btn" data-id="{{this._id}}" data-body="{{this.ownerResponse.body}}">
-							<i class="fa fa-edit"></i> Edit
-							</button>
-							<button class="delete-reply-btn" data-id="{{this._id}}">
-							<i class="fa fa-trash"></i> Delete
-							</button>
-                        {{/if}}
-                    </div>
-                {{/if}}
-            </article>
-        {{/each}}
-</section>
 
     <!-- Reply Modal -->
     <div id="replyModal" class="modal">
