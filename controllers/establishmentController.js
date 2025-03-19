@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Establishment = require('../database/models/models').Establishment;
 const Review = require('../database/models/models').Review;
 const Menu = require('../database/models/models').Menu;
@@ -102,12 +103,18 @@ exports.getRestoProfile = async (req, res) => {
             sortQuery = { rating: -1 }; // ✅ Highest to lowest rating (default)
         }
 
-        const establishment = await Establishment.findById(req.params.id)
+        // Convert `req.params.id` to ObjectId
+        const establishmentId = new mongoose.Types.ObjectId(req.params.id);
+
+        // Fetch establishment details and reviews
+        const establishment = await Establishment.findById(establishmentId)
             .populate({
                 path: 'reviews',
                 options: { sort: sortQuery },
-                populate: [{ path: 'userId', select: 'username avatar' },
-                           { path: 'ownerResponse.ownerId', select: 'username avatar' }]
+                populate: [
+                    { path: 'userId', select: 'username avatar' },
+                    { path: 'ownerResponse.ownerId', select: 'username avatar' }
+                ]
             })
             .lean();
 
@@ -115,20 +122,36 @@ exports.getRestoProfile = async (req, res) => {
             return res.status(404).send('Establishment not found');
         }
 
+        // Fetch menu and photos
+        const menu = await Menu.findOne({ establishmentId }).lean();
+        const photos = await Photo.find({ establishmentId }).lean();
+
+        // Debugging logs
+        console.log("Restaurant ID:", req.params.id);
+        console.log("Menu Data Sent to HBS:", JSON.stringify(menu, null, 2));
+        console.log("Photos Data Sent to HBS:", JSON.stringify(photos, null, 2));
+
+        // Ensure menu and photos are never null
+        const menuData = menu ? menu : { items: [] };
+        const photosData = photos.length > 0 ? photos : [];
+
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
 
         res.render('restoProfile', {
             establishment,
+            menu: menuData,
+            photos: photosData,
             ratingData,
             averageRating,
             totalRatings,
             sortOption
         });
     } catch (err) {
-        console.error(err);
+        console.error("Error in getRestoProfile:", err);
         res.status(500).send('Server Error');
     }
 };
+
 
 
 exports.editRestoProfile = async (req, res) => {
