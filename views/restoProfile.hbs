@@ -585,5 +585,19 @@
         }
     });
 </script>
+<script>
+    // Initialize Quill Editor for Edit Reply Modal
+    const quillEditReply = new Quill('#quill-edit-reply-editor', {
+        theme: 'snow',
+        placeholder: 'Edit your reply...',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['clean']
+            ]
+        }
+    });
+</script>
 </body>
 </html>
