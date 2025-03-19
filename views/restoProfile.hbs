@@ -378,14 +378,14 @@
         </div>
     </div>
 
-</div> <!-- This closing div is important! It ends the Overview tab content -->
+
 
     <!-- Menu -->
     <div class="tabs__content" data-tab="2">
         <div class="menu-tab">
             {{#each menu.items}}
                 <div class="menu-item">
-                    <img src="{{../this.image}}" alt="Menu Image">
+                    <img src="{{this.image}}" alt="Menu Image">
                     <p>{{this.name}}</p>
                     <p>{{this.description}}</p>
                     <p>₱{{this.price}}</p>
@@ -404,6 +404,7 @@
             {{/each}}
         </div>
     </div>
+</div>
 
 
 <!-- Edit Restaurant Profile Modal -->
