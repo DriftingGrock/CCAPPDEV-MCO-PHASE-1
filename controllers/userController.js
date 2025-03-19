@@ -4,15 +4,17 @@ const Establishment = require('../database/models/models').Establishment;
 exports.getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.params.user)
-            .populate({
-                path: 'reviews',
-                populate: [
-                    { path: 'establishmentId', select: 'name' },
-                    { path: 'ownerResponse.ownerId', select: 'username avatar' },
-                    { path: 'userId', select: 'username avatar' }
-                ]
-            })
-            .lean();
+        .populate({
+            path: 'reviews',
+            options: { sort: { createdAt: -1 } },
+            populate: [
+                { path: 'establishmentId', select: 'name' },
+                { path: 'ownerResponse.ownerId', select: 'username avatar' },
+                { path: 'userId', select: 'username avatar' }
+            ]
+        })
+        .select("username avatar bio stats.reviewsMade") // ✅ Fetch updated review count
+        .lean();
 
         if (!user) {
             return res.status(404).send('User not found');
