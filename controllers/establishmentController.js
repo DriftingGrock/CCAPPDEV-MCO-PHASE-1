@@ -77,9 +77,22 @@ exports.getRestoList = async (req, res) => {
                 sortOption = { name: 1 };
         }
 
+        // Ensure the number of reviews is always up to date
         const establishments = await Establishment.aggregate([
             { $match: matchQuery },
-            { $addFields: { numReviews: { $size: "$reviews" } } },
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "reviews",
+                    foreignField: "_id",
+                    as: "reviews"
+                }
+            },
+            { 
+                $addFields: { 
+                    numReviews: { $size: "$reviews" }  // ✅ Dynamically count reviews
+                } 
+            },
             { $sort: sortOption }
         ]);
 
