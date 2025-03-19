@@ -127,25 +127,31 @@ exports.deleteReview = async (req, res) => {
         const reviewUser = await User.findById(review.userId);
         if (!reviewUser) return res.status(404).json({ error: "User not found" });
 
-        // Delete the review
+        // Remove the review from the database
         await Review.findByIdAndDelete(req.params.id);
 
-        // Update the user's review list and decrement review count
+        // Remove the review from the user's list
         await User.findByIdAndUpdate(review.userId, {
             $pull: { reviews: review._id },
             $inc: { "stats.reviewsMade": -1 }
         }, { new: true });
 
-        // Update the establishment's rating
-        const establishment = await Establishment.findById(review.establishmentId).populate('reviews');
-        const totalRating = establishment.reviews.reduce((sum, r) => sum + r.rating, 0);
-        establishment.overallRating = establishment.reviews.length
-            ? (totalRating / establishment.reviews.length).toFixed(1)
+        // Remove the review from the establishment's reviews array
+        const updatedEstablishment = await Establishment.findByIdAndUpdate(
+            review.establishmentId,
+            { $pull: { reviews: review._id } },  // ✅ Remove the review ID from the array
+            { new: true }
+        ).populate('reviews');
+
+        // Recalculate the overall rating
+        const totalRating = updatedEstablishment.reviews.reduce((sum, r) => sum + r.rating, 0);
+        updatedEstablishment.overallRating = updatedEstablishment.reviews.length
+            ? (totalRating / updatedEstablishment.reviews.length).toFixed(1)
             : 0;
 
-        await establishment.save();
+        await updatedEstablishment.save(); // ✅ Save the updated establishment
 
-        // Emit socket events
+        // Emit socket events to update UI
         if (global.io) {
             global.io.emit('reviewUpdated');
             global.io.emit('userProfileUpdated', { userId: reviewUser._id });
