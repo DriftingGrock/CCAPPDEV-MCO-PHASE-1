@@ -335,7 +335,7 @@
                 {{#if this.ownerResponse}}
                     <div id="owner-rep1" class="reply-container">
                         <img class="display-pic" src="{{../establishment.bannerImage}}" alt="pfp.jpg">
-                        <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId._id}}">Owner</a></div>
+                        <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId}}">Owner</a></div>
                         <div class="description">{{{this.ownerResponse.body}}}</div>
                         <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
                         <div class="vote">
@@ -390,6 +390,8 @@
                     <p>{{this.description}}</p>
                     <p>₱{{this.price}}</p>
                 </div>
+            {{else}}
+                <p>No menu items available.</p>
             {{/each}}
         </div>
     </div>
