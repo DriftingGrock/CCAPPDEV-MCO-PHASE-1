@@ -1,0 +1,45 @@
+[
+    {
+        "userId": "67d2b0d20b0edd4f6d204780",
+        "username": "Anthony"
+    },
+    {
+        "userId": "67d2b0d20b0edd4f6d204781",
+        "username": "Grock"
+    },
+    {
+        "userId": "67d2b0d20b0edd4f6d204782",
+        "username": "Jericho Migell Reyes"
+    },
+    {
+        "userId": "67d2b0d20b0edd4f6d204783",
+        "username": "Ross"
+    },
+    {
+        "userId": "67d2b0d20b0edd4f6d204784",
+        "username": "Sir Art"
+    }
+]
+
+[
+    {
+        "establishmentId": "67d2b0d20b0edd4f6d204779",
+        "name": "24 Chicken"
+    },
+    {
+        "establishmentId": "67d2b0d20b0edd4f6d20477a",
+        "name": "Angel's Pizza"
+    },
+    {
+        "establishmentId": "67d2b0d20b0edd4f6d20477b",
+        "name": "Baconoki"
+    },
+    {
+        "establishmentId": "67d2b0d20b0edd4f6d20477c",
+        "name": "Potato Tower"
+    },
+    {
+        "establishmentId": "67d2b0d20b0edd4f6d20477d",
+        "name": "Ross Kitchenette"
+    }
+]
