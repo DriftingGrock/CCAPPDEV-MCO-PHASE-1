@@ -1,98 +1,102 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/MC3_Votes_persona');
-
 const express = require('express');
-const app = new express();
+const mongoose = require('mongoose');
+const path = require('path');
+const dotenv = require('dotenv');
+const hbs = require('hbs');
+const multer = require('multer');
+const upload = multer({ dest: "public/uploads/" });
 
-const Vote = require("./models/Vote");
-const path = require('path'); 
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+hbs.registerHelper('multiply', (a, b) => a * b);
+hbs.registerHelper('gt', (a, b) => a > b);
+hbs.registerHelper('formatDate', function (date) {
+    if (!date) return '';
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
+});
+hbs.registerHelper('eq', function (a, b) {
+    return a === b;
+});
+
 
 app.use(express.json());
-app.use(express.urlencoded( {extended: true})); 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static('public/images'));
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
-var hbs = require('hbs');
-app.set('view engine','hbs');
+// Controllers
+const establishmentController = require('./controllers/establishmentController');
+const reviewController = require('./controllers/reviewController');
+const userController = require('./controllers/userController');
+const voteController = require('./controllers/voteController');
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Edit at this point onwards
-//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Routes
+app.get('/', establishmentController.getHomePage);
+app.get('/restoList', establishmentController.getRestoList);
+app.get('/restoProfile/:id', establishmentController.getRestoProfile);
+app.get('/restoProfile/:id/owner', establishmentController.getRestoProfileOwner);
+app.post('/restoProfile/:id/edit', upload.single('banner'), establishmentController.editRestoProfile);
+app.post('/api/reviews/:reviewId/reply', establishmentController.replyToReview);
 
-var server = app.listen(3000, function () {
-    console.log("CCAPDEV Mini Challenge #3: Persona 5, Dancing in Starlight!");
-    console.log("Who is the best dancer at port 3000?");
-    console.log(".");
+app.post("/api/reviews", upload.array("media"), reviewController.postReview);
+app.get("/api/reviews/:establishmentId", reviewController.getReviews);
+app.post("/edit-review/:id", reviewController.editReview);
+app.delete("/delete-review/:id", reviewController.deleteReview);
+
+app.post("/edit-reply/:id", reviewController.editReply);
+app.delete("/delete-reply/:id", reviewController.deleteReply);
+
+app.get('/userProfile/:user', userController.getUserProfile);
+app.post('/userProfile/:user/edit', upload.single('avatar'), userController.editUserProfile);
+
+app.post("/api/vote", voteController.vote);
+app.get("/api/votes/:userId/:establishmentId", voteController.getVotes);
+app.post("/api/vote-simple", voteController.voteSimple);
+
+/*
+app.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}`);
 });
+*/
 
-app.get('/', function (req, res) {
-    // TODO: Render index.html (10 pts.)
-    app.use(express.static(path.join((__dirname), 'Codes')));
-    res.sendFile(path.join(__dirname, '', 'index.html'));
-});
+const http = require('http');
+const socketIo = require('socket.io');
 
-app.get('/vote', function (req, res) {
-    // TODO: Create an instance of a Vote document. Use the .create() method from the declared Vote object
-    //const {q} = req.body;
-    //console.log(req.body);
-    //vote = Vote.create({
-    //    q: q
-    //});
-    const voteVal = req.query.q;
-    const newVote = Vote.create({
-        q: voteVal
-    });
-    // TODO: Redirect to the confirm route (10 pts.)
-    res.redirect('/confirm');
-});
+const server = http.createServer(app);
+const io = socketIo(server);
 
-app.get('/confirm', function (req, res) {
-    // TODO: Render confirm.html (10 pts.)
-    app.use(express.static(path.join((__dirname), 'Codes')));
-    res.sendFile(path.join(__dirname, '', 'confirm.html'));
-});
+io.on('connection', (socket) => {
+    console.log('Client connected');
 
-app.get('/results', async (req, res) => {
-    // TODO: Create a JSON object that contains the no. of votes for a particular member.
-    // Ex: ren = no. of ren's votes, yusuke = no. of yusuke's votes, etc.
-    // Variables are named for you so you don't have to memorize their names. :)
-
-    // Step 1: Assign these variables with the correct values resulting from querying MongoDB using Mongoose
-    var ren;
-    var ryuji;
-    var ann;
-    var makoto;
-    var yusuke;
-    var futaba;
-    var haru;
-    var morgana;
-
-    ren = await Vote.find({q: 'ren'});
-    ryuji = await Vote.find({q: 'ryuji'});
-    ann = await Vote.find({q: 'ann'});
-    makoto = await Vote.find({q: 'makoto'});
-    yusuke = await Vote.find({q: 'yusuke'});
-    futaba = await Vote.find({q: 'futaba'});
-    haru = await Vote.find({q: 'haru'});
-    morgana = await Vote.find({q: 'morgana'});
-
-
-    // TODO: Build the JSON object, and replace the values with the correct corresponding no. of votes
-    // of that particular member.
-    // HINT: length() can be used to determine the number of entries in a collection of documents obtained from a query
-    var result = {};
-     // TODO: Pass the values to be rendered into the 'results' handlebar.
-    res.render('results', {
-        results: {
-            ren: ren.length,
-            ryuji: ryuji.length,
-            ann: ann.length,
-            makoto: makoto.length,
-            yusuke: yusuke.length,
-            futaba: futaba.length,
-            haru: haru.length,
-            morgana: morgana.length
-        }
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
     });
 });
+
+server.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}`);
+});
+
+// ✅ Attach to global object instead of module.exports
+global.io = io;
+
+
+
