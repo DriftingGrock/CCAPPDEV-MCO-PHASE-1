@@ -62,6 +62,30 @@ app.use(session({
   }
 }));
 
+app.use((req, res, next) => {
+    console.log('Session Debug:', {
+        sessionId: req.sessionID,
+        userId: req.session.userId,
+        cookies: req.headers.cookie
+    });
+    next();
+});
+
+// just to test it!
+app.get('/session-test', (req, res) => {
+    res.json({
+        sessionId: req.sessionID,
+        userId: req.session.userId,
+        isLoggedIn: !!req.session.userId
+    });
+});
+
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = !!req.session.userId;  // Accessible in ALL templates
+    res.locals.currentUser = req.session.userId;   // Optional: user ID
+    next();
+});
+
 //middleware for templates to receive login status
 app.use((req, res, next) => {
     res.locals.isLoggedIn = !!req.session.userId;

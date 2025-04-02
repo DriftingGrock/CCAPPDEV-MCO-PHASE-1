@@ -49,6 +49,18 @@
 			margin-left: 2px;
 		}
 	</style>
+
+    {{#if isLoggedIn}}
+        <script>
+            window.isLoggedIn = true;
+            window.currentUserId = "{{userId}}";
+        </script>
+    {{else}}
+        <script>
+            window.isLoggedIn = false;
+            window.currentUserId = null;
+        </script>
+    {{/if}}
 </head>
 <body>
 
@@ -153,6 +165,7 @@
         <!-- Review Submission Form -->
         <section class="review-section">
             <h2>Leave a Review</h2>
+            {{#if isLoggedIn}}
             <article class="review-container">
                 <form id="reviewForm" style="width: 100%;">
                     <!-- Quill editor for rich text editing -->
@@ -173,6 +186,11 @@
                     <button type="submit" class="button_dkgreen" style="float:right;" >Submit Review</button>
                 </form>
             </article>
+            {{else}}
+                <div class="login-prompt">
+                    <p>Please <a href="#" onclick="document.getElementById('profileModal').style.display='flex'">log in</a> to add a review</p>
+                </div>
+            {{/if}}
         </section>
 
 

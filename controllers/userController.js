@@ -6,20 +6,25 @@ const saltRounds = 10;
 exports.createUser = async (req, res) => {
     try {
         const { username, password, bio } = req.body;
+
+        // Validate input
+        if (!username || !password) {
+            return res.status(400).send('Username and password are required');
+        }
+
         // Add role selection logic if needed, default to 'reviewer' for now
-        const role = 'reviewer'; 
+        const role = 'reviewer';
 
         // Check if username already exists
         const existingUser = await User.findOne({ username: username });
         if (existingUser) {
-            // Handle username exists error (e.g., render signup with message)
-            return res.status(400).send('Username already taken'); 
+            return res.status(400).json({ error: "Username already taken" });
         }
 
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        // Create new user (add avatar handling if implementing file upload here)
+        // Create new user
         const newUser = new User({
             username: username,
             password: hashedPassword,
@@ -30,33 +35,39 @@ exports.createUser = async (req, res) => {
 
         await newUser.save();
 
-        // Optional: Automatically log the user in after signup
-        // req.session.userId = newUser._id;
-        // return res.redirect(`/userProfile/${newUser._id}`); 
+        // Automatically log the user in after signup
+        req.session.userId = newUser._id;
+        req.session.username = newUser.username;
+        req.session.role = newUser.role;
 
-        // Or redirect to login page/homepage
-        res.redirect('/'); // Redirect to homepage, maybe show a "Signup successful" message
+        req.session.save(err => {
+            if (err) {
+                console.error("Session save error:", err);
+                return res.status(500).json({ error: "Session error" });
+            }
+            res.redirect('/userProfile/' + newUser._id);
+        });
 
     } catch (err) {
         console.error("Signup Error:", err);
-        res.status(500).send('Server Error during signup');
+        res.status(500).json({ error: "Server Error during signup" });
     }
 };
 
 exports.getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.params.user)
-        .populate({
-            path: 'reviews',
-            options: { sort: { createdAt: -1 } },
-            populate: [
-                { path: 'establishmentId', select: 'name' },
-                { path: 'ownerResponse.ownerId', select: 'username avatar' },
-                { path: 'userId', select: 'username avatar' }
-            ]
-        })
-        .select("username avatar bio stats.reviewsMade") // ✅ Fetch updated review count
-        .lean();
+            .populate({
+                path: 'reviews',
+                options: { sort: { createdAt: -1 } },
+                populate: [
+                    { path: 'establishmentId', select: 'name' },
+                    { path: 'ownerResponse.ownerId', select: 'username avatar' },
+                    { path: 'userId', select: 'username avatar' }
+                ]
+            })
+            .select("username avatar bio stats.reviewsMade")
+            .lean();
 
         if (!user) {
             return res.status(404).send('User not found');
@@ -84,7 +95,9 @@ exports.getUserProfile = async (req, res) => {
             user,
             ownedEstablishments,
             userRatingData,
-            totalUserRatings
+            totalUserRatings,
+            isLoggedIn: !!req.session.userId,
+            currentUser: req.session.userId
         });
     } catch (err) {
         console.error(err);
@@ -94,16 +107,25 @@ exports.getUserProfile = async (req, res) => {
 
 exports.editUserProfile = async (req, res) => {
     try {
+        // Verify the user is editing their own profile
+        if (req.params.user !== req.session.userId) {
+            return res.status(403).json({ error: "Unauthorized" });
+        }
+
         const { name, bio } = req.body;
         const userId = req.params.user;
         let updateFields = { username: name, bio };
 
         if (req.file) {
-            const avatarPath = `/uploads/${req.file.filename}`;
+            const avatarPath = '/uploads/' + req.file.filename;
             updateFields.avatar = avatarPath;
         }
 
-        const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            updateFields,
+            { new: true, runValidators: true }
+        );
 
         res.json({
             success: true,
@@ -115,46 +137,58 @@ exports.editUserProfile = async (req, res) => {
     }
 };
 
-// Add near the top with other requires
-// const bcrypt = require('bcrypt'); 
-// const User = require('../database/models/models').User;
-
 exports.loginUser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
-    
-    if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    try {
+        const { username, password } = req.body;
+
+        // Basic validation
+        if (!username || !password) {
+            return res.status(400).json({ error: "Username and password are required" });
+        }
+
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+
+        // Create session
+        req.session.userId = user._id;
+        req.session.username = user.username;
+        req.session.role = user.role;
+
+        // Save session
+        req.session.save(err => {
+            if (err) {
+                console.error("Session save error:", err);
+                return res.status(500).json({ error: "Session error" });
+            }
+            res.json({
+                success: true,
+                userId: user._id,
+                redirectUrl: '/userProfile/' + user._id
+            });
+        });
+    } catch (err) {
+        console.error("Login Error:", err);
+        res.status(500).json({ error: "Server Error during login" });
     }
-    
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-    
-    // Create session
-    req.session.userId = user._id;
-    req.session.username = user.username;
-    req.session.role = user.role;
-    
-    // Save session and return userId for redirection
-    req.session.save(err => {
-      if(err) console.error("Session save error:", err);
-      res.json({ success: true, userId: user._id });
-    });
-  } catch (err) {
-    console.error("Login Error:", err);
-    res.status(500).json({ success: false, message: 'Server Error during login' });
-  }
 };
 
 exports.logoutUser = (req, res) => {
     req.session.destroy(err => {
         if (err) {
             console.error("Logout Error:", err);
-            return res.status(500).send('Could not log out, please try again.');
+            return res.status(500).json({ error: "Could not log out" });
         }
-        res.redirect('/'); // Redirect to homepage after logout
+
+        // Clear the cookie
+        res.clearCookie('connect.sid');
+        res.redirect('/');
     });
 };
