@@ -1,7 +1,6 @@
 const User = require('../database/models/models').User;
 const Establishment = require('../database/models/models').Establishment;
 const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
 const saltRounds = 10;
 
 exports.createUser = async (req, res) => {
