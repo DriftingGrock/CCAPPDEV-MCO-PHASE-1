@@ -16,12 +16,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
-
-
-mongoose.connect('mongodb://localhost:27017/animoeats', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI) 
+    .then(() => console.log('MongoDB connected successfully via MONGO_URI'))
+    .catch(err => {
+        console.error('MongoDB connection error:', err);
+        process.exit(1); //exit if DB connection fails
+    });
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
