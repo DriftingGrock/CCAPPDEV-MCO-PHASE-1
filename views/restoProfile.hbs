@@ -116,15 +116,17 @@
             </p>
             <p class="address">{{establishment.address}}</p>
             <p class="phone">📞{{establishment.phone}}</p>
-            {{#if isOwnerView}}
-                <button class="edit-resto-button" onclick="openEditRestoModal()">
-                    <i class="fa fa-pencil"></i> Edit Restaurant
-                </button>
-            {{else}}
-                <a href="/restoProfile/{{establishment._id}}/owner" class="owner-view-button">
-                    <i class="fa fa-eye"></i> Switch to Owner View
-                </a>
-            {{/if}}
+			{{#if isOwnerView}}
+				<button class="edit-resto-button" onclick="openEditRestoModal()">
+					<i class="fa fa-pencil"></i> Edit Restaurant
+				</button>
+			{{else}}
+				{{#if isOwner}}
+					<a href="/restoProfile/{{establishment._id}}/owner" class="owner-view-button">
+						<i class="fa fa-eye"></i> Switch to Owner View
+					</a>
+				{{/if}}
+			{{/if}}
         </div>
         <div class="supplementary-details">
             <span class="hours">Open {{establishment.openingHours}}</span>
