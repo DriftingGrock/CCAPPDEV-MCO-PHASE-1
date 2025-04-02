@@ -262,15 +262,31 @@
                         {{#if this.edited}}
                             <div class="edit-tag"> edited </div>
                         {{/if}}
+
+                        <!-- Vote logic -->
                         <div class="vote">
-                            <button class="upvote">
-                                <i class="fa-solid fa-up-long"></i>
-                                <span class="upvote-count">{{this.upvoteCount}}</span>
-                            </button>
-                            <button class="downvote">
-                                <i class="fa-solid fa-down-long"></i>
-                                <span class="downvote-count">{{this.downvoteCount}}</span>
-                            </button>
+                            {{#if @root.isLoggedIn}}
+                                <!-- Logged-in buttons -->
+                                <button class="upvote" onclick="handleVote('{{this._id}}', 'up')">
+                                    <i class="fa-solid fa-up-long"></i>
+                                    <span class="upvote-count">{{this.upvoteCount}}</span>
+                                </button>
+                                <button class="downvote" onclick="handleVote('{{this._id}}', 'down')">
+                                    <i class="fa-solid fa-down-long"></i>
+                                    <span class="downvote-count">{{this.downvoteCount}}</span>
+                                </button>
+                            {{else}}
+                                <!-- Not logged-in prompt -->
+                                <button class="upvote" onclick="document.getElementById('profileModal').style.display='flex'">
+                                    <i class="fa-solid fa-up-long"></i>
+                                    <span class="upvote-count">{{this.upvoteCount}}</span>
+                                </button>
+                                <button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'"
+                                        style="background-color: transparent; outline: none;">
+                                    <i class="fa-solid fa-down-long"></i>
+                                    <span class="downvote-count">{{this.downvoteCount}}</span>
+                                </button>
+                            {{/if}}
                         </div>
 
                         <!-- Owner Reply Button (Visible only in Owner View) -->
@@ -545,53 +561,7 @@
         }
     }
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add click handlers to vote buttons
-        document.querySelectorAll('.upvote, .downvote').forEach(button => {
-            button.addEventListener('click', async function() {
-                const reviewContainer = this.closest('.review-container');
-                const reviewId = reviewContainer.dataset.reviewId;
-                const voteType = this.classList.contains('upvote') ? 'up' : 'down';
-                
-                try {
-                    const response = await fetch('/api/vote-simple', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                       body: JSON.stringify({
-							reviewId,
-							voteType
-						})
-                    });
-                    
-                    if (response.ok) {
-                        // Simple toggle active class
-                        if (this.classList.contains('active')) {
-                            this.classList.remove('active');
-                        } else {
-                            if (voteType === 'up') {
-                                reviewContainer.querySelector('.upvote').classList.add('active');
-                                reviewContainer.querySelector('.downvote').classList.remove('active');
-                            } else {
-                                reviewContainer.querySelector('.upvote').classList.remove('active');
-                                reviewContainer.querySelector('.downvote').classList.add('active');
-                            }
-                        }
-                        
-                        // Reload to update count
-                        location.reload();
-                    } else {
-                        console.error('Vote failed');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            });
-        });
-    });
-</script>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
     const socket = io();
