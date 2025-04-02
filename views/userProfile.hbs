@@ -62,14 +62,16 @@
         <div class="section-title">User Profile</div>
         <div class="profile-card">
             <div class="profile-picture" style="background-image: url('{{user.avatar}}');"></div>
+
             <div class="profile-info">
-                <div class="profile-name">{{user.username}}</div>
-                <div class="profile-bio"> {{user.bio}}
-               </div>
+                <h2 class="profile-name">{{user.username}}</h2>
+                <p class="profile-bio">{{user.bio}}</p>
             </div>
-            <button class="edit-profile-button">
-				<i class="fa fa-pencil"></i> Edit
-			</button>
+
+            {{#if isOwner}} <button class="edit-profile-button" title="Edit Profile">
+                <i class="fa fa-pencil"></i>
+            </button>
+            {{/if}}
         </div>
 
         <div class="section-title">Statistics</div>
@@ -116,6 +118,7 @@
                     {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
 
                     <!-- Edit & Delete Buttons -->
+                    {{#if isOwner}}
                     <div class="review-actions">
                         <button class="edit-review-btn" data-id="{{this._id}}" data-body="{{this.body}}" data-rating="{{this.rating}}" data-title="{{this.title}}">
                             Edit
@@ -124,6 +127,7 @@
                             Delete
                         </button>
                     </div>
+                    {{/if}}
                 </div>
             </article>
         {{/each}}
