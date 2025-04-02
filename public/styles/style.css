@@ -168,3 +168,18 @@ button {
     text-align: center;
     color: darkgray;
 }
+
+#logoutBtn {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-family: Verdana, sans-serif;
+    color: #025000;
+    cursor: pointer;
+}
+
+#logoutBtn:hover {
+    color: white;
+    text-decoration: underline 2px;
+    text-underline-offset: 5px;
+}

@@ -18,7 +18,15 @@
             EATS</a>
     </div>
     <div class="navlink"> <a href="/restoList">Restaurants</a> </div>
-    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+	<div class="profile">
+		{{#if isLoggedIn}}
+			<form id="logoutForm" action="/logout" method="POST" style="display:inline;">
+				<button type="submit" class="profile-btn"> Log out <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+			</form>
+		{{else}}
+			<button id="profileBtn" class="profile-btn"> Log-in <i class="fa fa-solid fa-user"></i></button>
+		{{/if}}
+	</div>
 </div>
 
 <div id="profileModal" class="modal">
