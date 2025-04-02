@@ -160,3 +160,14 @@ exports.logoutUser = (req, res) => {
         res.redirect('/'); // Redirect to homepage after logout
     });
 };
+
+exports.loginUser = async (req, res) => {
+    // ... existing code ...
+    req.session.userId = user._id;
+    req.session.username = user.username;
+    req.session.role = user.role; // Add this
+    req.session.save(err => {     // Add this
+        if(err) console.error("Session save error:", err);
+        res.json({ success: true });
+    });
+};

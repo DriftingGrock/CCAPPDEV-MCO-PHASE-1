@@ -2,6 +2,9 @@ const Vote = require('../database/models/models').Vote;
 const Review = require('../database/models/models').Review;
 
 exports.vote = async (req, res) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ error: "Not authenticated" });
+    }
     try {
         const { reviewId, userId, voteType } = req.body;
 

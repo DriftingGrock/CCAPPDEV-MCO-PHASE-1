@@ -60,6 +60,20 @@ app.use(session({
     cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production (requires HTTPS)
 }));
 
+//middleware for templates to receive login status
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = !!req.session.userId;
+    res.locals.currentUser = req.session.userId;
+    next();
+});
+// route protection
+const requireLogin = (req, res, next) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ error: "Not authenticated" });
+    }
+    next();
+};
+
 
 
 // Controllers
