@@ -3,42 +3,42 @@
     "_id": { "$oid": "67d2b0d20b0edd4f6d204799" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204790" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204780" },
-    "voteType": "upvote",
+    "voteType": "up",
     "createdAt": { "$date": "2025-01-28T10:00:00Z" }
   },
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204800" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204791" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204781" },
-    "voteType": "upvote",
+    "voteType": "up",
     "createdAt": { "$date": "2025-01-28T11:00:00Z" }
   },
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204801" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204792" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204783" },
-    "voteType": "upvote",
+    "voteType": "up",
     "createdAt": { "$date": "2025-01-28T12:00:00Z" }
   },
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204802" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204793" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204784" },
-    "voteType": "downvote",
+    "voteType": "down",
     "createdAt": { "$date": "2025-01-28T13:00:00Z" }
   },
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204803" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204794" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204781" },
-    "voteType": "downvote",
+    "voteType": "down",
     "createdAt": { "$date": "2025-01-28T14:00:00Z" }
   },
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204804" },
     "reviewId": { "$oid": "67d2b0d20b0edd4f6d204795" },
     "userId": { "$oid": "67d2b0d20b0edd4f6d204783" },
-    "voteType": "downvote",
+    "voteType": "down",
     "createdAt": { "$date": "2025-01-28T15:00:00Z" }
   }
 ]
