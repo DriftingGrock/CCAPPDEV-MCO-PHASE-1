@@ -103,64 +103,61 @@ exports.getRestoList = async (req, res) => {
     }
 };
 
-exports.getRestoProfile = async (req, res) => {
+exports.getRestoProfile = async (req, res) => { // Assuming this is the function name
     try {
-        const sortOption = req.query.sort || 'desc';
-        let sortQuery = {};
+        const loggedInUserId = req.session.userId ? new mongoose.Types.ObjectId(req.session.userId) : null; // Get logged-in user ID
+        const establishmentId = new mongoose.Types.ObjectId(req.params.id); // Get establishment ID from URL
 
-        if (sortOption === 'upvotes') {
-            sortQuery = { upvoteCount: -1 }; // ✅ Most upvoted
-        } else if (sortOption === 'asc') {
-            sortQuery = { rating: 1 }; // ✅ Lowest to highest rating
-        } else {
-            sortQuery = { rating: -1 }; // ✅ Highest to lowest rating (default)
-        }
-
-        // Convert `req.params.id` to ObjectId
-        const establishmentId = new mongoose.Types.ObjectId(req.params.id);
-
-        // Fetch establishment details and reviews
         const establishment = await Establishment.findById(establishmentId)
             .populate({
                 path: 'reviews',
-                options: { sort: sortQuery },
+                options: { sort: { createdAt: -1 } }, // Example sort
                 populate: [
-                    { path: 'userId', select: 'username avatar' },
+                    { path: 'userId', select: 'username avatar _id' }, // Select necessary user fields including _id
                     { path: 'ownerResponse.ownerId', select: 'username avatar' }
+                    // Add other necessary populates
                 ]
             })
-            .lean();
+            .lean(); // Use lean for easier manipulation
 
         if (!establishment) {
             return res.status(404).send('Establishment not found');
         }
 
-        // Fetch menu and photos
-        const menu = await Menu.findOne({ establishmentId }).lean();
-        const photos = await Photo.find({ establishmentId }).lean();
+        // Add ownership flag to each review
+        if (establishment.reviews && establishment.reviews.length > 0) {
+            establishment.reviews = establishment.reviews.map(review => {
+                // Check if review.userId exists and is populated correctly
+                const isReviewOwner = loggedInUserId && review.userId && loggedInUserId.equals(review.userId._id);
+                return { ...review, isReviewOwner: isReviewOwner };
+            });
+        }
 
-        // Debugging logs
-        console.log("Restaurant ID:", req.params.id);
-        console.log("Menu Data Sent to HBS:", JSON.stringify(menu, null, 2));
-        console.log("Photos Data Sent to HBS:", JSON.stringify(photos, null, 2));
+        // Fetch other data like menu, photos if necessary
+        // const menu = await Menu.findOne({ establishmentId: establishmentId }).lean();
+        // const photos = await Photo.find({ establishmentId: establishmentId }).lean();
 
-        // Ensure menu and photos are never null
-        const menuData = menu ? menu : { items: [] };
-        const photosData = photos.length > 0 ? photos : [];
+        // Calculate rating data
+        const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews || []);
 
-        const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-
-        res.render('restoProfile', {
-            establishment,
-            menu: menuData,
-            photos: photosData,
-            ratingData,
-            averageRating,
-            totalRatings,
-            sortOption
+        res.render('restoProfile', { // Assuming the view is named restoProfile.hbs
+            establishment: establishment,
+            reviews: establishment.reviews || [], // Pass reviews separately or rely on establishment.reviews
+            ratingData: ratingData,
+            averageRating: averageRating,
+            totalRatings: totalRatings,
+            loggedInUser: req.session.userId // Pass loggedInUser if needed
+            // menu: menu,
+            // photos: photos,
+            // Pass other necessary data
         });
+
     } catch (err) {
-        console.error("Error in getRestoProfile:", err);
+        console.error("Error fetching establishment profile:", err);
+        // Check for CastError specifically (invalid ObjectId format)
+        if (err.name === 'CastError') {
+            return res.status(400).send('Invalid Establishment ID format');
+        }
         res.status(500).send('Server Error');
     }
 };
