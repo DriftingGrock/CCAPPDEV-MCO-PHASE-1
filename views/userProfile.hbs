@@ -131,6 +131,29 @@
                                 Delete
                             </button>
                         </div>
+						<div class="vote">
+							{{#if @root.isLoggedIn}}
+								<!-- Logged-in buttons -->
+								<button class="upvote {{#if (eq this.userVote 'up')}}active{{/if}}" onclick="handleVote('{{this._id}}', 'up')">
+									<i class="fa-solid fa-up-long"></i>
+									<span class="upvote-count">{{this.upvoteCount}}</span>
+								</button>
+								<button class="downvote {{#if (eq this.userVote 'down')}}active{{/if}}" onclick="handleVote('{{this._id}}', 'down')">
+									<i class="fa-solid fa-down-long"></i>
+									<span class="downvote-count">{{this.downvoteCount}}</span>
+								</button>
+							{{else}}
+								<!-- Not logged-in prompt -->
+								<button class="upvote" onclick="document.getElementById('profileModal').style.display='flex'">
+									<i class="fa-solid fa-up-long"></i>
+									<span class="upvote-count">{{this.upvoteCount}}</span>
+								</button>
+								<button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'">
+									<i class="fa-solid fa-down-long"></i>
+									<span class="downvote-count">{{this.downvoteCount}}</span>
+								</button>
+							{{/if}}
+						</div>
                     </div>
                 </article>
             {{/each}}

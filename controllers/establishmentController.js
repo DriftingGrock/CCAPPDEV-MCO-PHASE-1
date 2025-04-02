@@ -154,15 +154,16 @@ exports.getRestoProfile = async (req, res) => {
         }
 
         // Add user vote status to each review if logged in
-        if (req.session.userId) {
-            for (let review of establishment.reviews) {
-                const userVote = await Vote.findOne({
-                    reviewId: review._id,
-                    userId: req.session.userId
-                });
-                review.userVote = userVote ? userVote.voteType : null;
-            }
-        }
+		// In getRestoProfile function (around line 158)
+		if (req.session.userId) {
+			for (let review of establishment.reviews) {
+				const userVote = await Vote.findOne({
+					reviewId: review._id,
+					userId: req.session.userId
+				});
+				review.userVote = userVote ? userVote.voteType : null;
+			}
+		}
 
         // Check if user is logged in and is the owner of this establishment
         let isOwner = false;

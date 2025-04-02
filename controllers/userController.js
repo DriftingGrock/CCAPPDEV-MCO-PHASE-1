@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../database/models/models').User;
 const Establishment = require('../database/models/models').Establishment;
+const Vote = require('../database/models/models').Vote; // Add this line
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -88,6 +89,17 @@ exports.getUserProfile = async (req, res) => {
                 return { ...review, isReviewOwner: isReviewOwner };
             });
         }
+		
+		if (loggedInUserId) {
+			for (const review of user.reviews || []) {
+				const userVote = await Vote.findOne({
+					reviewId: review._id,
+					userId: loggedInUserId
+				}).lean();
+				
+				review.userVote = userVote ? userVote.voteType : null;
+			}
+		}
 
         const ratingCounts = [0, 0, 0, 0, 0];
         const userReviews = user.reviews || [];

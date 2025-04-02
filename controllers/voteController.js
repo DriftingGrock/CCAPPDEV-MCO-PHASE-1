@@ -37,6 +37,12 @@ exports.vote = async (req, res) => {
                         { new: true }
                     );
                 }
+				
+				// In controllers/voteController.js
+				// After updating a vote
+				if (global.io) {
+					global.io.emit('voteUpdated', { reviewId: reviewId });
+				}
 
                 return res.json({
                     success: true,
@@ -63,6 +69,12 @@ exports.vote = async (req, res) => {
                         { new: true }
                     );
                 }
+
+				// In controllers/voteController.js
+				// After updating a vote
+				if (global.io) {
+					global.io.emit('voteUpdated', { reviewId: reviewId });
+				}
 
                 return res.json({
                     success: true,
@@ -94,6 +106,12 @@ exports.vote = async (req, res) => {
                     { new: true }
                 );
             }
+			
+			// In controllers/voteController.js
+			// After updating a vote
+			if (global.io) {
+				global.io.emit('voteUpdated', { reviewId: reviewId });
+			}
 
             return res.json({
                 success: true,

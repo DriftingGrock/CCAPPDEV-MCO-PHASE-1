@@ -59,4 +59,20 @@ function handleVote(reviewId, voteType) {
         .finally(() => {
             buttons.forEach(button => button.disabled = false);
         });
+		
+		// Add this to the bottom of public/scripts/updownVote.js
+		if (typeof io !== 'undefined') {
+			const socket = io();
+			
+			socket.on('voteUpdated', (data) => {
+				// Refresh vote counts for the specific review if it's on the page
+				const reviewContainer = document.querySelector(`.review-container[data-review-id="${data.reviewId}"]`);
+				if (reviewContainer) {
+					// This provides a real-time update without full page refresh
+					// Could fetch updated counts via AJAX or just reload the page
+					// For simplicity, we'll just reload the container
+					location.reload();
+				}
+			});
+		}
 }
