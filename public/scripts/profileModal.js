@@ -49,10 +49,14 @@ window.onclick = function(event) {
 
 // --- Function to handle login button click ---
 // Check if the login button exists before adding listener
+// In /public/scripts/profileModal.js
+// Find the loginBtn onclick function and modify it:
+
 if (loginBtn) {
-    loginBtn.onclick = async function() { // Changed from form submit to button click
+    loginBtn.onclick = async function() {
         const username = usernameInput ? usernameInput.value.trim() : '';
         const password = passwordInput ? passwordInput.value.trim() : '';
+        const rememberMe = document.getElementById('rememberMe') ? document.getElementById('rememberMe').checked : false;
 
         // Clear previous errors
         clearError();
@@ -64,22 +68,23 @@ if (loginBtn) {
         }
 
         try {
-            const response = await fetch('/login', { // Target the POST /login route
+            const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password }), // Send as JSON
+                body: JSON.stringify({ 
+                    username, 
+                    password,
+                    rememberMe  // Add this field
+                }),
             });
 
-            const result = await response.json(); // Expect JSON response
+            const result = await response.json();
 
             if (result.success) {
-                // Login successful - redirect to user profile
-                // Redirect to the user's profile page
-                 window.location.href = `/userProfile/${result.userId}`;
+                window.location.href = `/userProfile/${result.userId}`;
             } else {
-                // Login failed - display error message
                 displayError(result.message || 'Login failed. Please check your credentials.');
             }
         } catch (error) {
@@ -88,7 +93,6 @@ if (loginBtn) {
         }
     };
 }
-
 
 // --- Helper function to display errors in the modal ---
 function displayError(message) {

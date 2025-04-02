@@ -120,33 +120,40 @@ exports.editUserProfile = async (req, res) => {
 // const User = require('../database/models/models').User;
 
 exports.loginUser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
-    
-    if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    try {
+        const { username, password, rememberMe } = req.body;
+        
+        const user = await User.findOne({ username: username });
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+        }
+        
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+        }
+        
+        // Create session
+        req.session.userId = user._id;
+        req.session.username = user.username;
+        req.session.role = user.role;
+        
+        // Set cookie expiration if remember me is checked
+        if (rememberMe) {
+            // 3 weeks in milliseconds = 21 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+            req.session.cookie.maxAge = 21 * 24 * 60 * 60 * 1000;
+        }
+        
+        // Save session and return userId for redirection
+        req.session.save(err => {
+            if(err) console.error("Session save error:", err);
+            res.json({ success: true, userId: user._id });
+        });
+    } catch (err) {
+        console.error("Login Error:", err);
+        res.status(500).json({ success: false, message: 'Server Error during login' });
     }
-    
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-    
-    // Create session
-    req.session.userId = user._id;
-    req.session.username = user.username;
-    req.session.role = user.role;
-    
-    // Save session and return userId for redirection
-    req.session.save(err => {
-      if(err) console.error("Session save error:", err);
-      res.json({ success: true, userId: user._id });
-    });
-  } catch (err) {
-    console.error("Login Error:", err);
-    res.status(500).json({ success: false, message: 'Server Error during login' });
-  }
 };
 
 exports.logoutUser = (req, res) => {
