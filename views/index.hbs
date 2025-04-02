@@ -44,14 +44,21 @@
 
 <!-- Profile Modal -->
 <div id="profileModal" class="modal">
-    <div class="modal-content">
-        <b>Existing Profile</b><br>
+    <div class="modal-content"><b>Existing Profile</b><br>
         <label for="username">
             <input id="username" type="text" placeholder="Username"> <br>
         </label>
+
         <label for="password">
             <input id="password" type="password" placeholder="Password">
         </label>
+
+        <!-- Add this checkbox -->
+        <div style="margin: 10px 0; display: flex; align-items: center;">
+            <input type="checkbox" id="rememberMe" style="width: auto; margin-right: 5px;">
+            <label for="rememberMe" style="font-size: 14px; color: #666;">Remember me for 3 weeks</label>
+        </div>
+
         <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
         <p>Don't have an account yet? <a href="/sign-up">Sign-Up</a></p>
     </div>

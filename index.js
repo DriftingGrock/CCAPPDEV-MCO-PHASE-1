@@ -54,12 +54,13 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use(express.urlencoded({ extended: true })); 
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'a_default_fallback_secret_key',
-  resave: false,
-  saveUninitialized: false, 
-  cookie: { 
-    secure: false // Set to false for development on HTTP
-  }
+    secret: process.env.SESSION_SECRET || 'a_default_fallback_secret_key',
+    resave: false,
+    saveUninitialized: false, 
+    cookie: { 
+        secure: false, // Set to true in production with HTTPS
+        maxAge: 24 * 60 * 60 * 1000 // Default session length: 1 day
+    }
 }));
 
 app.use((req, res, next) => {
