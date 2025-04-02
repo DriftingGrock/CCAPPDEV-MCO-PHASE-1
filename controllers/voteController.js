@@ -1,5 +1,6 @@
 const Vote = require('../database/models/models').Vote;
 const Review = require('../database/models/models').Review;
+const mongoose = require('mongoose');
 
 exports.vote = async (req, res) => {
     if (!req.session.userId) {
@@ -7,6 +8,7 @@ exports.vote = async (req, res) => {
     }
     try {
         const { reviewId, userId, voteType } = req.body;
+        console.log(`Vote request received: reviewId=${reviewId}, userId=${userId}, voteType=${voteType}`);
 
         if (!reviewId || !userId || !voteType) {
             return res.status(400).json({ error: "Missing required fields" });
@@ -16,33 +18,41 @@ exports.vote = async (req, res) => {
             return res.status(400).json({ error: "Vote type must be 'up' or 'down'" });
         }
 
-        const existingVote = await Vote.findOne({ reviewId, userId });
+        // Make sure we have valid ObjectIds
+        const reviewObjectId = mongoose.Types.ObjectId(reviewId);
+        const userObjectId = mongoose.Types.ObjectId(userId);
+
+        const existingVote = await Vote.findOne({ 
+            reviewId: reviewObjectId, 
+            userId: userObjectId 
+        });
+        
         let updatedReview;
 
         if (existingVote) {
+            console.log(`Existing vote found: ${existingVote._id}, type: ${existingVote.voteType}`);
             if (existingVote.voteType === voteType) {
                 // Remove vote
                 await Vote.deleteOne({ _id: existingVote._id });
+                console.log(`Vote removed: ${existingVote._id}`);
 
                 if (voteType === 'up') {
                     updatedReview = await Review.findByIdAndUpdate(
-                        reviewId,
+                        reviewObjectId,
                         { $inc: { upvoteCount: -1 } },
                         { new: true }
                     );
                 } else {
                     updatedReview = await Review.findByIdAndUpdate(
-                        reviewId,
+                        reviewObjectId,
                         { $inc: { downvoteCount: -1 } },
                         { new: true }
                     );
                 }
-				
-				// In controllers/voteController.js
-				// After updating a vote
-				if (global.io) {
-					global.io.emit('voteUpdated', { reviewId: reviewId });
-				}
+                
+                if (global.io) {
+                    global.io.emit('voteUpdated', { reviewId: reviewId });
+                }
 
                 return res.json({
                     success: true,
@@ -55,26 +65,25 @@ exports.vote = async (req, res) => {
                 // Change vote type
                 existingVote.voteType = voteType;
                 await existingVote.save();
+                console.log(`Vote updated to: ${voteType}`);
 
                 if (voteType === 'up') {
                     updatedReview = await Review.findByIdAndUpdate(
-                        reviewId,
+                        reviewObjectId,
                         { $inc: { upvoteCount: 1, downvoteCount: -1 } },
                         { new: true }
                     );
                 } else {
                     updatedReview = await Review.findByIdAndUpdate(
-                        reviewId,
+                        reviewObjectId,
                         { $inc: { upvoteCount: -1, downvoteCount: 1 } },
                         { new: true }
                     );
                 }
 
-				// In controllers/voteController.js
-				// After updating a vote
-				if (global.io) {
-					global.io.emit('voteUpdated', { reviewId: reviewId });
-				}
+                if (global.io) {
+                    global.io.emit('voteUpdated', { reviewId: reviewId });
+                }
 
                 return res.json({
                     success: true,
@@ -86,32 +95,32 @@ exports.vote = async (req, res) => {
             }
         } else {
             // New vote
+            console.log(`Creating new vote: reviewId=${reviewId}, userId=${userId}, voteType=${voteType}`);
             const newVote = new Vote({
-                reviewId,
-                userId,
+                reviewId: reviewObjectId,
+                userId: userObjectId,
                 voteType
             });
             await newVote.save();
+            console.log(`New vote created: ${newVote._id}`);
 
             if (voteType === 'up') {
                 updatedReview = await Review.findByIdAndUpdate(
-                    reviewId,
+                    reviewObjectId,
                     { $inc: { upvoteCount: 1 } },
                     { new: true }
                 );
             } else {
                 updatedReview = await Review.findByIdAndUpdate(
-                    reviewId,
+                    reviewObjectId,
                     { $inc: { downvoteCount: 1 } },
                     { new: true }
                 );
             }
-			
-			// In controllers/voteController.js
-			// After updating a vote
-			if (global.io) {
-				global.io.emit('voteUpdated', { reviewId: reviewId });
-			}
+            
+            if (global.io) {
+                global.io.emit('voteUpdated', { reviewId: reviewId });
+            }
 
             return res.json({
                 success: true,
@@ -122,10 +131,11 @@ exports.vote = async (req, res) => {
             });
         }
     } catch (err) {
-        console.error(err);
+        console.error("Vote processing error:", err);
         res.status(500).json({
             success: false,
-            error: "Server error"
+            error: "Server error",
+            details: err.message
         });
     }
 };

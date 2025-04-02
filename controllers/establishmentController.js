@@ -154,12 +154,11 @@ exports.getRestoProfile = async (req, res) => {
         }
 
         // Add user vote status to each review if logged in
-		// In getRestoProfile function (around line 158)
 		if (req.session.userId) {
 			for (let review of establishment.reviews) {
 				const userVote = await Vote.findOne({
-					reviewId: review._id,
-					userId: req.session.userId
+					reviewId: review._id.toString(),
+					userId: req.session.userId.toString()
 				});
 				review.userVote = userVote ? userVote.voteType : null;
 			}
