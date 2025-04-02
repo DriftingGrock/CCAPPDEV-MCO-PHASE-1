@@ -98,39 +98,63 @@
 
 
         <div class="section-title">Recent Reviews</div>
-        {{#each user.reviews}}
-            <article class="reviews">
-                <div class="review-container" data-review-id="{{this._id}}">
-                    <img class="display-pic" src="{{this.userId.avatar}}" alt="pfp.jpg">
-                    <div class="heading"> {{this.userId.username}} </div>
-                    <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
-                    <div class="establishment">reviewing <a href="/restoProfile/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
-                    <div class="heading"> {{this.title}} </div>
-                    <div class="description">{{{this.body}}}</div>
-                    {{#if this.media}}
-                        <div class="review-images">
-                            {{#each this.media}}
-                                <img src="{{this}}" alt="Review Image">
-                            {{/each}}
-                        </div>
-                    {{/if}}
-                    <div class="date">{{formatDate this.createdAt}} </div>
-                    {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
+        <!-- IF OWNER THEN HIDE EDIT AND DELETE -->
+        {{#if isOwner}}
+            {{#each user.reviews}}
+                <article class="reviews">
+                    <div class="review-container" data-review-id="{{this._id}}">
+                        <img class="display-pic" src="{{this.userId.avatar}}" alt="pfp.jpg">
+                        <div class="heading"> {{this.userId.username}} </div>
+                        <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
+                        <div class="establishment">reviewing <a href="/restoProfile/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
+                        <div class="heading"> {{this.title}} </div>
+                        <div class="description">{{{this.body}}}</div>
+                        {{#if this.media}}
+                            <div class="review-images">
+                                {{#each this.media}}
+                                    <img src="{{this}}" alt="Review Image">
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        <div class="date">{{formatDate this.createdAt}} </div>
+                        {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
 
-                    <!-- Edit & Delete Buttons -->
-                    {{#if isOwner}}
-                    <div class="review-actions">
-                        <button class="edit-review-btn" data-id="{{this._id}}" data-body="{{this.body}}" data-rating="{{this.rating}}" data-title="{{this.title}}">
-                            Edit
-                        </button>
-                        <button class="delete-review-btn" data-id="{{this._id}}">
-                            Delete
-                        </button>
+                        <!-- Edit & Delete Buttons -->
+                        <div class="review-actions">
+                            <button class="edit-review-btn" data-id="{{this._id}}" data-body="{{this.body}}" data-rating="{{this.rating}}" data-title="{{this.title}}">
+                                Edit
+                            </button>
+                            <button class="delete-review-btn" data-id="{{this._id}}">
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                    {{/if}}
-                </div>
-            </article>
-        {{/each}}
+                </article>
+            {{/each}}
+        <!--IF NOT OWNER THEN HIDE EDIT AND DELETE-->
+        {{else}}
+            {{#each user.reviews}}
+                <article class="reviews">
+                    <div class="review-container" data-review-id="{{this._id}}">
+                        <img class="display-pic" src="{{this.userId.avatar}}" alt="pfp.jpg">
+                        <div class="heading"> {{this.userId.username}} </div>
+                        <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
+                        <div class="establishment">reviewing <a href="/restoProfile/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
+                        <div class="heading"> {{this.title}} </div>
+                        <div class="description">{{{this.body}}}</div>
+                        {{#if this.media}}
+                            <div class="review-images">
+                                {{#each this.media}}
+                                    <img src="{{this}}" alt="Review Image">
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                        <div class="date">{{formatDate this.createdAt}} </div>
+                        {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
+                    </div>
+                </article>
+            {{/each}}
+        {{/if}}
 
         <!-- Edit Review Modal -->
 		<div id="editReviewModal" class="modal">
