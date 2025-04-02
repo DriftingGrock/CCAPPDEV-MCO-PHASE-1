@@ -110,7 +110,13 @@ exports.voteSimple = async (req, res) => {
             await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: 1 } });
         }
 
-        return res.json({ message: "Vote recorded" });
+        // In all return statements, include the updated counts:
+        return res.json({
+            message: "Vote recorded",
+            success: true,
+            upvoteCount: updatedReview.upvoteCount,
+            downvoteCount: updatedReview.downvoteCount
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Server error", details: err.message });

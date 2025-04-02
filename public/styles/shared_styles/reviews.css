@@ -87,40 +87,64 @@
     transition: 0.3s ease;
 }
 
-.vote .upvote::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: orangered; /* Semi-transparent white */
-    opacity: 0;
-    transition: opacity 0.1s ease-out;
-    pointer-events: none;
+/*.vote .upvote::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: orangered; !* Semi-transparent white *!*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.1s ease-out;*/
+/*    pointer-events: none;*/
+/*}*/
+
+/*!* Change to a checkmark on click *!*/
+/*.vote .upvote:active::after {*/
+/*    opacity: 60%;*/
+/*}*/
+
+/*.vote .downvote::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: deepskyblue; !* Semi-transparent white *!*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.1s ease-out;*/
+/*    pointer-events: none;*/
+/*}*/
+
+/*!* Change to a checkmark on click *!*/
+/*.vote .downvote:active::after {*/
+/*    opacity: 60%;*/
+/*}*/
+
+.vote button.active {
+    color: orangered; /* Green for upvote */
+    font-weight: bold;
 }
 
-/* Change to a checkmark on click */
-.vote .upvote:active::after {
-    opacity: 60%;
+.vote button.downvote.active {
+    color: deepskyblue; /* Red for downvote */
+    font-weight: bold;
 }
 
-.vote .downvote::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: deepskyblue; /* Semi-transparent white */
-    opacity: 0;
-    transition: opacity 0.1s ease-out;
-    pointer-events: none;
+.vote button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-/* Change to a checkmark on click */
-.vote .downvote:active::after {
-    opacity: 60%;
+/* Optional: Add hover effects */
+.vote button.upvote:hover:not(:disabled):not(.active) {
+    color: orangered;
+}
+
+.vote button.downvote:hover:not(:disabled):not(.active) {
+    color: deepskyblue;
 }
 
 

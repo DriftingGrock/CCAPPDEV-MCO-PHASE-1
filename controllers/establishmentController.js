@@ -4,6 +4,7 @@ const Establishment = require('../database/models/models').Establishment;
 const Review = require('../database/models/models').Review;
 const Menu = require('../database/models/models').Menu;
 const Photo = require('../database/models/models').Photo;
+const Vote = require('../database/models/models').Vote;
 
 const getRatingData = (reviews) => {
     const ratingCounts = [0, 0, 0, 0, 0]; // Index 0 = 1-star, Index 4 = 5-star
@@ -42,7 +43,23 @@ exports.getHomePage = async (req, res) => {
             .populate('userId', 'username')
             .lean();
 
-        res.render('index', { recommendedEstablishments, recentReviews });
+        // Add user vote status to each review if logged in
+        if (req.session.userId) {
+            for (let review of recentReviews) {
+                const userVote = await Vote.findOne({
+                    reviewId: review._id,
+                    userId: req.session.userId
+                });
+                review.userVote = userVote ? userVote.voteType : null;
+            }
+        }
+
+        res.render('index', {
+            recommendedEstablishments,
+            recentReviews,
+            userId: req.session.userId,
+            isLoggedIn: !!req.session.userId
+        });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
@@ -134,6 +151,17 @@ exports.getRestoProfile = async (req, res) => {
 
         if (!establishment) {
             return res.status(404).send('Establishment not found');
+        }
+
+        // Add user vote status to each review if logged in
+        if (req.session.userId) {
+            for (let review of establishment.reviews) {
+                const userVote = await Vote.findOne({
+                    reviewId: review._id,
+                    userId: req.session.userId
+                });
+                review.userVote = userVote ? userVote.voteType : null;
+            }
         }
 
         // Check if user is logged in and is the owner of this establishment
