@@ -1,0 +1,21 @@
+.upvote.active i {
+    color: orange !important;
+}
+
+.downvote.active i {
+    color: blue !important;
+}
+
+/* Make the buttons more visible */
+.upvote i, .downvote i {
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.upvote:hover i {
+    color: #ff8c00;
+}
+
+.downvote:hover i {
+    color: #4169e1;
+}

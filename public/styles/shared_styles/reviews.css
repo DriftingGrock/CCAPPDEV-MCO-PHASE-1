@@ -211,3 +211,11 @@
 .reply-container .date {
     color: lightslategray;
 }
+
+.upvote.active i {
+    color: orange !important;
+}
+
+.downvote.active i {
+    color: blue !important;
+}

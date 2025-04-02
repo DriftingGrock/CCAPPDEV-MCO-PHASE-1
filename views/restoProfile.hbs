@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="/styles/shared_styles/reviews.css">
     <link rel="stylesheet" href="/styles/morestyles/restoProfile.css">
+	<link rel="stylesheet" href="/styles/shared_styles/vote-buttons.css">
 	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 	<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.8/purify.min.js"></script>
@@ -308,16 +309,28 @@
                             <div class="heading"><a href="/userProfile/{{this.ownerResponse.ownerId}}">Owner</a></div>
                             <div class="description">{{{this.ownerResponse.body}}}</div>
                             <div class="date">{{formatDate this.ownerResponse.createdAt}}</div>
-                            <div class="vote">
-                                <button class="upvote">
-                                    <i class="fa-solid fa-up-long"></i>
-                                    <span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
-                                </button>
-                                <button class="downvote">
-                                    <i class="fa-solid fa-down-long"></i>
-                                    <span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
-                                </button>
-                            </div>
+							<div class="vote">
+								{{#if @root.isLoggedIn}}
+									<button class="upvote {{#if (eq this.ownerResponse.userVote 'up')}}active{{/if}}" onclick="handleVote('{{this._id}}-response', 'up')">
+										<i class="fa-solid fa-up-long"></i>
+										<span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
+									</button>
+									<button class="downvote {{#if (eq this.ownerResponse.userVote 'down')}}active{{/if}}" onclick="handleVote('{{this._id}}-response', 'down')">
+										<i class="fa-solid fa-down-long"></i>
+										<span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
+									</button>
+								{{else}}
+									<button class="upvote" onclick="document.getElementById('profileModal').style.display='flex'">
+										<i class="fa-solid fa-up-long"></i>
+										<span class="upvote-count">{{this.ownerResponse.upvoteCount}}</span>
+									</button>
+									<button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'">
+										<i class="fa-solid fa-down-long"></i>
+										<span class="downvote-count">{{this.ownerResponse.downvoteCount}}</span>
+									</button>
+								{{/if}}
+							</div>
+
 
                             <!-- Edit and Delete buttons for replies -->
                             {{#if ../isOwnerView}}
