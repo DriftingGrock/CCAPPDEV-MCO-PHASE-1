@@ -105,30 +105,30 @@
             {{/if}}
             <div class="date">{{formatDate createdAt}} by <a href="/userProfile/{{userId._id}}">{{userId.username}}</a></div>
             <!-- Replace the vote div in both files with this: -->
-            <div class="vote">
-                {{#if isLoggedIn}}
-                    <!-- Logged-in state (both buttons visible) -->
-                    <button class="upvote" onclick="handleVote('{{this._id}}', 'up')">
-                        <i class="fa-solid fa-up-long"></i>
-                        <span class="upvote-count">{{this.upvoteCount}}</span>
-                    </button>
-                    <button class="downvote" onclick="handleVote('{{this._id}}', 'down')">
-                        <i class="fa-solid fa-down-long"></i>
-                        <span class="downvote-count">{{this.downvoteCount}}</span>
-                    </button>
-                {{else}}
-                    <!-- Not logged-in state (single login prompt) -->
-                    <button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
-                        <i class="fa-solid fa-up-long"></i>
-                        <span class="upvote-count">{{this.upvoteCount}}</span>
-                        <span style="margin-left: 5px;">Login to Vote</span>
-                    </button>
-                    <button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
-                        <i class="fa-solid fa-down-long"></i>
-                        <span class="downvote-count">{{this.downvoteCount}}</span>
-                    </button>
-                {{/if}}
-            </div>
+			<div class="vote">
+				{{#if @root.isLoggedIn}}
+					<!-- Logged-in buttons -->
+					<button class="upvote" onclick="handleVote('{{this._id}}', 'up')">
+						<i class="fa-solid fa-up-long"></i>
+						<span class="upvote-count">{{this.upvoteCount}}</span>
+					</button>
+					<button class="downvote" onclick="handleVote('{{this._id}}', 'down')">
+						<i class="fa-solid fa-down-long"></i>
+						<span class="downvote-count">{{this.downvoteCount}}</span>
+					</button>
+				{{else}}
+					<!-- Not logged-in prompt -->
+					<button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
+						<i class="fa-solid fa-up-long"></i>
+						<span class="upvote-count">{{this.upvoteCount}}</span>
+						<span style="margin-left: 5px;">Login to Vote</span>
+					</button>
+					<button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
+						<i class="fa-solid fa-down-long"></i>
+						<span class="downvote-count">{{this.downvoteCount}}</span>
+					</button>
+				{{/if}}
+			</div>
         </div>
         {{/each}}
     </article>
