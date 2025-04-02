@@ -1,3 +1,4 @@
+const User = require('../database/models/models').User;
 const mongoose = require('mongoose');
 const Establishment = require('../database/models/models').Establishment;
 const Review = require('../database/models/models').Review;
@@ -135,6 +136,16 @@ exports.getRestoProfile = async (req, res) => {
             return res.status(404).send('Establishment not found');
         }
 
+        // Check if user is logged in and is the owner of this establishment
+        let isOwner = false;
+        if (req.session.userId) {
+            const user = await User.findById(req.session.userId);
+            isOwner = user && 
+                      user.role === 'establishment_owner' && 
+                      user.establishmentId && 
+                      user.establishmentId.toString() === req.params.id;
+        }
+
         // Fetch menu and photos
         const menu = await Menu.findOne({ establishmentId }).lean();
         const photos = await Photo.find({ establishmentId }).lean();
@@ -157,7 +168,8 @@ exports.getRestoProfile = async (req, res) => {
             ratingData,
             averageRating,
             totalRatings,
-            sortOption
+            sortOption,
+            isOwner // Add this to pass ownership info to the template
         });
     } catch (err) {
         console.error("Error in getRestoProfile:", err);
@@ -196,6 +208,24 @@ exports.editRestoProfile = async (req, res) => {
 
 exports.getRestoProfileOwner = async (req, res) => {
     try {
+        // Check if user is logged in
+        if (!req.session.userId) {
+            return res.redirect(`/restoProfile/${req.params.id}`);
+        }
+
+        // Get the logged-in user
+        const user = await User.findById(req.session.userId);
+        
+        // Check if user is an establishment owner and owns this establishment
+        const isOwner = user && 
+                       user.role === 'establishment_owner' && 
+                       user.establishmentId && 
+                       user.establishmentId.toString() === req.params.id;
+                        
+        if (!isOwner) {
+            return res.redirect(`/restoProfile/${req.params.id}`);
+        }
+
         const sortOption = req.query.sort || 'desc';
         let sortQuery = {};
 
@@ -226,7 +256,6 @@ exports.getRestoProfileOwner = async (req, res) => {
         }
 
         const { ratingData, averageRating, totalRatings } = getRatingData(establishment.reviews);
-        const isOwner = true;
         const isOwnerView = true;
 
         res.render('restoProfile', {
