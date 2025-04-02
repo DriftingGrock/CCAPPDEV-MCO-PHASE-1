@@ -56,53 +56,51 @@ exports.createUser = async (req, res) => {
 
 exports.getUserProfile = async (req, res) => {
     try {
-        const loggedInUserId = req.session.userId ? new mongoose.Types.ObjectId(req.session.userId) : null; // Get logged-in user ID from session
-        const profileOwnerId = new mongoose.Types.ObjectId(req.params.user); // Get profile owner ID from URL params
-
-        // Check if the logged-in user is the owner of the profile
-        const isOwner = loggedInUserId && loggedInUserId.equals(profileOwnerId); // Compare ObjectIds
-
-        // Fetch user and populate reviews
-        const user = await User.findById(profileOwnerId)
+        const user = await User.findById(req.params.user)
             .populate({
                 path: 'reviews',
                 options: { sort: { createdAt: -1 } },
                 populate: [
-                    { path: 'establishmentId', select: 'name _id' }, // Ensure _id is selected if needed elsewhere
+                    { path: 'establishmentId', select: 'name' },
                     { path: 'ownerResponse.ownerId', select: 'username avatar' },
-                    { path: 'userId', select: 'username avatar _id' } // Ensure userId is populated and _id selected
+                    { path: 'userId', select: 'username avatar' }
                 ]
             })
-            .lean(); // Use .lean() for plain JS objects, easier to modify
+            .select("username avatar bio stats.reviewsMade")
+            .lean();
 
         if (!user) {
             return res.status(404).send('User not found');
         }
 
-        // Add ownership flag to each review
-        if (user.reviews && user.reviews.length > 0) {
-            user.reviews = user.reviews.map(review => {
-                // Check if review.userId exists and is populated correctly
-                const isReviewOwner = loggedInUserId && review.userId && loggedInUserId.equals(review.userId._id);
-                return { ...review, isReviewOwner: isReviewOwner };
-            });
-        }
+        const ownedEstablishments = await Establishment.find({ ownerId: req.params.user }).lean();
 
+        const ratingCounts = [0, 0, 0, 0, 0];
+        const userReviews = user.reviews || [];
 
-        // Render the profile page, passing the user data and ownership flag
-        res.render('userProfile', { // Assuming the view is named userProfile.hbs
-            user: user,
-            isOwner: isOwner, // Pass the profile ownership flag
-            loggedInUser: req.session.userId // Pass loggedInUser to potentially use in header/other parts
-            // Pass other necessary data like title, session info etc.
+        userReviews.forEach(review => {
+            if (review.rating >= 1 && review.rating <= 5) {
+                ratingCounts[review.rating - 1]++;
+            }
         });
 
+        const totalUserRatings = ratingCounts.reduce((sum, count) => sum + count, 0);
+        const userRatingData = ratingCounts.map((count, index) => ({
+            star: index + 1,
+            count: count,
+            percentage: totalUserRatings > 0 ? (count / totalUserRatings) * 100 : 0
+        }));
+
+        res.render('userProfile', {
+            user,
+            ownedEstablishments,
+            userRatingData,
+            totalUserRatings,
+            isLoggedIn: !!req.session.userId,
+            currentUser: req.session.userId
+        });
     } catch (err) {
-        console.error("Error fetching user profile:", err);
-        // Check for CastError specifically (invalid ObjectId format)
-        if (err.name === 'CastError') {
-            return res.status(400).send('Invalid User ID format');
-        }
+        console.error(err);
         res.status(500).send('Server Error');
     }
 };

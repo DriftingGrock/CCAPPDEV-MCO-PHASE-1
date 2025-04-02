@@ -62,16 +62,14 @@
         <div class="section-title">User Profile</div>
         <div class="profile-card">
             <div class="profile-picture" style="background-image: url('{{user.avatar}}');"></div>
-
             <div class="profile-info">
-                <h2 class="profile-name">{{user.username}}</h2>
-                <p class="profile-bio">{{user.bio}}</p>
+                <div class="profile-name">{{user.username}}</div>
+                <div class="profile-bio"> {{user.bio}}
+               </div>
             </div>
-
-            {{#if isOwner}} <button class="edit-profile-button" title="Edit Profile">
-                <i class="fa fa-pencil"></i>
-            </button>
-            {{/if}}
+            <button class="edit-profile-button">
+				<i class="fa fa-pencil"></i> Edit
+			</button>
         </div>
 
         <div class="section-title">Statistics</div>
@@ -98,31 +96,37 @@
 
 
         <div class="section-title">Recent Reviews</div>
-        {{#if user.reviews}}
-            {{#each user.reviews}}
-                <div class="review-item" id="review-{{this._id}}">
-                    <a href="/establishment/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a> <h4>{{this.title}}</h4>
-                    <p>{{{this.body}}}</p> {{#if this.isReviewOwner}} <div class="review-actions">
-                    <button class="edit-review-btn"
-                            data-id="{{this._id}}"
-                            data-title="{{this.title}}"
-                            data-body="{{this.body}}"
-                            data-rating="{{this.rating}}"
-                            title="Edit Review">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                    <button class="delete-review-btn" data-id="{{this._id}}" title="Delete Review">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </div>
-                {{/if}}
-                    {{#if this.ownerResponse}}
+        {{#each user.reviews}}
+            <article class="reviews">
+                <div class="review-container" data-review-id="{{this._id}}">
+                    <img class="display-pic" src="{{this.userId.avatar}}" alt="pfp.jpg">
+                    <div class="heading"> {{this.userId.username}} </div>
+                    <div class="star-rating"><img class="star-icon-review" src="/icons/star.png" alt="star icon"> {{this.rating}} </div>
+                    <div class="establishment">reviewing <a href="/restoProfile/{{this.establishmentId._id}}">{{this.establishmentId.name}}</a></div>
+                    <div class="heading"> {{this.title}} </div>
+                    <div class="description">{{{this.body}}}</div>
+                    {{#if this.media}}
+                        <div class="review-images">
+                            {{#each this.media}}
+                                <img src="{{this}}" alt="Review Image">
+                            {{/each}}
+                        </div>
                     {{/if}}
+                    <div class="date">{{formatDate this.createdAt}} </div>
+                    {{#if this.edited}}<div class="edit-tag"> edited </div> {{/if}}
+
+                    <!-- Edit & Delete Buttons -->
+                    <div class="review-actions">
+                        <button class="edit-review-btn" data-id="{{this._id}}" data-body="{{this.body}}" data-rating="{{this.rating}}" data-title="{{this.title}}">
+                            Edit
+                        </button>
+                        <button class="delete-review-btn" data-id="{{this._id}}">
+                            Delete
+                        </button>
+                    </div>
                 </div>
-            {{/each}}
-        {{else}}
-            <p>This user hasn't posted any reviews yet.</p>
-        {{/if}}
+            </article>
+        {{/each}}
 
         <!-- Edit Review Modal -->
 		<div id="editReviewModal" class="modal">
