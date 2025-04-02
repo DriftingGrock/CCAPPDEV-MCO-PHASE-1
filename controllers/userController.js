@@ -1,5 +1,47 @@
 const User = require('../database/models/models').User;
 const Establishment = require('../database/models/models').Establishment;
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+exports.createUser = async (req, res) => {
+    try {
+        const { username, password, bio } = req.body;
+        // Add role selection logic if needed, default to 'reviewer' for now
+        const role = 'reviewer'; 
+
+        // Check if username already exists
+        const existingUser = await User.findOne({ username: username });
+        if (existingUser) {
+            // Handle username exists error (e.g., render signup with message)
+            return res.status(400).send('Username already taken'); 
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Create new user (add avatar handling if implementing file upload here)
+        const newUser = new User({
+            username: username,
+            password: hashedPassword,
+            bio: bio,
+            role: role,
+            // avatar: Handle avatar path if uploaded
+        });
+
+        await newUser.save();
+
+        // Optional: Automatically log the user in after signup
+        // req.session.userId = newUser._id;
+        // return res.redirect(`/userProfile/${newUser._id}`); 
+
+        // Or redirect to login page/homepage
+        res.redirect('/'); // Redirect to homepage, maybe show a "Signup successful" message
+
+    } catch (err) {
+        console.error("Signup Error:", err);
+        res.status(500).send('Server Error during signup');
+    }
+};
 
 exports.getUserProfile = async (req, res) => {
     try {
@@ -71,4 +113,50 @@ exports.editUserProfile = async (req, res) => {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server error' });
     }
+};
+
+// Add near the top with other requires
+// const bcrypt = require('bcrypt'); 
+// const User = require('../database/models/models').User;
+
+exports.loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body; // Make sure body parsing middleware is used
+
+        const user = await User.findOne({ username: username });
+
+        if (!user) {
+            // User not found
+            return res.status(401).json({ success: false, message: 'Invalid credentials' }); // Send JSON response for fetch API
+        }
+
+        // Compare submitted password with stored hash
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            // Password doesn't match
+            return res.status(401).json({ success: false, message: 'Invalid credentials' }); // Send JSON response
+        }
+
+        // Password matches - Create session
+        req.session.userId = user._id;
+        req.session.username = user.username; // Store username for convenience if needed
+
+        // Send success response with user ID for redirection
+         res.json({ success: true, userId: user._id });
+
+    } catch (err) {
+        console.error("Login Error:", err);
+        res.status(500).json({ success: false, message: 'Server Error during login' });
+    }
+};
+
+exports.logoutUser = (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Logout Error:", err);
+            return res.status(500).send('Could not log out, please try again.');
+        }
+        res.redirect('/'); // Redirect to homepage after logout
+    });
 };

@@ -92,24 +92,19 @@
             </label>
         </div>
 
-
-        <form action="/" method="POST">
+        <form action="/signup" method="POST" id="signupForm"> 
             <div class="form-group">
-                <input type="text" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Username" required>
             </div>
-
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
-
-            <div class="form-group">
-                <textarea placeholder="Short description (optional)"></textarea>
-            </div>
-
-            <button class="button_dkgreen" style="width:100%; font-size:16px" onclick="location.href='/';">
+             <div class="form-group">
+                 <textarea name="bio" placeholder="Short description (optional)"></textarea>
+             </div>
+            <button type="submit" class="button_dkgreen" style="width:100%; font-size:16px">
                 Register
             </button>
-
         </form>
     </div>
 
@@ -132,7 +127,5 @@
             window.location.href = "/"; // Redirects to index.html
         });
     </script>
-    
-
 </body>
 </html>

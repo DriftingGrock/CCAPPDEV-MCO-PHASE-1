@@ -6,6 +6,11 @@ const hbs = require('hbs');
 const multer = require('multer');
 const upload = multer({ dest: "public/uploads/" });
 
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const User = require('./database/models/models').User; // Ensure User model is required if not already global
+const saltRounds = 10; // For bcrypt hashing
+
 dotenv.config();
 
 const app = express();
@@ -14,6 +19,9 @@ const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
+
+
+mongoose.connect('mongodb://localhost:27017/animoeats', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
@@ -41,6 +49,18 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static('public/images'));
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
+// For parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true })); 
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'a_default_fallback_secret_key', // Use an environment variable for the secret
+    resave: false,
+    saveUninitialized: false, 
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production (requires HTTPS)
+}));
+
+
 
 // Controllers
 const establishmentController = require('./controllers/establishmentController');
@@ -71,6 +91,15 @@ app.post("/api/vote", voteController.vote);
 app.get("/api/votes/:userId/:establishmentId", voteController.getVotes);
 app.post("/api/vote-simple", voteController.voteSimple);
 
+// Add this route definition in index.js
+app.get('/sign-up', (req, res) => {
+    // Send the sign-up.html file
+    // Make sure the path is correct relative to index.js
+    res.sendFile(path.join(__dirname, 'views', 'html', 'sign-up.html'));
+});
+app.post('/signup', userController.createUser); // Point to a new controller function
+app.post('/login', userController.loginUser);
+app.post('/logout', userController.logoutUser); // Or use GET method
 /*
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);
