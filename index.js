@@ -93,6 +93,22 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.session.userId;
     next();
 });
+
+// Add this after your existing session middleware in index.js
+app.use(async (req, res, next) => {
+    if (req.session.userId) {
+        try {
+            const user = await User.findById(req.session.userId).lean();
+            if (user) {
+                res.locals.loggedInUserData = user; // Make user data available to all templates
+            }
+        } catch (err) {
+            console.error("Error fetching user data:", err);
+        }
+    }
+    next();
+});
+
 // route protection
 const requireLogin = (req, res, next) => {
     if (!req.session.userId) {
