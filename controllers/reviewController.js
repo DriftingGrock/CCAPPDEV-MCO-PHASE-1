@@ -10,35 +10,30 @@ exports.postReview = async (req, res) => {
             return res.status(400).json({ error: "Missing required fields" });
         }
 
-		// Get the current user from session
-		if (!req.session.userId) {
-			return res.status(401).json({ error: "User not authenticated" });
-		}
-
-		const currentUser = await User.findById(req.session.userId);
-		if (!currentUser) {
-			return res.status(404).json({ error: "User not found" });
-		}
+        const defaultUser = await User.findOne();
+        if (!defaultUser) {
+            return res.status(500).json({ error: "No default user found. Please add a user to the database." });
+        }
 
         let mediaUrls = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
-		const newReview = new Review({
-			establishmentId,
-			userId: currentUser._id,
-			username: currentUser.username,
-			title,
-			body,
-			rating,
-			media: mediaUrls
-		});
+        const newReview = new Review({
+            establishmentId,
+            userId: defaultUser._id,
+            username: defaultUser.username,
+            title,
+            body,
+            rating,
+            media: mediaUrls
+        });
         
         await newReview.save();
 
         // Update user's reviews list
-		await User.findByIdAndUpdate(currentUser._id, {
-			$push: { reviews: newReview._id },
-			$inc: { "stats.reviewsMade": 1 }
-		}, { new: true });
+        await User.findByIdAndUpdate(defaultUser._id, {
+            $push: { reviews: newReview._id },
+            $inc: { "stats.reviewsMade": 1 } // ✅ Increase review count
+        }, { new: true });
 
         // ✅ Emit socket event to update user profiles
         if (global.io) {
