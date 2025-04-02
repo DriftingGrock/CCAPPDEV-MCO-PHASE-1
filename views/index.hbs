@@ -31,15 +31,21 @@
             EATS</a>
     </div>
     <div class="navlink"> <a href="/restoList">Restaurants</a> </div>
-	<div class="profile">
-		{{#if isLoggedIn}}
-			<form id="logoutForm" action="/logout" method="POST" style="display:inline;">
-				<button type="submit" class="profile-btn"> Log out <i class="fa fa-sign-out" aria-hidden="true"></i></button>
-			</form>
-		{{else}}
-			<button id="profileBtn" class="profile-btn"> Log-in <i class="fa fa-solid fa-user"></i></button>
-		{{/if}}
-	</div>
+    <div class="profile">
+        {{#if isLoggedIn}}
+            <a href="/userProfile/{{userId}}" class="pfp-link">
+                <div class="pfp"></div>
+            </a>
+            <div class="logout-hover">
+                <form id="logoutForm" action="/logout" method="POST" style="display:inline;">
+                    <button type="submit" class="profile-btn"> Log out <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        {{else}}
+            <button id="profileBtn" class="profile-btn"> Log-in <i class="fa fa-solid fa-user"></i></button>
+        {{/if}}
+    </div>
+
 </div>
 
 <!-- Profile Modal -->
@@ -108,22 +114,21 @@
 			<div class="vote">
 				{{#if @root.isLoggedIn}}
 					<!-- Logged-in buttons -->
-					<button class="upvote" onclick="handleVote('{{this._id}}', 'up')">
-						<i class="fa-solid fa-up-long"></i>
-						<span class="upvote-count">{{this.upvoteCount}}</span>
-					</button>
-					<button class="downvote" onclick="handleVote('{{this._id}}', 'down')">
-						<i class="fa-solid fa-down-long"></i>
-						<span class="downvote-count">{{this.downvoteCount}}</span>
-					</button>
+                    <button class="upvote {{#if this.userVote.up}}active{{/if}}" onclick="handleVote('{{this._id}}', 'up')">
+                        <i class="fa-solid fa-up-long"></i>
+                        <span class="upvote-count">{{this.upvoteCount}}</span>
+                    </button>
+                    <button class="downvote {{#if this.userVote.down}}active{{/if}}" onclick="handleVote('{{this._id}}', 'down')">
+                        <i class="fa-solid fa-down-long"></i>
+                        <span class="downvote-count">{{this.downvoteCount}}</span>
+                    </button>
 				{{else}}
 					<!-- Not logged-in prompt -->
 					<button class="upvote" onclick="document.getElementById('profileModal').style.display='flex'">
 						<i class="fa-solid fa-up-long"></i>
 						<span class="upvote-count">{{this.upvoteCount}}</span>
 					</button>
-					<button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'"
-                            style="background-color: transparent; outline: none;">
+					<button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'">
 						<i class="fa-solid fa-down-long"></i>
 						<span class="downvote-count">{{this.downvoteCount}}</span>
 					</button>
@@ -154,5 +159,6 @@
 </script>
 
 <script src="/scripts/profileModal.js"></script>
+<script src="/scripts/updownVote.js"></script>
 </body>
 </html>

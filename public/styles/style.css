@@ -65,7 +65,12 @@ h1, h2 {
     float: right;
     font-size: 20px;
     align-content: center;
-    padding: 15px;
+    display: inline-block;
+    position: relative;
+    padding: 0 20px; /* Add padding to create more hover space */
+    height: 100%; /* Make it full height of header */
+    min-width: 120px; /* Ensure enough width for hover area */
+    box-sizing: border-box;
 }
 .profile button {
     border: none;
@@ -80,6 +85,57 @@ h1, h2 {
     text-decoration: underline 2px;
     text-underline-offset: 5px;
 }
+
+
+.profile .pfp {
+    height: 50px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #025000;
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1000;
+}
+/* If using anchor tag approach (recommended) */
+.pfp-link .pfp:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logout-hover {
+    display: none;
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 900;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+/* Show logout when hovering either profile container OR logout button itself */
+.profile:hover .logout-hover,
+.logout-hover:hover {
+    display: block;
+}
+
+/* Optional: Add transition for smoother appearance */
+.logout-hover {
+    transition: opacity 0.2s ease;
+    opacity: 0;
+}
+
+.profile:hover .logout-hover,
+.logout-hover:hover {
+    opacity: 1;
+}
+
+
 input,
 textarea{
     background-color: white;
