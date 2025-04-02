@@ -120,35 +120,33 @@ exports.editUserProfile = async (req, res) => {
 // const User = require('../database/models/models').User;
 
 exports.loginUser = async (req, res) => {
-    try {
-        const { username, password } = req.body; // Make sure body parsing middleware is used
-
-        const user = await User.findOne({ username: username });
-
-        if (!user) {
-            // User not found
-            return res.status(401).json({ success: false, message: 'Invalid credentials' }); // Send JSON response for fetch API
-        }
-
-        // Compare submitted password with stored hash
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        if (!isMatch) {
-            // Password doesn't match
-            return res.status(401).json({ success: false, message: 'Invalid credentials' }); // Send JSON response
-        }
-
-        // Password matches - Create session
-        req.session.userId = user._id;
-        req.session.username = user.username; // Store username for convenience if needed
-
-        // Send success response with user ID for redirection
-         res.json({ success: true, userId: user._id });
-
-    } catch (err) {
-        console.error("Login Error:", err);
-        res.status(500).json({ success: false, message: 'Server Error during login' });
+  try {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username: username });
+    
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
+    
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+    
+    // Create session
+    req.session.userId = user._id;
+    req.session.username = user.username;
+    req.session.role = user.role;
+    
+    // Save session and return userId for redirection
+    req.session.save(err => {
+      if(err) console.error("Session save error:", err);
+      res.json({ success: true, userId: user._id });
+    });
+  } catch (err) {
+    console.error("Login Error:", err);
+    res.status(500).json({ success: false, message: 'Server Error during login' });
+  }
 };
 
 exports.logoutUser = (req, res) => {
@@ -158,16 +156,5 @@ exports.logoutUser = (req, res) => {
             return res.status(500).send('Could not log out, please try again.');
         }
         res.redirect('/'); // Redirect to homepage after logout
-    });
-};
-
-exports.loginUser = async (req, res) => {
-    // ... existing code ...
-    req.session.userId = user._id;
-    req.session.username = user.username;
-    req.session.role = user.role; // Add this
-    req.session.save(err => {     // Add this
-        if(err) console.error("Session save error:", err);
-        res.json({ success: true });
     });
 };

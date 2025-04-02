@@ -120,6 +120,19 @@
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
+	
+	<script>
+	// Add this to a script tag at the bottom of sign-up.html
+		document.getElementById('signupForm').addEventListener('submit', function(event) {
+		  const usernameInput = document.querySelector('input[name="username"]');
+		  const passwordInput = document.querySelector('input[name="password"]');
+		  
+		  if (!usernameInput.value.trim() || !passwordInput.value.trim()) {
+			event.preventDefault();
+			alert('Please fill in all required fields');
+		  }
+		});
+	</script>
     
     <!--
     <script>

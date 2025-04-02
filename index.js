@@ -54,10 +54,12 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use(express.urlencoded({ extended: true })); 
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'a_default_fallback_secret_key', // Use an environment variable for the secret
-    resave: false,
-    saveUninitialized: false, 
-    cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production (requires HTTPS)
+  secret: process.env.SESSION_SECRET || 'a_default_fallback_secret_key',
+  resave: false,
+  saveUninitialized: false, 
+  cookie: { 
+    secure: false // Set to false for development on HTTP
+  }
 }));
 
 //middleware for templates to receive login status
