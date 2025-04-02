@@ -50,17 +50,18 @@
 		}
 	</style>
 
-    {{#if isLoggedIn}}
-        <script>
-            window.isLoggedIn = true;
-            window.currentUserId = "{{userId}}";
-        </script>
-    {{else}}
-        <script>
-            window.isLoggedIn = false;
-            window.currentUserId = null;
-        </script>
-    {{/if}}
+	{{#if isLoggedIn}}
+		<script>
+			window.isLoggedIn = true;
+			window.currentUserId = "{{currentUser}}";
+			console.log("User logged in with ID:", window.currentUserId);
+		</script>
+	{{else}}
+		<script>
+			window.isLoggedIn = false;
+			window.currentUserId = null;
+		</script>
+	{{/if}}
 </head>
 <body>
 
