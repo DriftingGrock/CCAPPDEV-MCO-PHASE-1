@@ -19,8 +19,8 @@ exports.vote = async (req, res) => {
         }
 
         // Make sure we have valid ObjectIds
-        const reviewObjectId = mongoose.Types.ObjectId(reviewId);
-        const userObjectId = mongoose.Types.ObjectId(userId);
+		const reviewObjectId = new mongoose.Types.ObjectId(reviewId);
+		const userObjectId = new mongoose.Types.ObjectId(userId);
 
         const existingVote = await Vote.findOne({ 
             reviewId: reviewObjectId, 
