@@ -118,12 +118,12 @@
 					</button>
 				{{else}}
 					<!-- Not logged-in prompt -->
-					<button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
+					<button class="upvote" onclick="document.getElementById('profileModal').style.display='flex'">
 						<i class="fa-solid fa-up-long"></i>
 						<span class="upvote-count">{{this.upvoteCount}}</span>
-						<span style="margin-left: 5px;">Login to Vote</span>
 					</button>
-					<button class="login-to-vote" onclick="document.getElementById('profileModal').style.display='flex'">
+					<button class="downvote" onclick="document.getElementById('profileModal').style.display='flex'"
+                            style="background-color: transparent; outline: none;">
 						<i class="fa-solid fa-down-long"></i>
 						<span class="downvote-count">{{this.downvoteCount}}</span>
 					</button>
