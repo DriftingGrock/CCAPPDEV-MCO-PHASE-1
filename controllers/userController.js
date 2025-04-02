@@ -89,13 +89,30 @@ exports.getUserProfile = async (req, res) => {
             });
         }
 
+        const ratingCounts = [0, 0, 0, 0, 0];
+        const userReviews = user.reviews || [];
+
+        userReviews.forEach(review => {
+            if (review.rating >= 1 && review.rating <= 5) {
+                ratingCounts[review.rating - 1]++;
+            }
+        });
+
+        const totalUserRatings = ratingCounts.reduce((sum, count) => sum + count, 0);
+        const userRatingData = ratingCounts.map((count, index) => ({
+            star: index + 1,
+            count: count,
+            percentage: totalUserRatings > 0 ? (count / totalUserRatings) * 100 : 0
+        }));
 
         // Render the profile page, passing the user data and ownership flag
         res.render('userProfile', { // Assuming the view is named userProfile.hbs
             user: user,
             isOwner: isOwner, // Pass the profile ownership flag
-            loggedInUser: req.session.userId // Pass loggedInUser to potentially use in header/other parts
-            // Pass other necessary data like title, session info etc.
+            userRatingData,
+            totalUserRatings,
+            loggedInUser: req.session.userId
+
         });
 
     } catch (err) {
