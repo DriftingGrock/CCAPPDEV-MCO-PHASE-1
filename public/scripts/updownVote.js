@@ -24,9 +24,10 @@ function handleVote(reviewId, voteType) {
         })
         .then(data => {
             if (data.success) {
-                // Update counts
+                // Update counts and active states
                 const reviewContainer = document.querySelector(`.review-container[data-review-id="${reviewId}"]`);
                 if (reviewContainer) {
+                    // Update vote counts
                     const upvoteCountEl = reviewContainer.querySelector('.upvote-count');
                     const downvoteCountEl = reviewContainer.querySelector('.downvote-count');
 
@@ -37,12 +38,13 @@ function handleVote(reviewId, voteType) {
                     const upvoteBtn = reviewContainer.querySelector('.upvote');
                     const downvoteBtn = reviewContainer.querySelector('.downvote');
 
-                    if (voteType === 'up') {
+                    upvoteBtn.classList.remove('active');
+                    downvoteBtn.classList.remove('active');
+
+                    if (data.userVote === 'up') {
                         upvoteBtn.classList.add('active');
-                        downvoteBtn.classList.remove('active');
-                    } else {
+                    } else if (data.userVote === 'down') {
                         downvoteBtn.classList.add('active');
-                        upvoteBtn.classList.remove('active');
                     }
                 }
             } else {

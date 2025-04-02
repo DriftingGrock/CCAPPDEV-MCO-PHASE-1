@@ -17,54 +17,98 @@ exports.vote = async (req, res) => {
         }
 
         const existingVote = await Vote.findOne({ reviewId, userId });
+        let updatedReview;
 
         if (existingVote) {
             if (existingVote.voteType === voteType) {
+                // Remove vote
                 await Vote.deleteOne({ _id: existingVote._id });
 
                 if (voteType === 'up') {
-                    await Review.findByIdAndUpdate(reviewId, { $inc: { upvoteCount: -1 } });
+                    updatedReview = await Review.findByIdAndUpdate(
+                        reviewId,
+                        { $inc: { upvoteCount: -1 } },
+                        { new: true }
+                    );
                 } else {
-                    await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: -1 } });
+                    updatedReview = await Review.findByIdAndUpdate(
+                        reviewId,
+                        { $inc: { downvoteCount: -1 } },
+                        { new: true }
+                    );
                 }
 
-                return res.json({ message: "Vote removed" });
+                return res.json({
+                    success: true,
+                    message: "Vote removed",
+                    upvoteCount: updatedReview.upvoteCount,
+                    downvoteCount: updatedReview.downvoteCount,
+                    userVote: null
+                });
             } else {
+                // Change vote type
                 existingVote.voteType = voteType;
                 await existingVote.save();
 
                 if (voteType === 'up') {
-                    await Review.findByIdAndUpdate(reviewId, {
-                        $inc: { upvoteCount: 1, downvoteCount: -1 }
-                    });
+                    updatedReview = await Review.findByIdAndUpdate(
+                        reviewId,
+                        { $inc: { upvoteCount: 1, downvoteCount: -1 } },
+                        { new: true }
+                    );
                 } else {
-                    await Review.findByIdAndUpdate(reviewId, {
-                        $inc: { upvoteCount: -1, downvoteCount: 1 }
-                    });
+                    updatedReview = await Review.findByIdAndUpdate(
+                        reviewId,
+                        { $inc: { upvoteCount: -1, downvoteCount: 1 } },
+                        { new: true }
+                    );
                 }
 
-                return res.json({ message: "Vote updated" });
+                return res.json({
+                    success: true,
+                    message: "Vote updated",
+                    upvoteCount: updatedReview.upvoteCount,
+                    downvoteCount: updatedReview.downvoteCount,
+                    userVote: voteType
+                });
             }
         } else {
+            // New vote
             const newVote = new Vote({
                 reviewId,
                 userId,
                 voteType
             });
-
             await newVote.save();
 
             if (voteType === 'up') {
-                await Review.findByIdAndUpdate(reviewId, { $inc: { upvoteCount: 1 } });
+                updatedReview = await Review.findByIdAndUpdate(
+                    reviewId,
+                    { $inc: { upvoteCount: 1 } },
+                    { new: true }
+                );
             } else {
-                await Review.findByIdAndUpdate(reviewId, { $inc: { downvoteCount: 1 } });
+                updatedReview = await Review.findByIdAndUpdate(
+                    reviewId,
+                    { $inc: { downvoteCount: 1 } },
+                    { new: true }
+                );
             }
 
-            return res.json({ message: "Vote recorded" });
+            return res.json({
+                success: true,
+                message: "Vote recorded",
+                upvoteCount: updatedReview.upvoteCount,
+                downvoteCount: updatedReview.downvoteCount,
+                userVote: voteType
+            });
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({
+            success: false,
+            error: "Server error"
+        });
     }
 };
 
