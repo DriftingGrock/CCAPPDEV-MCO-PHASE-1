@@ -57,13 +57,12 @@ const quillEditReply = new Quill('#quill-edit-reply-editor', {
 // Handle Edit Reply Form Submission
 document.getElementById('editReplyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
+    
     const replyId = document.getElementById('editReplyId').value;
     const sanitizedContent = DOMPurify.sanitize(quillEditReply.root.innerHTML);
     
-    // Set the hidden input value (this was missing)
-    document.getElementById('editReplyBody').value = sanitizedContent;
-
+    console.log(`Submitting edited reply: reviewId=${replyId}, content="${sanitizedContent}"`);
+    
     try {
         const response = await fetch(`/edit-reply/${replyId}`, {
             method: 'POST',
@@ -74,13 +73,22 @@ document.getElementById('editReplyForm').addEventListener('submit', async functi
                 body: sanitizedContent
             })
         });
-
+        
+        // First try to get JSON response
+        let responseData;
+        try {
+            responseData = await response.json();
+        } catch (e) {
+            console.warn("Response was not JSON:", e);
+        }
+        
         if (response.ok) {
-            // Success, refresh the page
+            console.log("Edit successful, reloading page");
             location.reload();
         } else {
-            const errorData = await response.json();
-            alert(`Error: ${errorData.error}`);
+            const errorMsg = responseData?.error || "Unknown error";
+            console.error("Server error:", errorMsg);
+            alert(`Error: ${errorMsg}`);
         }
     } catch (error) {
         console.error('Error:', error);

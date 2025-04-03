@@ -173,28 +173,45 @@ exports.deleteReview = async (req, res) => {
 
 //------------------EDIT AND DELETE REPLY---------------------------
 // Edit Reply
+// Edit Reply
 exports.editReply = async (req, res) => {
     try {
         const { body } = req.body;
         const reviewId = req.params.id;
+        
+        console.log(`Editing reply for review ID: ${reviewId} with new body: "${body}"`);
 
-        const review = await Review.findById(reviewId);
-        if (!review || !review.ownerResponse) {
+        // Use direct MongoDB update operation instead of find-then-save
+        const result = await Review.updateOne(
+            { _id: reviewId, 'ownerResponse': { $exists: true } },
+            { 
+                $set: { 
+                    'ownerResponse.body': body,
+                    'ownerResponse.edited': true,
+                    'ownerResponse.updatedAt': new Date()
+                } 
+            }
+        );
+        
+        console.log("Update result:", result);
+        
+        if (result.matchedCount === 0) {
             return res.status(404).json({ error: "Reply not found" });
         }
-
-        review.ownerResponse.body = body;
-        review.ownerResponse.edited = true;
-        review.ownerResponse.updatedAt = new Date();
-        await review.save();
-
-        res.json(review);
+        
+        if (result.modifiedCount === 0) {
+            return res.status(400).json({ error: "No changes made" });
+        }
+        
+        // Get the updated review to return in response
+        const updatedReview = await Review.findById(reviewId);
+        
+        res.json(updatedReview);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Error updating reply" });
+        console.error("Error updating reply:", err);
+        res.status(500).json({ error: "Error updating reply", details: err.message });
     }
 };
-
 // Delete Reply
 exports.deleteReply = async (req, res) => {
     try {
