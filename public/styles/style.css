@@ -213,7 +213,7 @@ button {
     flex-direction: column;
     padding: 16px;
     width: 200px;
-    height: 300px;
+    max-height: 350px;
     margin: 0 10px 0 auto;     /* Aligns the modal content to the right */
     border-radius: 0 0 10px 10px;
     font-family: Verdana, sans-serif;
