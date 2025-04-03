@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    avatar: String, // Profile picture URL
+    avatar: { type: String, default: "/images/user_profile/defaultDP.png"}, // Profile picture URL
     bio: String, // User bio
     role: { type: String, enum: ['reviewer', 'establishment_owner'], required: true },
     establishmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Establishment' }, // For establishment owners
