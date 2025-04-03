@@ -159,7 +159,8 @@ app.get('/sign-up', (req, res) => {
     // Make sure the path is correct relative to index.js
     res.sendFile(path.join(__dirname, 'views', 'html', 'sign-up.html'));
 });
-app.post('/signup', userController.createUser); // Point to a new controller function
+
+app.post('/signup', upload.single('avatar'), userController.createUser);
 app.post('/login', userController.loginUser);
 app.post('/logout', userController.logoutUser); // Or use GET method
 /*

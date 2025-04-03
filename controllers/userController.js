@@ -7,8 +7,8 @@ const saltRounds = 10;
 
 exports.createUser = async (req, res) => {
     try {
-        const { username, password, avatar, bio } = req.body;
-
+        const { username, password, bio } = req.body;
+        
         // Validate input
         if (!username || !password) {
             return res.status(400).send('Username and password are required');
@@ -26,14 +26,19 @@ exports.createUser = async (req, res) => {
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+        // Handle avatar if uploaded
+        let avatarPath = "/images/user_profile/defaultDP.png"; // Default image
+        if (req.file) {
+            avatarPath = "/uploads/" + req.file.filename;
+        }
+
         // Create new user
         const newUser = new User({
             username: username,
             password: hashedPassword,
-            avatar: avatar,
+            avatar: avatarPath,
             bio: bio,
             role: role
-            // avatar: Handle avatar path if uploaded
         });
 
         await newUser.save();

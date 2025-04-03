@@ -85,9 +85,9 @@
     <div class="profile-container">
         <h1 class="section-title">New Profile</h1>
 
-        <form action="/signup" method="POST" id="signupForm">
-            <div class="profile-pic-section">
-                <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="loadImage(event)">
+		<form action="/signup" method="POST" id="signupForm" enctype="multipart/form-data">
+			<div class="profile-pic-section">
+				<input type="file" id="fileInput" name="avatar" class="file-input" accept="image/*" onchange="loadImage(event)">
                 <label for="fileInput" class="camera-icon">
                     <i class="fa fa-camera"></i>
                 </label>
