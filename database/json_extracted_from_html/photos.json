@@ -7,7 +7,7 @@
   },
   {
     "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477a" },
-    "imageUrl": "/images/resto_menu/angels_pizza_menu.png",
+    "imageUrl": "/images/resto_menu/angels_pizza_menu.jpg",
     "uploadedBy": { "$oid": "603c2fe4b4f5a74e3c5f5678" },
     "createdAt": { "$date": "2025-03-13T12:05:00Z" }
   },
@@ -19,13 +19,13 @@
   },
   {
     "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477c" },
-    "imageUrl": "/images/resto_menu/ross_kitchenette_menu.png",
+    "imageUrl": "/images/resto_menu/ross_kitchenette_menu.jpg",
     "uploadedBy": { "$oid": "603c2fe4b4f5a74e3c5f5678" },
     "createdAt": { "$date": "2025-03-13T12:25:00Z" }
   },
   {
     "establishmentId": { "$oid": "67d2b0d20b0edd4f6d20477d" },
-    "imageUrl": "/images/resto_menu/potato_tower_menu.png",
+    "imageUrl": "/images/resto_menu/potato_tower_menu.jpg",
     "uploadedBy": { "$oid": "603c2fe4b4f5a74e3c5f5678" },
     "createdAt": { "$date": "2025-03-13T12:20:00Z" }
   }
