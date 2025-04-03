@@ -60,6 +60,9 @@ document.getElementById('editReplyForm').addEventListener('submit', async functi
 
     const replyId = document.getElementById('editReplyId').value;
     const sanitizedContent = DOMPurify.sanitize(quillEditReply.root.innerHTML);
+    
+    // Set the hidden input value (this was missing)
+    document.getElementById('editReplyBody').value = sanitizedContent;
 
     try {
         const response = await fetch(`/edit-reply/${replyId}`, {
