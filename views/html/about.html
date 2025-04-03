@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+  <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/morestyles/homepage.css">
+    <link rel="stylesheet" href="/styles/shared_styles/reviews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
+
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+
+<!-- header content -->
+<div class="header">
+    <div class="home">
+        <a href="/">ANIMO
+            <img style="height: 40px;" src="/icons/ANIMOEATS_logo.png" alt="jollysnorlax.png" >
+            EATS</a>
+    </div>
+    <div class="navlink"> <a href="restoList">Restaurants</a> </div>
+    <div class="profile"><button id="profileBtn"> Log-in <i class="fa fa-solid fa-user"></i></button></div>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content"><b>Existing Profile</b><br>
+        <label for="username">
+            <input id="username" type="text" placeholder="Username"> <br>
+        </label>
+
+        <label for="password">
+            <input id="password" type="password" placeholder="Password">
+        </label>
+        <button id="loginBtn" class="button_dkgreen">Log-in <i class="fa fa-solid fa-user"></i></button>
+        <p>Don't have an account yet? <a href="sign-up">Sign-Up</a></p>
+    </div>
+</div>
+<!-- end of header content -->
+
+<div id="background"></div>
+
+
+<section class="about">
+    <h2>About</h2>
+
+    <article id="dev-credits">
+        Developed by: SOMUCHTHEBETTER
+        <ul>
+            <li>Chua, Gideon</li>
+            <li>Chua?, Claude</li>
+            <li>Lamadrid, Kean</li>
+            <li>Pua, Daniel</li>
+            <li>Uy, Bea</li>
+        </ul>
+
+    </article>
+</section>
+
+<section class="dev-info">
+    <h2>App Info</h2>
+    <article id="npm-packages">
+        <ul>
+            <li>mongoose</li>
+            <li>express</li>
+            <li>dotenv</li>
+            <li>path</li>
+            <li>hbs</li>
+            <li>multer</li>
+            <li>socket.io</li>
+            <li>bcrypt</li>
+        </ul>
+
+        npm install mongoose express dotenv path hbs multer socket.io bcrypt
+    </article>
+
+    <article id="info">
+        as partial submission for CCAPDEV-S17 for Sir Arturo Caronongan
+    </article>
+</section>
+
+
+<script src="/scripts/profileModal.js"></script>
+</body>
+</html>
