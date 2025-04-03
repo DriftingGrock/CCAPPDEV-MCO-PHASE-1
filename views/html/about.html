@@ -10,7 +10,23 @@
     <script src="https://kit.fontawesome.com/b496b1e4d0.js" crossorigin="anonymous"></script>
 
     <style>
+        .role {
+            border-radius: 30%;
+            opacity: 0.7;
+            padding: 0 5px;
+        }
+        .role:hover {
+            opacity: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
+        .no-decor {
+            text-decoration: none;
+            color: inherit;
+        }
+        .no-decor:hover {
+            cursor: pointer;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -50,14 +66,33 @@
 <section class="about">
     <h2>About</h2>
 
+    <article id="info">
+        As partial submission for CCAPDEV-S17 for Sir Arturo Caronongan
+    </article>
+
     <article id="dev-credits">
         Developed by: SOMUCHTHEBETTER
         <ul>
-            <li>Chua, Gideon</li>
-            <li>Chua?, Claude</li>
-            <li>Lamadrid, Kean</li>
-            <li>Pua, Daniel</li>
-            <li>Uy, Bea</li>
+            <li>Chua, Gideon
+                <a href="https://claude.ai/" target="_blank" class="no-decor">
+                    <span class="role" style="background-color:#FF5F41">Claude</span>
+                </a>
+            </li>
+            <li>Lamadrid, Kean
+                <a href="https://www.openai.com/" target="_blank" class="no-decor">
+                    <span class="role" style="background-color:#10A37F">OpenAI</span>
+                </a>
+            </li>
+            <li>Pua, Daniel
+                <a href="https://gemini.google.com/" target="_blank" class="no-decor">
+                    <span class="role" style="background: linear-gradient(to right, #89B5F7, #C58AF9);">Gemini</span>
+                </a>
+            </li>
+            <li>Uy, Bea
+                <a href="https://chat.deepseek.com/" target="_blank" class="no-decor">
+                    <span class="role" style="background-color:#2D6BFF">DeepSeek</span>
+                </a>
+            </li>
         </ul>
 
     </article>
@@ -78,10 +113,6 @@
         </ul>
 
         npm install mongoose express dotenv path hbs multer socket.io bcrypt
-    </article>
-
-    <article id="info">
-        as partial submission for CCAPDEV-S17 for Sir Arturo Caronongan
     </article>
 </section>
 
