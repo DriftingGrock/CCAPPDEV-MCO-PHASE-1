@@ -2,7 +2,7 @@
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204780" },
     "username": "Anthony",
-    "password": "Anthony",
+    "password": "$2b$10$DrvIMXtKLO5XiR0L7.XdSOl2DtHDr9ReWyfvrgHJI0hK71QsJwUom",
     "avatar": "/images/user_profile/Anthony.png",
     "bio": "Certified Critic- Do not argue against me, you will lose.",
     "role": "reviewer",
@@ -23,6 +23,7 @@
     "avatar": "/images/user_profile/Grock.jpg",
     "bio": "ME EAT FOOD ME FOOD SAY WHAT TASTE LIKE AND RATE",
     "role": "establishment_owner",
+    "establishmentId": { "$oid":  "67d2b0d20b0edd4f6d20477c"},
     "stats": {
       "reviewsMade": 2,
       "reputation": 4500000000
@@ -54,10 +55,11 @@
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204783" },
     "username": "Ross",
-    "password": "Ross",
+    "password": "$2b$10$JkNrgosD2psXcEIJ0LJ43e.qCL/M9nTLj6VPp/BK3im7ZDUf6MsSS",
     "avatar": "/images/user_profile/Ross.png",
     "bio": "My favorite language is JavaScript.\nCats find me very attractive.",
     "role": "establishment_owner",
+    "establishmentId": { "$oid":  "67d2b0d20b0edd4f6d20477d"},
     "stats": {
       "reviewsMade": 3,
       "reputation": 1500000
