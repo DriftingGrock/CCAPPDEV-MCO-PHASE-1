@@ -58,51 +58,81 @@ exports.createUser = async (req, res) => {
 
 exports.getUserProfile = async (req, res) => {
     try {
-        const loggedInUserId = req.session.userId ? new mongoose.Types.ObjectId(req.session.userId) : null; // Get logged-in user ID from session
-        const profileOwnerId = new mongoose.Types.ObjectId(req.params.user); // Get profile owner ID from URL params
+        const loggedInUserId = req.session.userId ? new mongoose.Types.ObjectId(req.session.userId) : null;
+        let profileOwnerId;
 
-        // Check if the logged-in user is the owner of the profile
-        const isOwner = loggedInUserId && loggedInUserId.equals(profileOwnerId); // Compare ObjectIds
+        // Validate the profile owner ID format before creating ObjectId
+        if (!mongoose.Types.ObjectId.isValid(req.params.user)) {
+            return res.status(400).send('Invalid User ID format');
+        }
+        profileOwnerId = new mongoose.Types.ObjectId(req.params.user);
+
+        const isOwner = loggedInUserId && loggedInUserId.equals(profileOwnerId);
 
         // Fetch user and populate reviews
         const user = await User.findById(profileOwnerId)
             .populate({
-                path: 'reviews',
+                path: 'reviews', // Populate the reviews array field in the User schema
                 options: { sort: { createdAt: -1 } },
-                populate: [
-                    { path: 'establishmentId', select: 'name _id' }, // Ensure _id is selected if needed elsewhere
-                    { path: 'ownerResponse.ownerId', select: 'username avatar' },
-                    { path: 'userId', select: 'username avatar _id' } // Ensure userId is populated and _id selected
+                populate: [ // Nested population within each review
+                    { path: 'establishmentId', select: 'name _id' },
+                    { path: 'ownerResponse.ownerId', select: 'username avatar' }, // Assuming ownerResponse structure might change, adjust if needed
+                    { path: 'userId', select: 'username avatar _id' } // Populating the user who wrote the review (should be the profile owner)
                 ]
             })
-            .lean(); // Use .lean() for plain JS objects, easier to modify
+            .lean(); // Use .lean() for plain JS objects
 
         if (!user) {
             return res.status(404).send('User not found');
         }
+
+        // --- Reputation Calculation Start ---
+        let calculatedReputation = 0;
+        if (user.reviews && user.reviews.length > 0) {
+            for (const review of user.reviews) {
+                // Ensure upvoteCount and downvoteCount exist and are numbers
+                const upvotes = typeof review.upvoteCount === 'number' ? review.upvoteCount : 0;
+                const downvotes = typeof review.downvoteCount === 'number' ? review.downvoteCount : 0;
+                calculatedReputation += (upvotes - downvotes);
+            }
+        }
+        // Add the calculated reputation to the user object passed to the template.
+        // Note: This does NOT update the database field user.stats.reputation.
+        // It's calculated dynamically for display on this page load.
+        user.stats.reputation = calculatedReputation;
+        // --- Reputation Calculation End ---
+
 
         // Add ownership flag to each review
         if (user.reviews && user.reviews.length > 0) {
             user.reviews = user.reviews.map(review => {
                 // Check if review.userId exists and is populated correctly
                 const isReviewOwner = loggedInUserId && review.userId && loggedInUserId.equals(review.userId._id);
+                // Defensive check: Ensure the review being processed actually belongs to the profile owner
+                // This should always be true because we populated user.reviews, but belt-and-suspenders.
+                if (!review.userId || !profileOwnerId.equals(review.userId._id)) {
+                    console.warn(`Review ${review._id} found in user ${profileOwnerId}'s profile does not belong to them? Actual owner: ${review.userId?._id}`);
+                    // Decide how to handle this - skip? still show? For now, we include it but flag ownership based on loggedInUser
+                }
                 return { ...review, isReviewOwner: isReviewOwner };
             });
         }
-		
-		if (loggedInUserId) {
-			for (const review of user.reviews || []) {
-				const userVote = await Vote.findOne({
-					reviewId: review._id,
-					userId: loggedInUserId
-				}).lean();
-				
-				review.userVote = userVote ? userVote.voteType : null;
-			}
-		}
 
+        // Add userVote status to each review if a user is logged in
+        if (loggedInUserId && user.reviews) { // Check user.reviews exists
+            for (const review of user.reviews) { // No need for || [] if checked above
+                const userVote = await Vote.findOne({
+                    reviewId: review._id,
+                    userId: loggedInUserId
+                }).lean();
+
+                review.userVote = userVote ? userVote.voteType : null;
+            }
+        }
+
+        // Calculate rating distribution
         const ratingCounts = [0, 0, 0, 0, 0];
-        const userReviews = user.reviews || [];
+        const userReviews = user.reviews || []; // Use the potentially modified user.reviews array
 
         userReviews.forEach(review => {
             if (review.rating >= 1 && review.rating <= 5) {
@@ -117,20 +147,19 @@ exports.getUserProfile = async (req, res) => {
             percentage: totalUserRatings > 0 ? (count / totalUserRatings) * 100 : 0
         }));
 
-        // Render the profile page, passing the user data and ownership flag
-        res.render('userProfile', { // Assuming the view is named userProfile.hbs
-            user: user,
-            isOwner: isOwner, // Pass the profile ownership flag
+        // Render the profile page
+        res.render('userProfile', {
+            user: user, // The user object now contains 'calculatedReputation'
+            isOwner: isOwner,
             userRatingData,
             totalUserRatings,
-            loggedInUser: req.session.userId
-
+            loggedInUser: req.session.userId ? req.session.userId.toString() : null // Pass loggedInUserId as string or null
         });
 
     } catch (err) {
         console.error("Error fetching user profile:", err);
-        // Check for CastError specifically (invalid ObjectId format)
-        if (err.name === 'CastError') {
+        // Check specifically for CastError (invalid ObjectId format) before other errors
+        if (err.name === 'CastError' && err.path === '_id') { // Check if the CastError is related to the ID
             return res.status(400).send('Invalid User ID format');
         }
         res.status(500).send('Server Error');
