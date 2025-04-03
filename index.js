@@ -130,6 +130,11 @@ app.get('/', establishmentController.getHomePage);
 app.get('/restoList', establishmentController.getRestoList);
 app.get('/restoProfile/:id', establishmentController.getRestoProfile);
 app.get('/restoProfile/:id/owner', establishmentController.getRestoProfileOwner);
+// Add this route definition in index.js
+app.get('/about', (req, res) => {
+    // Send the about.html file
+    res.sendFile(path.join(__dirname, 'views', 'html', 'about.html'));
+});
 app.post('/restoProfile/:id/edit', upload.single('banner'), establishmentController.editRestoProfile);
 app.post('/api/reviews/:reviewId/reply', establishmentController.replyToReview);
 
