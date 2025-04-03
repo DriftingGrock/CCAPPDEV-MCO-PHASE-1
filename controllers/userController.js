@@ -86,6 +86,11 @@ exports.getUserProfile = async (req, res) => {
             return res.status(404).send('User not found');
         }
 
+
+        if (user.avatar === "") {
+            user.avatar = "/images/user_profile/defaultDP.png";
+        }
+
         // --- Reputation Calculation Start ---
         let calculatedReputation = 0;
         if (user.reviews && user.reviews.length > 0) {
