@@ -19,7 +19,7 @@
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204781" },
     "username": "Grock",
-    "password": "Grock",
+    "password": "$2b$10$z1x1ryQa6iRgWgbHkmQwCezZbEmRGDN/RGBY35hdMRZpVxBfgsZCy",
     "avatar": "/images/user_profile/Grock.jpg",
     "bio": "ME EAT FOOD ME FOOD SAY WHAT TASTE LIKE AND RATE",
     "role": "establishment_owner",
@@ -38,7 +38,7 @@
   {
     "_id": { "$oid": "67d2b0d20b0edd4f6d204782" },
     "username": "Jericho Migell Reyes",
-    "password": "Jericho Migell Reyes",
+    "password": "$2b$10$n3LGcjwyi6OEnB4RRvvhLe8U7hzu0RT0IrmxxMJIdFFofKyQ4bX3C",
     "avatar": "/images/user_profile/Jericho.png",
     "bio": "- Rhythm games player\n- Main Games: SDVX, Arcaea\n- Others: Gachas (HSR, Genshin), Atelier, Touhou (8, 11, 15), Riichi Mahjong\n\nSDVX: 19.731 vf\narcaea: 13.12 ptt\nmaimai: retired, peaked 16.1k",
     "role": "reviewer",
