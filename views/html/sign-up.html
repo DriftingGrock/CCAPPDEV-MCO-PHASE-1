@@ -84,15 +84,14 @@
 
     <div class="profile-container">
         <h1 class="section-title">New Profile</h1>
-        
-        <div class="profile-pic-section">
-            <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="loadImage(event)">
-            <label for="fileInput" class="camera-icon">
-                <i class="fa fa-camera"></i>
-            </label>
-        </div>
 
-        <form action="/signup" method="POST" id="signupForm"> 
+        <form action="/signup" method="POST" id="signupForm">
+            <div class="profile-pic-section">
+                <input type="file" id="fileInput" class="file-input" accept="image/*" onchange="loadImage(event)">
+                <label for="fileInput" class="camera-icon">
+                    <i class="fa fa-camera"></i>
+                </label>
+            </div>
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required>
             </div>

@@ -7,7 +7,7 @@ const saltRounds = 10;
 
 exports.createUser = async (req, res) => {
     try {
-        const { username, password, bio } = req.body;
+        const { username, password, avatar, bio } = req.body;
 
         // Validate input
         if (!username || !password) {
@@ -30,8 +30,9 @@ exports.createUser = async (req, res) => {
         const newUser = new User({
             username: username,
             password: hashedPassword,
+            avatar: avatar,
             bio: bio,
-            role: role,
+            role: role
             // avatar: Handle avatar path if uploaded
         });
 
@@ -86,8 +87,9 @@ exports.getUserProfile = async (req, res) => {
             return res.status(404).send('User not found');
         }
 
+        console.log('hello testing user.avatar' + user.avatar);
 
-        if (user.avatar === null) {
+        if (!user.avatar) {
             user.avatar = "/images/user_profile/defaultDP.png";
         }
 
