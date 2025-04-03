@@ -87,7 +87,7 @@ exports.getUserProfile = async (req, res) => {
         }
 
 
-        if (user.avatar === "") {
+        if (user.avatar === null) {
             user.avatar = "/images/user_profile/defaultDP.png";
         }
 
